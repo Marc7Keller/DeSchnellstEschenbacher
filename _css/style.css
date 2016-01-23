@@ -211,40 +211,7 @@ nav ul ul ul
 	margin-bottom: 30px;
 }
 
-#slideshow {
-    position:relative;
-    height:350px;
-	opacity: 1;
-	left: 145px;
-	top: 250px;
-}
-
-#slideshow IMG {
-    position:absolute;
-    top:0;
-    left:0;
-    z-index:8;
-}
-
-#slideshow IMG.active {
-    z-index:10;
-}
-
-#slideshow IMG.last-active {
-    z-index:9;
-}
-
-#vogel1
+#content
 {
-	margin-left: 900px;
-	margin-top: 200px;
+	margin-top: 25px;
 }
-
-#voegel3
-{
-	position: absolute;
-	top: 500px;
-	left: 200px;
-	z-index: 0;
-}
-
