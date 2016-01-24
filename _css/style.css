@@ -7,14 +7,24 @@
 
 body
 {
-	background-image: url(_img/Himmel.jpg);
-	font-family: Khmer UI, Segoe UI light, Verdana, sans-serif;
+	font-family: Segoe UI, Verdana, sans-serif;
+	background-color: rgb(19,83,187);
+	background-size: cover;
+	opacity: 0.9;
 }
 
 #sitediv
 {
 	width: 820px;
 	margin: 0 auto;
+}
+
+#scdiemberg_logo
+{
+
+	position: absolute;
+	top: 30px;
+	left: 30px;
 }
 
 #nav1
@@ -103,12 +113,12 @@ body
 {
 	min-height: 800px;
 	background: white;
-	opacity: 0.7;
+	opacity: 0.8;
 	clear: both;
 	margin-bottom: 20px;
 	border-radius: 10px;
 	z-index: 1;
-	margin-top: -320px;
+	
 }
 
 #footer
@@ -135,7 +145,7 @@ nav ul li:hover > ul
 nav ul
 {
 	background: white;
-	opacity: 0.8;
+	opacity: 0.9;
 	padding: 0 70px;
 	border-radius: 35px; 
 	list-style: none;
@@ -156,7 +166,7 @@ nav ul li
 
 nav ul li:hover 
 {
-	background: #00beff;
+	background: rgb(9,51,121);
 }
 
 nav ul li:hover a 
@@ -173,7 +183,7 @@ nav ul li a
 
 nav ul ul 
 {
-	background: #00beff; border-radius: 0px; padding: 0;
+	background: rgb(9,51,121); border-radius: 0px; padding: 0;
 	position: absolute; top: 100%;
 	opacity: 1;
 	z-index: 2;
@@ -193,7 +203,7 @@ nav ul ul li a
 
 nav ul ul li a:hover 
 {
-	background: white;
+	background: rgb(255,255,51);
 	color: #757575;
 	opacity: 1;
 }
@@ -202,7 +212,7 @@ nav ul ul ul
 {
 	position: absolute; left: 100%; top:0;
 	z-index: 2;
-	background: #00d2ff;
+	background: rgb(9,51,121);
 }
 
 #nav
@@ -211,7 +221,3 @@ nav ul ul ul
 	margin-bottom: 30px;
 }
 
-#content
-{
-	margin-top: 25px;
-}
