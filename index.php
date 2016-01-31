@@ -15,8 +15,8 @@
 			
 			<nav id="nav">
 			
-			<img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo.png"/>
-			<img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo.png"/>
+			<img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/>
+			<img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/>
 			<ul>
 				<li class="nav1">
 					 <a href="#">Home</a>
