@@ -2,8 +2,9 @@
 <html>
 
 <head>
-	<title>Webseite</title>
+	<title>Administration - Neue Kategorie</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
+	<link rel="stylesheet" href="_css/style_kategorie.css" type="text/css">
 	
 	
 	
@@ -77,7 +78,15 @@
 		</nav>
 		
 		<div id="content">
-
+		
+		<h1 id="site_title">Neue Kategorie</h1>
+		
+		<form id="form_verwaltung" action="" method="POST">
+			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+			Bezeichnung:*		<input  id="bezeichnung" type="text" name="bezeichnung"/></br></br>
+								<input id="speichern_button"type="submit" name="submit" value="Speichern"/>
+		</form>
+		
 		</div>
 		
 		<div id="footer">

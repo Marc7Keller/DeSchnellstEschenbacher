@@ -1,0 +1,52 @@
+#nachname
+{
+	margin-left: 94px;
+	width: 200px;
+}
+
+#vorname
+{
+	margin-left: 105px;
+	width: 200px;
+}
+
+#person
+{
+	margin-left: 121px;
+	width: 205px;
+}
+
+#gebdatum
+{
+	margin-left: 61px;
+	width: 200px;
+}
+
+#strasse
+{
+	margin-left: 127px;
+	width: 200px;
+}
+
+#hausnummer
+{
+	margin-left: 81px;
+	width: 200px;
+}
+
+#plz
+{
+	margin-left: 150px;
+	width: 200px;
+}
+
+#ort
+{
+	margin-left: 140px;
+	width: 200px;
+}
+
+#radio1
+{
+	margin-left: 260px;
+}

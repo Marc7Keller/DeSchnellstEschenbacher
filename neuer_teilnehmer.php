@@ -2,8 +2,9 @@
 <html>
 
 <head>
-	<title>Webseite</title>
+	<title>Administration - Neuer Teilnehmer</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
+	<link rel="stylesheet" href="_css/style_teilnehmer.css" type="text/css">
 	
 	
 	
@@ -77,7 +78,32 @@
 		</nav>
 		
 		<div id="content">
-
+		
+		<h1 id="site_title">Neuer Teilnehmer</h1>
+		
+		<form id="form_verwaltung" action="" method="POST">
+			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+			
+			Person:*		<select  id="person" type="text" name="person" size="1">
+										<option>Alguacil Dominique</option>
+										<option>Bisig Christian</option>
+										<option>Keller Marc</option>
+							</select></br>
+			Anlass:*		<select  id="anlass" type="text" name="anlass" size="1">
+										<option>De Schnellst Eschenbacher</option>
+										<option>Sporttag Dorftreff</option>
+							</select></br>
+			Klasse:*		<select  id="klasse" type="text" name="klasse" size="1">
+										<option>AP13a</option>
+										<option>BIA13b</option>
+							</select></br>
+			Kategorie:*		<select  id="kategorie" type="text" name="kategorie" size="1">
+										<option>Kategorie1</option>
+										<option>Kategorie2</option>
+							</select></br></br>
+							<input id="speichern_button"type="submit" name="submit" value="Speichern"/>
+		</form>
+		
 		</div>
 		
 		<div id="footer">

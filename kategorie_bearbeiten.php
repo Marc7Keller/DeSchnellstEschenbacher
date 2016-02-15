@@ -2,8 +2,9 @@
 <html>
 
 <head>
-	<title>Webseite</title>
+	<title>Administration - Kategorie bearbeiten</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
+	<link rel="stylesheet" href="_css/style_kategorie.css" type="text/css">
 	
 	
 	
@@ -77,7 +78,20 @@
 		</nav>
 		
 		<div id="content">
-
+		
+		<h1 id="site_title">Kategorie bearbeiten</h1>
+		
+		<form id="form_verwaltung" action="" method="POST">
+			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+			<label style="font-weight: bold;">Kategorie:</label>			
+								<select  id="kategorie_combo" type="text" name="kategorie_combo" size="1">
+										<option>Kategorie 1</option>
+										<option>Kategorie 2</option>
+								</select></br></br>
+			Bezeichnung:*	<input  id="bezeichnung" type="text" name="bezeichnung"/></br></br>
+								<input id="speichern_button"type="submit" name="submit" value="Speichern"/>
+		</form>
+		
 		</div>
 		
 		<div id="footer">

@@ -2,8 +2,9 @@
 <html>
 
 <head>
-	<title>Webseite</title>
+	<title>Administration - Anlass bearbeiten</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
+	<link rel="stylesheet" href="_css/style_anlass.css" type="text/css">
 	
 	
 	
@@ -77,7 +78,22 @@
 		</nav>
 		
 		<div id="content">
-
+		
+		<h1 id="site_title">Anlass bearbeiten</h1>
+		
+		<form id="form_verwaltung" action="" method="POST">
+			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+			
+			<label style="font-weight: bold;">Anlass:*</label>		
+									<select  id="anlass" type="text" name="anlass" size="1">
+										<option>De Schnellst Eschenbacher</option>
+										<option>Sporttag Dorftreff</option>
+									</select></br></br>
+			Bezeichnung:*			<input  id="bezeichnung" type="text" name="bezeichnung"/></br>
+			Veranstaltungsjahr:*	<input  id="veranstaltungsjahr" type="text" name="veranstaltungsjahr"/></br></br>
+									<input id="speichern_button"type="submit" name="submit" value="Speichern"/>
+		</form>
+		
 		</div>
 		
 		<div id="footer">

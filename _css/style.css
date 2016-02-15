@@ -34,91 +34,9 @@ body
 	right: 30px;
 }
 
-#nav1
-{
-	background: white;
-	opacity: 0.8;
-	margin-top: 50px;
-	margin-left: 5px;
-	height: 50px;
-	width: 200px;
-	float:left;
-	border-radius: 25px 0px 0px 25px;
-}
-
-#nav2
-{
-	background: white;
-	opacity: 0.8;
-	margin-top: 50px;
-	height: 50px;
-	width: 200px;
-	float:left;
-	margin-left: 5px;
-}
-
-
-#nav3
-{
-	background: white;
-	opacity: 0.8;
-	margin-top: 50px;
-	height: 50px;
-	width: 200px;
-	float:left;
-	margin-left: 5px;
-}
-
-
-#nav4
-{
-	background: white;
-	opacity: 0.8;
-	margin-top: 50px;
-	margin-bottom: 30px;
-	height: 50px;
-	width: 200px;
-	float:left;
-	margin-left: 5px;
-	border-radius: 0px 25px 25px 0px;
-}
-
-.navpunkte
-{
-	padding-top:13px;
-}
-
-#nav1:hover
-{
-	background: #00beff;
-	color: white;
-	opacity: 0.8;
-}
-
-#nav2:hover
-{
-	background: #00beff;
-	color: white;
-	opacity: 0.8;
-}
-
-#nav3:hover
-{
-	background: #00beff;
-	color: white;
-	opacity: 0.8;
-}	
-
-#nav4:hover
-{
-	background: #00beff;
-	color: white;
-	opacity: 0.8;
-}
-
 #content
 {
-	min-height: 800px;
+	min-height: 600px;
 	background: white;
 	opacity: 0.8;
 	clear: both;
@@ -128,16 +46,11 @@ body
 	
 }
 
-#footer
+#nav
 {
-	height: 40px;
-	background: white;
-	margin-top: 10px;
-	opacity: 0.8;
-	margin-bottom: 50px;
-	border-radius: 10px;
+	margin-top: 120px;
+	margin-bottom: 30px;
 }
-
 
 nav ul ul 
 {
@@ -183,23 +96,36 @@ nav ul li:hover a
 
 nav ul li a 
 {
-	display: block; padding: 15px 60px;
-	color: #757575; text-decoration: none;
+	display: block; 
+	padding: 15px 60px;
+	color: #757575; 
+	text-decoration: none;
 	opacity: 1;
 }
 
 nav ul ul 
 {
-	background: rgb(9,51,121); border-radius: 0px; padding: 0;
-	position: absolute; top: 100%;
+	background: rgb(9,51,121); 
+	border-radius: 0px; 
+	padding: 0;
+	position: absolute; 
+	top: 100%;
 	opacity: 1;
 	z-index: 2;
 }
 
-nav ul ul li 
+.nav2 ul li
 {
 	float: none; 
 	position: relative;
+	width: 222px;
+}
+
+.nav3 ul li
+{
+	float: none; 
+	position: relative;
+	width: 224px;
 }
 
 nav ul ul li a 
@@ -222,9 +148,61 @@ nav ul ul ul
 	background: rgb(9,51,121);
 }
 
-#nav
+.nav3 ul ul li
 {
-	margin-top: 160px;
-	margin-bottom: 30px;
+	width: 280px;
+	background: rgb(11,63,147);
 }
+
+#footer
+{
+	height: 40px;
+	background: white;
+	margin-top: 10px;
+	opacity: 0.8;
+	margin-bottom: 50px;
+	border-radius: 10px;
+}
+
+#site_title
+{
+	font-size: 25px;
+	color: rgb(9,51,121);
+	padding-top: 30px;
+	padding-left: 30px;
+}
+
+#speichern_button
+{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border: none;
+	background: rgb(9,51,121);
+	color: white;
+	border-radius: 5px;
+}
+
+#speichern_button:hover
+{
+	color: rgb(9,51,121);
+	background: rgb(255,255,51);
+	
+}
+
+#form_verwaltung
+{
+	padding-left: 30px;
+	padding-top: 20px;
+}
+
+#form_zeiten_erfassen
+{
+	padding-left: 30px;
+	padding-top: 20px;
+}
+
+
+
 
