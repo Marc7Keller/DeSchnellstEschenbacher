@@ -92,10 +92,11 @@
 			Passwort:*					<input  id="passwort" type="password" name="passwort"/></br>
 			Passwort wiederholen:*		<input  id="passwort_wdh" type="password" name="passwort_wdh"/></br></br>
 			
-			  <p style="font-weight: bold">Wählen Sie die gewünschten Berechtigungen:</p></br>
-				<input type="Radio" name="berechtigungen" value="zeit_erfassen"> Zeit erfassen</br> 
-				<input type="Radio" name="berechtigungen" value="teilnehmer_erfassen"> Teilnehmer erfassen</br> 
-				<input type="Radio" name="berechtigungen" value="benutzer_hinzufuegen"> Benutzer hinzufügen (Administrator)</br></br>
+			 <p style="font-weight: bold">Wählen Sie die gewünschten Berechtigungen:</p></br>
+				<input type="checkbox" name="berechtigungen" value="zeit_erfassen"> Zeit erfassen</br> 
+				<input type="checkbox" name="berechtigungen" value="teilnehmer_erfassen"> Teilnehmer erfassen</br> 
+				<input type="checkbox" name="berechtigungen" value="benutzer_hinzufuegen"> Benutzer hinzufügen</br>
+				<input type="checkbox" name="berechtigungen" value="alle_rechte"> Alle Rechte (Administrator)</br></br>
 										<input id="speichern_button"type="submit" name="submit" value="Speichern"/>
 		</form>
 		
