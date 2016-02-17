@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!--TEST-->
 <head>
 	<title>Administration - Neuer Teilnehmer</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
