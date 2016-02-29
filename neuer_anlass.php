@@ -5,8 +5,15 @@
 	<title>Administration - Neuer Anlass</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_anlass.css" type="text/css">
-	
-	
+	<?php 
+            include("php/config.php");
+    ?>
+	<?php
+    if(isset($_POST['bezeichnung'])){
+        $sql = "INSERT INTO event (event_name, year) VALUES ('".$_POST['bezeichnung']."','".$_POST['veranstaltungsjahr']."');";
+        $res = mysqli_query($db,$sql);
+    }
+    ?>
 	
 </head>
 
@@ -59,6 +66,12 @@
 								<li><a href="klasse_bearbeiten.php">Klasse bearbeiten</a></li>
 							</ul>
 						</li>
+						<li><a href="#">Lehrerverwaltung</a>
+							<ul>
+								<li><a href="neuer_lehrer.php">Neuer Lehrer</a></li>
+								<li><a href="lehrer_bearbeiten.php">Lehrer bearbeiten</a></li>
+							</ul>
+						</li>
 						<li><a href="#">Anlassverwaltung</a>
 							<ul>
 								<li><a href="neuer_anlass.php">Neuer Anlass</a></li>
@@ -81,7 +94,7 @@
 		
 		<h1 id="site_title">Neuer Anlass</h1>
 		
-		<form id="form_verwaltung" action="" method="POST">
+		<form id="form_verwaltung" action="neuer_anlass.php" method="POST">
 			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
 			Bezeichnung:*	<input  id="bezeichnung" type="text" name="bezeichnung"/></br>

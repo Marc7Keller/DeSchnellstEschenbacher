@@ -2,9 +2,9 @@
 <html>
 
 <head>
-	<title>Administration - Teilnehmer bearbeiten</title>
+	<title>Administration - Lehrer bearbeiten</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
-	<link rel="stylesheet" href="_css/style_teilnehmer.css" type="text/css">
+	<link rel="stylesheet" href="_css/style_lehrer.css" type="text/css">
 	
 	<?php 
             include("php/config.php");
@@ -87,9 +87,9 @@
 		
 		<div id="content">
 		
-		<h1 id="site_title">Teilnehmer bearbeiten</h1>
+		<h1 id="site_title">Lehrer bearbeiten</h1>
 		
-		<form id="form_verwaltung" action="teilnehmer_bearbeiten.php" method="GET">
+		<form id="form_verwaltung" action="lehrer_bearbeiten.php" method="GET">
 			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 
     

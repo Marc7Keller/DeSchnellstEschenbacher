@@ -6,6 +6,18 @@
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_klasse.css" type="text/css">
 	
+	<?php 
+			error_reporting(E_ERROR | E_PARSE);
+            include("php/config.php");
+    ?>
+    
+	<?php
+    if(isset($_POST['stufe']))
+	{
+	    $sql = "UPDATE `sport_program`.`class` SET `stufe` = '".$_POST['stufe']."', `fs_teacher` = '".$_POST['klassenlehrperson']."' WHERE `class`.`class_id` = '".$_POST['class_id']."';";
+        $res = mysqli_query($db,$sql);
+    }
+    ?>
 	
 	
 </head>
@@ -81,12 +93,31 @@
 		
 		<h1 id="site_title">Klasse bearbeiten</h1>
 		
-		<form id="form_verwaltung" action="" method="POST">
+		<form id="form_verwaltung" action="klasse_bearbeiten.php" method="POST">
 			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
-			Klasse:*			<select  id="klasse" type="text" name="klasse" size="1">
-										<option>AP13a</option>
-										<option>BIA13b</option>	
-								</select></br>
+			<?php 
+				$sql = "SELECT * FROM `class`;";
+				$res = mysqli_query($db,$sql);
+			?>
+			Klasse:*	<?php
+			
+			echo "<select id='klasse' type='text' name='klasse' size='1'>";
+										while($row = mysqli_fetch_array($res)){
+										if(isset($_POST['klasse']) and $row['class_id']==$_POST['klasse'])
+											{
+												echo"<option selected = 'selected' value=".$row['class_id'].">".$row['bezeichnung']." ".$row['firstname']."</option>";
+											}
+											else{
+										echo"<option value=".$row['class_id'].">".$row['bezeichnung']." ".$row['firstname']."</option>";
+										}
+									};
+										?>
+								</select></br></br>
+			<input id="speichern_button"type="submit" name="submit" value="Speichern"/>
+			</form>
+			
+
+			<form id="form_verwaltung" action="klasse_bearbeiten.php" method="POST">
 			Stufe:*				<select  id="stufe" type="text" name="stufe" size="1">
 										<option>1. Klasse</option>
 										<option>2. Klasse</option>
@@ -98,11 +129,34 @@
 										<option>8. Klasse</option>
 										<option>9. Klasse</option>
 								</select></br>
-			Klassenlehrperson:*		<select  id="klassenlehrperson" type="text" name="klassenlehrperson" size="1">
-										<option>Lehrperson1</option>
-										<option>Lehrperson2</option>
-										<option>Lehrperson3</option>
+											<?php
+				if(isset($_POST['klasse']))
+				{
+					$sql = "SELECT * FROM `class`inner join teacher on (fs_teacher = teacher_id) inner join person on (person_id = fs_person);";
+				}
+				else
+				{
+					$sql = "SELECT * FROM `teacher`inner join person on (person_id = fs_person);";
+				}
+				$res = mysqli_query($db,$sql);
+			?>
+			Klassenlehrperson:*		<?php
+									echo"<select  id='klassenlehrperson' type='text' name='klassenlehrperson' size='1'>";
+										while($row = mysqli_fetch_array($res)){
+										if(isset($_POST['klasse']) and $_POST['klasse']==$row['class_id'])
+										{
+											echo"<option selected = 'selected' value=".$row['teacher_id'].">".$row['name']." ".$row['firstname']."</option>";
+										}
+										else{
+											echo"<option value=".$row['teacher_id'].">".$row['name']." ".$row['firstname']."</option>";
+										}
+									};
+									echo "</select></br></br>";
+									?>
 									</select></br></br>
+									<?php
+										echo "<input type='hidden' name='class_id' value='".$_POST['klasse']."'>";
+									?>
 								<input id="speichern_button"type="submit" name="submit" value="Speichern"/>
 		</form>
 		

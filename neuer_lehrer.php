@@ -3,14 +3,13 @@
 
 <head>
 
-	<title>Administration - Neuer Teilnehmer</title>
+	<title>Administration - Neuer Lehrer</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
-	<link rel="stylesheet" href="_css/style_teilnehmer.css" type="text/css">
+	<link rel="stylesheet" href="_css/style_lehrer.css" type="text/css">
 
     
     <?php 
             include("php/config.php");
-			$id = 0;
     ?>
     
     
@@ -81,14 +80,8 @@ if(isset($_POST['gebdatum']))
     
     $vorname =$_POST['vorname'];
     $nachname =$_POST['nachname'];
-    $gebdatum = $_POST['gebdatum'];
-    $strasse = $_POST['strasse'];
-    $plz = $_POST['plz'];
-    $ort = $_POST['ort'];
     
-    $anlass = $_POST['anlass'];
-    $klasse = $_POST['klasse'];
-    $kategorie = $_POST['kategorie'];
+    $letztesAktivesJahr = $_POST['letztesAktivesJahr'];
     
     if($id=''){         
              
@@ -98,12 +91,12 @@ if(isset($_POST['gebdatum']))
     
     if($id !=0){
         
-        $sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `birthdate` = '".$gebdatum."', `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
+        $sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."' where `person_id` = ".$id.";";
         $res = mysqli_query($db,$sql);
          if (!$res) {    printf("Error: %s\n", mysqli_error($db));    exit();    }
     }else{
       
-        $sql = "INSERT INTO `person` (`name`, `firstname`, `birthdate`, `plz`, `place`, `street`) VALUES ('".$nachname."', '".$vorname."', '".$gebdatum."', '".$plz."', '".$ort."', '".$strasse."');";
+        $sql = "INSERT INTO `person` (`name`, `firstname`) VALUES ('".$nachname."', '".$vorname."');";
         $res = mysqli_query($db,$sql);
         if (!$res) {    printf("Error: %s\n", mysqli_error($db));    exit();    }
         $sql = "SELECT person_id FROM person WHERE name = '".$nachname."' AND firstname =  '".$vorname."';";
@@ -117,7 +110,7 @@ if(isset($_POST['gebdatum']))
         
 }
    
-   $sql = "INSERT INTO participants (fs_person,fs_class,fs_category,fs_event) VALUES (".$id.",".$klasse.",".$kategorie.",".$anlass.");";
+   $sql = "INSERT INTO teacher (last_active_year,fs_person) VALUES (".$letztesAktivesJahr.",".$id.");";
         $res = mysqli_query($db,$sql); 
       if (!$res) {
     printf("Error: %s\n", mysqli_error($db));
@@ -210,7 +203,7 @@ if(isset($_POST['gebdatum']))
 		
 		<div id="content">
 		
-		<h1 id="site_title">Neuer Teilnehmer</h1>
+		<h1 id="site_title">Neuer Lehrer</h1>
 		
 		<form id="form_verwaltung" action="" method="GET">
 			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
@@ -230,48 +223,11 @@ if(isset($_POST['gebdatum']))
                             <input  class="form_cells" type="hidden" name="id" value="<?php echo $id;?>" /></br>
                             <input  class="form_cells" type="hidden" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" /></br>
                             <input  class="form_cells" type="hidden" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>" /></br>
-            Geburtsdatum:**	<input id="gebdatum" class="form_cells" type="text" name="gebdatum" value="<?php if($count!=0){echo $gebdatum;}?>"/></br>
-			Strasse:		<input id="strasse" class="form_cells" type="text" name="strasse" value="<?php if($count!=0){echo $strasse;}?>"/></br>
-			PLZ:			<input id="plz" class="form_cells" type="text" name="plz" value="<?php if($count!=0){echo $plz;}?>"/></br>
-			Ort:**			<input id="ort" class="form_cells" type="text" name="ort" value="<?php if($count!=0) {echo $ort;}?>"/></br></br>
 							
     
      <br><hr><br>
-			<?php
-            echo 'Anlass:* <select  id="anlass" type="text" name="anlass" size="1">';
-            $res2 = mysqli_query($db,"SELECT * FROM event;");
-           
-            while($row = mysqli_fetch_array($res2))
-            {
-                echo '<option value="'.$row['event_id'].'">'.$row['event_name'].'</option>';
-            }
-            
-            echo '</select><br>';
-        
-            
-        echo 'Klasse:* <select  id="klasse" type="text" name="klasse" size="1">';
-            $res2 = mysqli_query($db,"SELECT * FROM class;");
-           
-            while($row = mysqli_fetch_array($res2))
-            {
-                echo '<option value="'.$row['class_id'].'">'.$row['bezeichnung'].'</option>';
-            }
-            
-            echo '</select><br>';
-
-
-        echo 'Kategorie:*  <select  id="kategorie" type="text" name="kategorie" size="1">';
-            $res2 = mysqli_query($db,"SELECT * FROM category;");
-           
-            while($row = mysqli_fetch_array($res2))
-            {
-                echo '<option value="'.$row['category_id'].'">'.$row['bezeichnung'].'</option>';
-            }
-            
-            echo '</select>';
-
-
-?>
+	
+	Letztes aktives Jahr:	<input id="letztesAktivesJahr" class="form_cells" type="text" name="letztesAktivesJahr"/><br/><br/>	
 
             <input id="speichern_button"type="submit" name="submit" value="Speichern"/>
 			
