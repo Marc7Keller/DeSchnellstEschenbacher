@@ -10,7 +10,6 @@
     
     <?php 
             include("php/config.php");
-			$id = 0;
     ?>
     
     
@@ -230,10 +229,10 @@ if(isset($_POST['gebdatum']))
                             <input  class="form_cells" type="hidden" name="id" value="<?php echo $id;?>" /></br>
                             <input  class="form_cells" type="hidden" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" /></br>
                             <input  class="form_cells" type="hidden" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>" /></br>
-            Geburtsdatum:**	<input id="gebdatum" class="form_cells" type="text" name="gebdatum" value="<?php if($count!=0){echo $gebdatum;}?>"/></br>
-			Strasse:		<input id="strasse" class="form_cells" type="text" name="strasse" value="<?php if($count!=0){echo $strasse;}?>"/></br>
-			PLZ:			<input id="plz" class="form_cells" type="text" name="plz" value="<?php if($count!=0){echo $plz;}?>"/></br>
-			Ort:**			<input id="ort" class="form_cells" type="text" name="ort" value="<?php if($count!=0) {echo $ort;}?>"/></br></br>
+            Geburtsdatum:**	<input id="gebdatum" class="form_cells" type="text" name="gebdatum" value="<?php echo $gebdatum;?>"/></br>
+			Strasse:		<input id="strasse" class="form_cells" type="text" name="strasse" value="<?php echo $strasse;?>"/></br>
+			PLZ:			<input id="plz" class="form_cells" type="text" name="plz" value="<?php echo $plz;?>"/></br>
+			Ort:**			<input id="ort" class="form_cells" type="text" name="ort" value="<?php echo $ort;?>"/></br></br>
 							
     
      <br><hr><br>

@@ -71,6 +71,12 @@
 								<li><a href="klasse_bearbeiten.php">Klasse bearbeiten</a></li>
 							</ul>
 						</li>
+						<li><a href="#">Lehrerverwaltung</a>
+							<ul>
+								<li><a href="neuer_lehrer.php">Neuer Lehrer</a></li>
+								<li><a href="lehrer_bearbeiten.php">Lehrer bearbeiten</a></li>
+							</ul>
+						</li>
 						<li><a href="#">Anlassverwaltung</a>
 							<ul>
 								<li><a href="neuer_anlass.php">Neuer Anlass</a></li>
@@ -148,7 +154,7 @@
 											echo"<option selected = 'selected' value=".$row['teacher_id'].">".$row['name']." ".$row['firstname']."</option>";
 										}
 										else{
-											echo"<option value=".$row['teacher_id'].">".$row['name']." ".$row['firstname']."</option>";
+										echo"<option value=".$row['teacher_id'].">".$row['name']." ".$row['firstname']."</option>";
 										}
 									};
 									echo "</select></br></br>";
