@@ -15,7 +15,11 @@
 			
 			<img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/>
 			<img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/>
-		
+		  
+            <?php
+             include 'includes/navigation.php';
+            ?>
+        
 		<div id="content">
 		
 			<h1 id="site_title">Login</h1>

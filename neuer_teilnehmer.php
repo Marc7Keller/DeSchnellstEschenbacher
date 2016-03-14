@@ -142,7 +142,7 @@ if(isset($_POST['gebdatum']))
 			<a href="index.php"><img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/></a>
 			
 			<?php
-            include("php/config.php");
+             include 'includes/navigation.php';
             ?>
 		
 		<div id="content">
