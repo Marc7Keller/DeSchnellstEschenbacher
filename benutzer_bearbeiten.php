@@ -5,6 +5,10 @@
         <title>Administration - Benutzer bearbeiten</title>
         <link rel="stylesheet" href="_css/style.css" type="text/css">
         <link rel="stylesheet" href="_css/style_benutzer.css" type="text/css">
+        
+        <?php
+        include 'includes/incl_benutzer_bearbeiten_form.php'
+        ?>
     </head>
 
     <body>

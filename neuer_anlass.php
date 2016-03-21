@@ -7,13 +7,9 @@
 	<link rel="stylesheet" href="_css/style_anlass.css" type="text/css">
 	<?php 
             include("php/config.php");
+            include 'include/incl_neuer_anlass_form.php'
     ?>
-	<?php
-    if(isset($_POST['bezeichnung'])){
-        $sql = "INSERT INTO event (event_name, year) VALUES ('".$_POST['bezeichnung']."','".$_POST['veranstaltungsjahr']."');";
-        $res = mysqli_query($db,$sql);
-    }
-    ?>
+	
 	
 </head>
 
