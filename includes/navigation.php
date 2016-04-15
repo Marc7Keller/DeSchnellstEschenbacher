@@ -54,6 +54,16 @@
 						</li>
 					</ul>
 				</li>
+                <li class="nav1">
+					 <a href="zeiten_erfassen.php">User: <?php echo $_SESSION['username']?></a>
+                    <ul>
+						<li><a href="#">Logout</a></li>
+					</ul>
+				</li>
+                <li class="nav1">
+					 <a href="zeiten_erfassen.php">Event: <?php if(isset($_SESSION['event'])){ echo $_SESSION['event'];}else{ echo "Kein Event ausgewählt";}?></a>
+                    
+				</li>
 				
 			</ul>
 		</nav>

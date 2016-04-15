@@ -13,6 +13,7 @@
 <body>
 
     <?php 
+            include("php/session.php");
             include("php/config.php");
     ?>
 	<div id="sitediv">
