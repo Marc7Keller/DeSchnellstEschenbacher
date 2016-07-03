@@ -1,6 +1,7 @@
 <?php
-    if(isset($_POST['bezeichnung'])){
-        $sql = "INSERT INTO category (bezeichnung) VALUES ('".$_POST['bezeichnung']."');";
+    if(isset($_POST['speichern_button_neue_kategorie']))
+	{
+        $sql = "INSERT INTO category (category_name,track_length,year_of_birth_start,year_of_birth_end, gender) VALUES ('".$_POST['bezeichnung']."','".$_POST['streckenlaenge']."','".$_POST['jahrgang_start']."','".$_POST['jahrgang_ende']."','".$_POST['Geschlecht']."');";
         $res = mysqli_query($db,$sql);
     }
 ?>

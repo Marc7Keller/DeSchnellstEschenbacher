@@ -1,23 +1,111 @@
 #person
 {
-	margin-left: 121px;
-	width: 200px;
-}
-
-#anlass
-{
-	width: 200px;
-	margin-left: 125px;
+	margin-left: 130px;
+	width: 300px;
 }
 
 #klasse
 {
-	width: 200px;
-	margin-left: 126px;
+	width: 300px;
+	margin-left: 135px;
 }
 
 #kategorie
 {
-	margin-left: 102px;
+	margin-left: 110px;
+	width: 300px;
+}
+
+#checkbox_nachanmeldung
+{
+	margin-left: 68px;
+}
+
+#vorname
+{
+	margin-left: 115px;
 	width: 200px;
+}
+
+#nachname
+{
+	margin-left: 104px;
+	width: 200px;
+}
+
+#gebdatum
+{
+	margin-left: 77px;
+	width: 250px;
+}
+
+#strasse
+{
+	margin-left: 135px;
+	width: 250px;
+}
+
+#plz
+{
+	margin-left: 159px;
+	width: 250px;
+}
+
+#ort
+{
+	margin-left: 155px;
+	width: 250px;
+}
+
+#vorname2
+{
+	margin-left: 125px;
+	width: 200px;
+}
+
+#nachname2
+{
+	margin-left: 114px;
+	width: 200px;
+}
+
+#strasse2
+{
+	margin-left: 140px;
+	width: 200px;
+}
+
+#plz2
+{
+	margin-left: 164px;
+	width: 200px;
+}
+
+#ort2
+{
+	margin-left: 166.5px;
+	width: 200px;
+}
+
+#klasse2
+{
+	width: 300px;
+	margin-left: 140px;
+}
+
+#kategorie2
+{
+	margin-left: 115px;
+	width: 300px;
+}
+
+#checkbox_nachanmeldung2
+{
+	margin-left: 74px;
+}
+
+#teilnehmer_tabelle
+{
+	width: 95%;
+	margin: 0 auto;
 }

@@ -1,10 +1,16 @@
-
-	<?php
-    if(isset($_POST['stufe']))
+<?php
+	if(isset($_POST["speichern_button_benutzer_bearbeiten"]))
 	{
-	    $sql = "UPDATE `sport_program`.`class` SET `stufe` = '".$_POST['stufe']."', `fs_teacher` = '".$_POST['klassenlehrperson']."' WHERE `class`.`class_id` = '".$_POST['class_id']."';";
-        $res = mysqli_query($db,$sql);
-    }
-    ?>
+		if($_POST["passwort"] == $_POST["passwort_wdh"])
+		{	
+			$sql = "UPDATE `admin` SET `username` = '".$_POST["benutzername"]."', `password` = '".$_POST["passwort"]."' WHERE `admin`.`admin_id` = ".$_POST['admin_id'].";";
+			$res = mysqli_query($db,$sql);
+		}
+		else
+		{
+			echo "Passwörter stimmen nicht überein";
+		}
+	}
+?>
 	
 	

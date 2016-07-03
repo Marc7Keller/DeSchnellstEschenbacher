@@ -9,219 +9,291 @@
 
     
     <?php 
-            include("php/config.php");
+		error_reporting(0);
+        include 'php/config.php';
+		include 'includes/sessions.php';
     ?>
     
     
 	<script>
         //Livesearch
-function showResult(str) {
-  if (str.length==0) { 
-    document.getElementById("livesearch").innerHTML="";
-    document.getElementById("livesearch").style.border="0px";
-    return;
-  }
-  if (window.XMLHttpRequest) {
-    // code for IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp=new XMLHttpRequest();
-  } else {  // code for IE6, IE5
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
-      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
-    }
-  }
-  xmlhttp.open("GET","livesearch.php?q="+str,false);
-  xmlhttp.send();
-}
+		function showResult(str) 
+		{
+			if (str.length==0) 
+			{ 
+				document.getElementById("livesearch").innerHTML="";
+				document.getElementById("livesearch").style.border="0px";
+				return;
+			}
+			if (window.XMLHttpRequest) 
+			{
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			} 
+			else 
+			{  // code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function() 
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+				{
+					document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+					document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+				}
+			}
+			xmlhttp.open("GET","livesearch.php?q="+str,false);
+			xmlhttp.send();
+		}
     </script>
+ 
+	<?php
+		if(isset($_GET['vorname']))
+		{
+			$vorname =$_GET['vorname'];
+			$nachname =$_GET['nachname'];
 
-<?php
-if(isset($_GET['vorname'])){
+			$sql = "SELECT * FROM `person` where `name` = '".$nachname."' and `firstname` = '".$vorname."';";
     
-    $vorname =$_GET['vorname'];
-    $nachname =$_GET['nachname'];
-
-    $sql = "SELECT * FROM `person` where `name` = '".$nachname."' and `firstname` = '".$vorname."';";
+			$res = mysqli_query($db,$sql);
     
-    $res = mysqli_query($db,$sql);
+			if (!$res) 
+			{
+				printf("Error: %s\n", mysqli_error($db));
+				exit();
+			}
     
-    if (!$res) {
-    printf("Error: %s\n", mysqli_error($db));
-    exit();
-}
-    $count = mysqli_num_rows ( $res );
-    echo $count;
-    if ($count =0){
-            $id='';
-           $gebdatum = '';
-           $strasse = '';
-           $plz = '';
-           $ort = '';
-    }else{
-    while($row = mysqli_fetch_array($res)){
+			$count = mysqli_num_rows ($res);
     
-           $id=$row['person_id'];
-           $gebdatum = $row['birthdate'];
-           $strasse = $row['street'];
-           $plz = $row['plz'];
-           $ort = $row['place'];
-            }
-            
-          
-}
-}
-if(isset($_POST['gebdatum']))
-{
+			if ($count =0)
+			{
+				$id='';
+				$gebdatum = '';
+				$strasse = '';
+				$plz = '';
+				$ort = '';
+			}
+			else
+			{
+				while($row = mysqli_fetch_array($res))
+				{
+					$id = $row['person_id'];
+					$gebdatum = $row['birthdate'];
+					$strasse = $row['street'];
+					$plz = $row['plz'];
+					$ort = $row['place'];
+				}          
+			}
+		}
+		
+		if(isset($_POST['speichern_button_neuer_teilnehmer']))
+		{
+			$id = $_POST['id'];
+			$vorname =$_POST['vorname'];
+			$nachname =$_POST['nachname'];
+			$gebdatum = $_POST['gebdatum'];
+			$strasse = $_POST['strasse'];
+			$plz = $_POST['plz'];
+			$ort = $_POST['ort'];
+			
+			$anlass = $_SESSION['event'];
+			$klasse = $_POST['klasse'];
+			$kategorie = $_POST['kategorie'];
     
-    $id = $_POST['id'];
-    
-    $vorname =$_POST['vorname'];
-    $nachname =$_POST['nachname'];
-    $gebdatum = $_POST['gebdatum'];
-    $strasse = $_POST['strasse'];
-    $plz = $_POST['plz'];
-    $ort = $_POST['ort'];
-    
-    $anlass = $_POST['anlass'];
-    $klasse = $_POST['klasse'];
-    $kategorie = $_POST['kategorie'];
-    
-    if($id=''){         
-             
-               $id = 0;
+			if($id='')
+			{         
+				$id = 0;
             } 
     
     
-    if($id !=0){
+			if($id !=0)
+			{
+				$sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `birthdate` = '".$gebdatum."', `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
+				$res = mysqli_query($db,$sql);
+				
+				if (!$res) 
+				{    
+					printf("Error: %s\n", mysqli_error($db));    
+					exit();    
+				}
+			}
+			else
+			{
+				$sql = "INSERT INTO `person` (`name`, `firstname`, `birthdate`, `plz`, `place`, `street`) VALUES ('".$nachname."', '".$vorname."', '".$gebdatum."', '".$plz."', '".$ort."', '".$strasse."');";
+				$res = mysqli_query($db,$sql);
+				
+				if (!$res) 
+				{    
+					printf("Error: %s\n", mysqli_error($db));    
+					exit();    
+				}
+       
+				$sql = "SELECT person_id FROM person WHERE name = '".$nachname."' AND firstname =  '".$vorname."';";
+				$res = mysqli_query($db,$sql);
+				
+				if (!$res) 
+				{    
+					printf("Error: %s\n", mysqli_error($db));    
+					exit();    
+				}
         
-        $sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `birthdate` = '".$gebdatum."', `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
-        $res = mysqli_query($db,$sql);
-         if (!$res) {    printf("Error: %s\n", mysqli_error($db));    exit();    }
-    }else{
-      
-        $sql = "INSERT INTO `person` (`name`, `firstname`, `birthdate`, `plz`, `place`, `street`) VALUES ('".$nachname."', '".$vorname."', '".$gebdatum."', '".$plz."', '".$ort."', '".$strasse."');";
-        $res = mysqli_query($db,$sql);
-        if (!$res) {    printf("Error: %s\n", mysqli_error($db));    exit();    }
-        $sql = "SELECT person_id FROM person WHERE name = '".$nachname."' AND firstname =  '".$vorname."';";
-        $res = mysqli_query($db,$sql);
-        if (!$res) {    printf("Error: %s\n", mysqli_error($db));    exit();    }
-        $row = mysqli_fetch_array($res);
-        $id= $row['person_id'];
-        
-        
-        
-        
-}
+				$row = mysqli_fetch_array($res);
+				$id= $row['person_id'];       
+			}
    
-   $sql = "INSERT INTO participants (fs_person,fs_class,fs_category,fs_event) VALUES (".$id.",".$klasse.",".$kategorie.",".$anlass.");";
-        $res = mysqli_query($db,$sql); 
-      if (!$res) {
-    printf("Error: %s\n", mysqli_error($db));
-    exit();
-}
-}
-    
-    
-    
-    
+			if(isset($_POST['checkbox_nachanmeldung']))
+			{
+				$sql = "INSERT INTO participants (fs_person,fs_class,fs_category,fs_event,late_registration) VALUES (".$id.",".$klasse.",".$kategorie.",".$anlass.",1);";
+				$res = mysqli_query($db,$sql); 
+		
+				if (!$res) 
+				{
+					printf("Error: %s\n", mysqli_error($db));
+					exit();
+				}
+			}
+			else
+			{
+				$sql = "INSERT INTO participants (fs_person,fs_class,fs_category,fs_event,late_registration) VALUES (".$id.",".$klasse.",".$kategorie.",".$anlass.",0);";
+				$res = mysqli_query($db,$sql); 
+				
+				if (!$res) 
+				{
+					printf("Error: %s\n", mysqli_error($db));
+					exit();
+				}
+			}	
+		}
 ?>
-
-	
-    
-    
+   
 </head>
 
 <body>
 
 	<div id="sitediv">
 		
-			<a href="index.php"><img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/></a>
-			<a href="index.php"><img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/></a>
+		<a><img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/></a>
+		<a><img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/></a>
 			
-			<?php
-             include 'includes/navigation.php';
-            ?>
+		<?php
+            include 'includes/navigation.php';
+        ?>
 		
 		<div id="content">
 		
-		<h1 id="site_title">Neuer Teilnehmer</h1>
-		
-		<form id="form_verwaltung" action="" method="GET">
-			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+			<?php
+				include 'includes/event_selection.php';
+			?>
 			
-            Nachname:*		<input  class="form_cells" type="text" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>"  onkeyup="showResult(this.value)"/></br>
-    <div id="livesearch"></div>
-			Vorname:*		<input id="vorname" class="form_cells" type="text" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" onkeyup="showResult(this.value)"/></br>
+			<h1 id="site_title">Neuer Teilnehmer</h1>
+		
+			<form id="form_verwaltung" action="" method="GET">
+			
+				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+			
+				Nachname:*		<input  class="form_cells" type="text" id="nachname" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>"  onkeyup="showResult(this.value)"/></br>
+				Vorname:*		<input id="vorname" class="form_cells" type="text" id="vorname" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" onkeyup="showResult(this.value)"/></br></br>
     
-     <input id="speichern_button"type="submit" name="submit" value="Speichern"/>
+				<input id="laden_button" type="submit" name="laden_button_neuer_teilnehmer" value="Laden"/>
     
-    </form>
+			</form>
 
-<form id="form_verwaltung" action="neuer_teilnehmer.php" method="POST">
-    <?php
-    if(isset($_GET['vorname']) && isset($_GET['nachname'])){
-    ?>
-                            <input  class="form_cells" type="hidden" name="id" value="<?php echo $id;?>" /></br>
-                            <input  class="form_cells" type="hidden" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" /></br>
-                            <input  class="form_cells" type="hidden" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>" /></br>
-            Geburtsdatum:**	<input id="gebdatum" class="form_cells" type="text" name="gebdatum" value="<?php echo $gebdatum;?>"/></br>
-			Strasse:		<input id="strasse" class="form_cells" type="text" name="strasse" value="<?php echo $strasse;?>"/></br>
-			PLZ:			<input id="plz" class="form_cells" type="text" name="plz" value="<?php echo $plz;?>"/></br>
-			Ort:**			<input id="ort" class="form_cells" type="text" name="ort" value="<?php echo $ort;?>"/></br></br>
+			<form id="form_verwaltung" action="neuer_teilnehmer.php" method="POST">
+			
+				<?php
+					if(isset($_GET['vorname']) && isset($_GET['nachname']))
+					{
+				?>
+						<input  class="form_cells" type="hidden" name="id" value="<?php echo $id;?>" /></br>
+                        <input  class="form_cells" type="hidden" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" />
+                        <input  class="form_cells" type="hidden" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>" />
+        Geburtsdatum:*	<input id="gebdatum" class="form_cells" type="text" name="gebdatum" value="<?php echo $gebdatum;?>"/></br>
+		Strasse:		<input id="strasse" class="form_cells" type="text" name="strasse" value="<?php echo $strasse;?>"/></br>
+		PLZ:			<input id="plz" class="form_cells" type="text" name="plz" value="<?php echo $plz;?>"/></br>
+		Ort:*			<input id="ort" class="form_cells" type="text" name="ort" value="<?php echo $ort;?>"/></br></br>
 							
     
-     <br><hr><br>
-			<?php
-            echo 'Anlass:* <select  id="anlass" type="text" name="anlass" size="1">';
-            $res2 = mysqli_query($db,"SELECT * FROM event;");
-           
-            while($row = mysqli_fetch_array($res2))
-            {
-                echo '<option value="'.$row['event_id'].'">'.$row['event_name'].'</option>';
-            }
-            
-            echo '</select><br>';
-        
-            
-        echo 'Klasse:* <select  id="klasse" type="text" name="klasse" size="1">';
-            $res2 = mysqli_query($db,"SELECT * FROM class;");
-           
-            while($row = mysqli_fetch_array($res2))
-            {
-                echo '<option value="'.$row['class_id'].'">'.$row['bezeichnung'].'</option>';
-            }
-            
-            echo '</select><br>';
-
-
-        echo 'Kategorie:*  <select  id="kategorie" type="text" name="kategorie" size="1">';
-            $res2 = mysqli_query($db,"SELECT * FROM category;");
-           
-            while($row = mysqli_fetch_array($res2))
-            {
-                echo '<option value="'.$row['category_id'].'">'.$row['bezeichnung'].'</option>';
-            }
-            
-            echo '</select>';
-
-
-?>
-
-            <input id="speichern_button"type="submit" name="submit" value="Speichern"/>
+			</br></br>
 			
-		</form>
-		<?php
-    }
-    ?>
+			<?php
+				echo 'Klasse:* <select  id="klasse" type="text" name="klasse" size="1">';
+				$res2 = mysqli_query($db,"SELECT * FROM class, teacher, person WHERE fs_teacher = teacher_id AND fs_person = person_id ORDER BY class_id desc;");
+           
+				while($row = mysqli_fetch_array($res2))
+				{
+					echo '<option value="'.$row['class_id'].'">'.$row['class_name'].' - '.$row['firstname'].' '.$row['name'].'</option>';
+				}
+            
+				echo '</select><br>';
+
+				echo 'Kategorie:*  <select  id="kategorie" type="text" name="kategorie" size="1">';
+				
+				$res2 = mysqli_query($db,"SELECT * FROM category ORDER BY category_id desc;");
+           
+				while($row = mysqli_fetch_array($res2))
+				{
+					echo '<option value="'.$row['category_id'].'">'.$row['category_name'].'</option>';
+				}
+            
+				echo '</select></br>';
+			?>
+		
+		Nachanmeldung:	<input type="checkbox" id="checkbox_nachanmeldung" name="checkbox_nachanmeldung" value="true"></br></br>
+
+						<input id="speichern_button"type="submit" name="speichern_button_neuer_teilnehmer" value="Speichern"/>
+			
+			</form>
+		
+			<?php
+					}
+				
+				echo "</br></br></br></br>";
+	
+				$sql = "SELECT name, firstname, birthdate, plz, person.place, street, class.class_name as classbez, category.category_name as catbez, late_registration FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." ORDER BY participant_id desc;";
+				$res = mysqli_query($db,$sql);
+	 
+				if(mysqli_num_rows($res) >= 1)
+				{	 
+					echo '<table border="1" id="teilnehmer_tabelle">'; 
+					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsdatum</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Nachanmeldung</th></tr>"; 
+					
+					while($row = mysqli_fetch_array($res))
+					{
+						echo "<tr><td>"; 
+						echo $row['name'];
+						echo "</td><td>"; 
+						echo $row['firstname'];
+						echo "</td><td>";   
+						echo $row['birthdate'];
+						echo "</td><td>";    
+						echo $row['plz'];
+						echo "</td><td>";
+						echo $row['place'];
+						echo "</td><td>";
+						echo $row['street'];
+						echo "</td><td>";
+						echo $row['classbez'];
+						echo "</td><td>";
+						echo $row['catbez'];
+						echo "</td><td>";
+						echo $row['late_registration'];
+						echo "</td></tr>";
+					}
+					
+					echo "</table>";
+				}
+				else 
+				{
+					echo "There was no matching record for the name " . $searchTerm;
+				}
+				
+			?>
+			
 		</div>
 		
 		<div id="footer">
 		</div>
-	
-	
+		
 	</div>
 </body>
 

@@ -7,11 +7,10 @@
         <link rel="stylesheet" href="_css/style_anlass.css" type="text/css">
 
         <?php 
-        include("php/config.php");
-        
-        
-        include("include/incl_anlass_bearbeiten_form.php");
-
+			error_reporting(0);
+			include 'php/config.php';
+			include 'includes/sessions.php';
+			include 'includes/incl_anlass_bearbeiten_form.php';
         ?>
 
     </head>
@@ -20,53 +19,91 @@
 
         <div id="sitediv">
 
-            <a href="index.php"><img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/></a>
-            <a href="index.php"><img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/></a>
+            <a><img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/></a>
+            <a><img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/></a>
 
             <?php
-            include 'includes/navigation.php';
+				include 'includes/navigation.php';
             ?>
 
             <div id="content">
+			
+				<?php
+					include 'includes/event_selection.php';
+				?>
 
                 <h1 id="site_title">Anlass bearbeiten</h1>
 
-                <form id="form_verwaltung" action="anlass_bearbeiten.php" method="GET">
+                <form id="form_verwaltung" action="" method="GET">
+				
                     </br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+					
+					<?php
+						echo 'Anlass:* <select  id="anlass" type="text" name="anlass" size="1">';
+						$res2 = mysqli_query($db,"SELECT * FROM event ORDER BY event_id desc;");
 
-                <?php
-                echo 'Anlass:* <select  id="anlass" type="text" name="anlass" size="1">';
-                $res2 = mysqli_query($db,"SELECT * FROM event;");
+						while($row = mysqli_fetch_array($res2))
+						{
+							echo '<option value="'.$row['event_id'].'">'.$row['event_name'].'</option>';
+						}
 
-                while($row = mysqli_fetch_array($res2))
-                {
-                    echo '<option value="'.$row['event_id'].'">'.$row['event_name'].'</option>';
-                }
-
-                echo '</select><br>';
-
-                ?>
-                <input id="speichern_button"type="submit" name="submit" value="Speichern"/>
+						echo '</select><br>';
+					?>
+					</br>
+					<input id="laden_button"type="submit" name="laden_button_anlass_bearbeiten" value="Laden"/>
                 </form>
+				
                 <?php
-                if(isset($_GET['anlass'])){
+					if(isset($_GET['anlass']))
+					{
+						$sql = "SELECT * FROM `event` WHERE event_id = '".$_GET['anlass']."';";
+						$res = mysqli_query($db,$sql);
+						$row = mysqli_fetch_array($res);
+						
+						echo "<form id='form_verwaltung' action='anlass_bearbeiten.php' method='POST'>";
+						echo "<input  id='event_id' type='hidden' name='event_id' value='".$_GET['anlass']."'/></br>";
+						echo "Bezeichnung:*			<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['event_name']."'/></br>";
+						echo "Veranstaltungsjahr:*	<input  id='veranstaltungsjahr' type='text' name='veranstaltungsjahr' value='".$row['year']."'/></br></br>";
+						echo "<input id='speichern_button' type='submit' name='speichern_button_anlass_bearbeiten' value='Speichern'/>";
+						
+					}	
                 ?>
-                <form id="form_verwaltung" action="anlass_bearbeiten.php" method="POST">
-                    <input  id="event_id" type="hidden" name="event_id" value="<?php echo $_GET['anlass']; ?>"/></br>
-                    Bezeichnung:*			<input  id="bezeichnung" type="text" name="bezeichnung"/></br>
-                    Veranstaltungsjahr:*	<input  id="veranstaltungsjahr" type="text" name="veranstaltungsjahr"/></br></br>
-                    <input id="speichern_button"type="submit" name="submit" value="Speichern"/>				
-                </form>
-                <?php
-                }
-                ?>
+                
+				<?php
+				
+					echo "<br><br><br><br>";
+			
+					$sql = "SELECT * FROM `event` ORDER BY event_id desc;";
+					$res = mysqli_query($db,$sql);
+					if(mysqli_num_rows($res) >= 1)
+					{	 
+						echo '<table border="1" id="anlass_tabelle">'; 
+						echo "<tr><th>ID</th><th>Bezeichnung</th><th>Jahr</th></tr>"; 
+						while($row = mysqli_fetch_array($res))
+						{
+							echo "<tr><td>"; 
+							echo $row['event_id'];
+							echo "</td><td>"; 
+							echo $row['event_name'];
+							echo "</td><td>"; 
+							echo $row['year'];
+							echo "</td></tr>";
+						}
+						echo "</table>";
+					}
+					else 
+					{
+						echo "There was no matching record for the name " . $searchTerm;
+					}
+			
+				?>
+				<br>
             </div>
 
             <div id="footer">
             </div>
-
-
+			
         </div>
     </body>
-
+	
 </html>

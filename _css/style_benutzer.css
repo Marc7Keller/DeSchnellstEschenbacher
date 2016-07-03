@@ -16,8 +16,14 @@
 	margin-left: 29px;
 }
 
-#benutzer_combo
+#benutzer
 {
 	width: 200px;
 	margin-left: 121px;
+}
+
+#benutzer_tabelle
+{
+	width: 95%;
+	margin: 0 auto;
 }

@@ -15,3 +15,20 @@
 	margin-left: 138px;
 	width: 197px;
 }
+
+#zeiten_erfassen_tabelle
+{
+	width: 95%;
+	margin: 0 auto;
+}
+
+.controls
+{
+	text-align: center;
+}
+
+a
+{
+	color: black;
+}
+

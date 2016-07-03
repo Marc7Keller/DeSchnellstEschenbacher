@@ -5,7 +5,10 @@
         <title>Webseite</title>
         <link rel="stylesheet" href="_css/style.css" type="text/css">
 
-
+<?php 
+            include("php/config.php");
+            include("includes/sessions.php");
+?>
 
     </head>
 
@@ -18,6 +21,7 @@
 
             <?php
              include 'includes/navigation.php';
+			 include 'includes/event_selection.php';
             ?>
             
             <div id="content">

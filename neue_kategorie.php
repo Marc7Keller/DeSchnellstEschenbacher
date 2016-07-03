@@ -8,8 +8,9 @@
 	
 
     <?php 
-            include("php/config.php");
-            include("include/incl_neue_kategorie_form.php");
+            include 'php/config.php';
+            include 'includes/incl_neue_kategorie_form.php';
+			include 'includes/sessions.php';
     ?>
     
 </head>
@@ -18,28 +19,73 @@
 
 	<div id="sitediv">
 		
-			<a href="index.php"><img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/></a>
-			<a href="index.php"><img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/></a>
+		<a><img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/></a>
+		<a><img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/></a>
 			
-			<?php
-             include 'includes/navigation.php';
-            ?>
+		<?php
+			include 'includes/navigation.php';
+		?>
 		
 		<div id="content">
+			
+			<?php
+					include 'includes/event_selection.php';
+			?>
+				
+			<h1 id="site_title">Neue Kategorie</h1>
 		
-		<h1 id="site_title">Neue Kategorie</h1>
+			<form id="form_verwaltung" action="neue_kategorie.php" method="POST">
+				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+				Bezeichnung:*		<input  id="bezeichnung" type="text" name="bezeichnung"/></br>
+				Streckenlänge:*		<input id="streckenlaenge" type="text" name="streckenlaenge"/></br>
+				Jahrgang-Start:		<input id="jahrgang_start" type="text" name="jahrgang_start"/></br>
+				Jahrgang-Ende:		<input id="jahrgang_ende" type="text" name="jahrgang_ende"/></br></br>
+				Geschlecht:			<fieldset id="radiobuttons">
+										<input type="radio" id="Männlich" name="Geschlecht" value="Männlich"> Männlich</br> 
+										<input type="radio" id="Weiblich" name="Geschlecht" value="Weiblich"> Weiblich</br>  
+									</fieldset></br></br>
+									<input id="speichern_button" type="submit" name="speichern_button_neue_kategorie" value="Speichern"/>
+			</form>
 		
-		<form id="form_verwaltung" action="neue_kategorie.php" method="POST">
-			</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
-			Bezeichnung:*		<input  id="bezeichnung" type="text" name="bezeichnung"/></br></br>
-								<input id="speichern_button"type="submit" name="submit" value="Speichern"/>
-		</form>
+			<?php 
+				echo "<br><br><br><br>";
+			
+				$sql = "SELECT * FROM `category` ORDER BY category_id desc;";
+				$res = mysqli_query($db,$sql);
+				if(mysqli_num_rows($res) >= 1)
+				{	 
+					echo '<table border="1" id="kategorie_tabelle">'; 
+					echo "<tr><th>ID</th><th>Bezeichnung</th><th>Streckenlänge</th><th>Jahrgang-Start</th><th>Jahrgang-Ende</th><th>Geschlecht</th></tr>"; 
+					
+					while($row = mysqli_fetch_array($res))
+					{
+						echo "<tr><td>"; 
+						echo $row['category_id'];
+						echo "</td><td>"; 
+						echo $row['category_name'];
+						echo "</td><td>"; 
+						echo $row['track_length'];
+						echo "</td><td>"; 
+						echo $row['year_of_birth_start'];
+						echo "</td><td>"; 
+						echo $row['year_of_birth_end'];
+						echo "</td><td>"; 
+						echo $row['gender'];
+						echo "</td></tr>";
+					}
+					echo "</table>";
+				}
+				else 
+				{
+					echo "There was no matching record for the name " . $searchTerm;
+				}
+			
+			?>
 		
 		</div>
 		
 		<div id="footer">
 		</div>
-	
 	
 	</div>
 </body>

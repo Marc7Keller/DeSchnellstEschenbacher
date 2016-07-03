@@ -13,6 +13,16 @@ body
 	opacity: 0.9;
 }
 
+input
+{
+	background-color:white;
+}
+
+input:focus
+{
+	background-color:rgb(255,255,51);
+}
+
 #sitediv
 {
 	width: 820px;
@@ -32,6 +42,13 @@ body
 	position: absolute;
 	top: 20px;
 	right: 30px;
+}
+
+#event_selection
+{
+	float: right;
+	padding-right: 20px;
+	padding-top: 20px;
 }
 
 #content
@@ -188,7 +205,45 @@ nav ul ul ul
 	
 }
 
+#laden_button
+{
+	padding: 3px 10px 3px 10px;
+	border: none;
+	background: rgb(9,51,121);
+	color: white;
+	border-radius: 5px;
+}
+
+#laden_button:hover
+{
+	color: rgb(9,51,121);
+	background: rgb(255,255,51);
+	
+}
+
+#event_selection_button
+{
+	padding: 3px 10px 3px 10px;
+	border: none;
+	background: rgb(9,51,121);
+	color: white;
+	border-radius: 5px;
+}
+
+#event_selection_button:hover
+{
+	color: rgb(9,51,121);
+	background: rgb(255,255,51);
+	
+}
+
 #form_verwaltung
+{
+	padding-left: 30px;
+	padding-top: 20px;
+}
+
+#form_verwaltung2
 {
 	padding-left: 30px;
 	padding-top: 20px;
