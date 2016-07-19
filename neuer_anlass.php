@@ -5,17 +5,19 @@
 	<title>Administration - Neuer Anlass</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_anlass.css" type="text/css">
+	<script src="_js/anlass.js" type="text/javascript"></script>
+	
 	<?php 
 			error_reporting(0);
             include 'php/config.php';
-            include 'includes/incl_neuer_anlass_form.php';
 			include 'includes/sessions.php';
+            include 'includes/incl_neuer_anlass_form.php';
     ?>
 	
 	
 </head>
 
-<body>
+<body onLoad="setFocus();">
 
 	<div id="sitediv">
 		
@@ -37,9 +39,9 @@
 			<form id="form_verwaltung" action="neuer_anlass.php" method="POST">
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
-				Bezeichnung:*			<input  id="bezeichnung" type="text" name="bezeichnung"/></br>
-				Veranstaltungsjahr:*	<input  id="veranstaltungsjahr" type="text" name="veranstaltungsjahr"/></br></br>
-										<input id="speichern_button" type="submit" name="speichern_button_neuer_anlass" value="Speichern"/>
+				Bezeichnung:*			<input  id="bezeichnung" type="text" name="bezeichnung" onblur="colorEmptyField1();" onchange="enableSubmitButton();"/></br>
+				Veranstaltungsjahr:*	<input  id="veranstaltungsjahr" type="text" name="veranstaltungsjahr" onblur="colorEmptyField2();" onchange="enableSubmitButton();"/></br></br>
+										<input id="speichern_button" type="submit" name="speichern_button_neuer_anlass" value="Speichern" disabled/>
 			</form>
 		
 			<?php 
@@ -77,6 +79,11 @@
 		</div>
 		
 		<div id="footer">
+			<center>
+			<?php
+				include 'includes/logout.php';
+			?>
+			</center>
 		</div>
 		
 	</div>

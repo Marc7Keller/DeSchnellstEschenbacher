@@ -80,6 +80,32 @@ body
 	margin-left: 89px;
 }
 
+#anmelden_button
+{
+	padding: 3px 10px 3px 10px;
+	border: none;
+	background: rgb(9,51,121);
+	color: white;
+	border-radius: 5px;
+}
+
+#anmelden_button:hover
+{
+	color: rgb(9,51,121);
+	background: rgb(255,255,51);
+}
+
+input
+{
+	background-color:white;
+}
+
+input:focus
+{
+	background-color:rgb(255,255,51);
+}
+
+
 
 
 

@@ -5,17 +5,18 @@
 	<title>Administration - Neue Kategorie</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_kategorie.css" type="text/css">
+	<script src="_js/kategorie.js" type="text/javascript"></script>
 	
 
     <?php 
             include 'php/config.php';
-            include 'includes/incl_neue_kategorie_form.php';
 			include 'includes/sessions.php';
+            include 'includes/incl_neue_kategorie_form.php';
     ?>
     
 </head>
 
-<body>
+<body onload="setFocus();">
 
 	<div id="sitediv">
 		
@@ -36,21 +37,21 @@
 		
 			<form id="form_verwaltung" action="neue_kategorie.php" method="POST">
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
-				Bezeichnung:*		<input  id="bezeichnung" type="text" name="bezeichnung"/></br>
-				Streckenlänge:*		<input id="streckenlaenge" type="text" name="streckenlaenge"/></br>
+				Bezeichnung:*		<input  id="bezeichnung" type="text" name="bezeichnung" onblur="colorEmptyField1();" onchange="enableSubmitButton();"/></br>
+				Streckenlänge:*		<input id="streckenlaenge" type="text" name="streckenlaenge" onblur="colorEmptyField2();" onchange="enableSubmitButton();"/></br>
 				Jahrgang-Start:		<input id="jahrgang_start" type="text" name="jahrgang_start"/></br>
 				Jahrgang-Ende:		<input id="jahrgang_ende" type="text" name="jahrgang_ende"/></br></br>
 				Geschlecht:			<fieldset id="radiobuttons">
 										<input type="radio" id="Männlich" name="Geschlecht" value="Männlich"> Männlich</br> 
 										<input type="radio" id="Weiblich" name="Geschlecht" value="Weiblich"> Weiblich</br>  
 									</fieldset></br></br>
-									<input id="speichern_button" type="submit" name="speichern_button_neue_kategorie" value="Speichern"/>
+									<input id="speichern_button" type="submit" name="speichern_button_neue_kategorie" value="Speichern" disabled/>
 			</form>
 		
 			<?php 
 				echo "<br><br><br><br>";
 			
-				$sql = "SELECT * FROM `category` ORDER BY category_id desc;";
+				$sql = "SELECT * FROM `category` WHERE fs_event = ".$_SESSION['event']." ORDER BY category_id desc;";
 				$res = mysqli_query($db,$sql);
 				if(mysqli_num_rows($res) >= 1)
 				{	 
@@ -85,6 +86,11 @@
 		</div>
 		
 		<div id="footer">
+			<center>
+				<?php
+					include 'includes/logout.php';
+				?>
+			</center>
 		</div>
 	
 	</div>

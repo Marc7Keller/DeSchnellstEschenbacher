@@ -9,11 +9,11 @@
 			{
 				if($row['event_id'] == $_SESSION['event'])
 				{
-					echo '<option value="'.$row['event_id'].'" selected>'.$row['event_name'].'</option>';
+					echo '<option value="'.$row['event_id'].'" selected>'.$row['event_name'].' - '.$row['year'].'</option>';
 				}
 				else
 				{
-					echo '<option value="'.$row['event_id'].'">'.$row['event_name'].'</option>';
+					echo '<option value="'.$row['event_id'].'">'.$row['event_name'].' - '.$row['year'].'</option>';
 				}		
 			}	
 			echo '</select><br>';

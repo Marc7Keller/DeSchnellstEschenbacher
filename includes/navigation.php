@@ -43,6 +43,7 @@
 						<li><a href="#">Teilnehmerverwaltung</a>
 							<ul>
 								<li><a href="neuer_teilnehmer.php">Neuer Teilnehmer</a></li>
+								<li><a href="neue_nachanmeldung.php">Neue Nachanmeldung / Neuer Plauschteilnehmer</a></li>
 								<li><a href="teilnehmer_bearbeiten.php">Teilnehmer bearbeiten</a></li>
 							</ul>
 						</li>

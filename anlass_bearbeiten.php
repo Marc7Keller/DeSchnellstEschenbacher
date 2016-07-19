@@ -5,6 +5,7 @@
         <title>Administration - Anlass bearbeiten</title>
         <link rel="stylesheet" href="_css/style.css" type="text/css">
         <link rel="stylesheet" href="_css/style_anlass.css" type="text/css">
+		<script src="_js/anlass.js" type="text/javascript"></script>
 
         <?php 
 			error_reporting(0);
@@ -44,7 +45,7 @@
 
 						while($row = mysqli_fetch_array($res2))
 						{
-							echo '<option value="'.$row['event_id'].'">'.$row['event_name'].'</option>';
+							echo '<option value="'.$row['event_id'].'">'.$row['event_name'].' - '.$row['year'].'</option>';
 						}
 
 						echo '</select><br>';
@@ -62,8 +63,8 @@
 						
 						echo "<form id='form_verwaltung' action='anlass_bearbeiten.php' method='POST'>";
 						echo "<input  id='event_id' type='hidden' name='event_id' value='".$_GET['anlass']."'/></br>";
-						echo "Bezeichnung:*			<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['event_name']."'/></br>";
-						echo "Veranstaltungsjahr:*	<input  id='veranstaltungsjahr' type='text' name='veranstaltungsjahr' value='".$row['year']."'/></br></br>";
+						echo "Bezeichnung:*			<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['event_name']."' onblur='colorEmptyField1();' onchange='enableSubmitButton();'/></br>";
+						echo "Veranstaltungsjahr:*	<input  id='veranstaltungsjahr' type='text' name='veranstaltungsjahr' value='".$row['year']."' onblur='colorEmptyField2();' onchange='enableSubmitButton();'/></br></br>";
 						echo "<input id='speichern_button' type='submit' name='speichern_button_anlass_bearbeiten' value='Speichern'/>";
 						
 					}	
@@ -101,6 +102,11 @@
             </div>
 
             <div id="footer">
+				<center>
+					<?php
+						include 'includes/logout.php';
+					?>
+				</center>
             </div>
 			
         </div>

@@ -5,6 +5,7 @@
 	<title>Administration - Lehrperson bearbeiten</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_lehrperson.css" type="text/css">
+	<script src="_js/lehrperson.js" type="text/javascript"></script>
 	
 	<?php
 		include 'php/config.php';
@@ -32,9 +33,11 @@
 			?>
 				
 			<h1 id="site_title">Lehrperson bearbeiten</h1>
-		
+			
 			<form id="form_verwaltung" action="" method="GET">
 			
+				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
+				
 				<?php 
 					$sql = "SELECT * FROM `teacher` inner join person on fs_person = person.person_id ORDER BY name asc;";
 					$res = mysqli_query($db,$sql);
@@ -71,10 +74,10 @@
 					$res = mysqli_query($db,$sql);
 					$row = mysqli_fetch_array($res);
 					
-					echo "<form id='form_verwaltung' action='lehrperson_bearbeiten.php' method='POST'>";
+					echo "<form id='form_verwaltung' action='lehrperson_bearbeiten.php' method='POST' onload='setFocus();'>";
 					echo "<input type='hidden' name='person_id' value='".$_GET['person']."'/>";
-					echo "Vorname:				<input id='vorname' class='form_cells' type='text' name='vorname' value='".$row['firstname']."'/></br>";
-					echo "Nachname:				<input id='nachname' class='form_cells' type='text' name='nachname' value='".$row['name']."'/></br>";
+					echo "Vorname:				<input id='vorname' class='form_cells' type='text' name='vorname' value='".$row['firstname']."' onblur='colorEmptyField2();' onchange='enableSubmitButton();'/></br>";
+					echo "Nachname:				<input id='nachname' class='form_cells' type='text' name='nachname' value='".$row['name']."' onblur='colorEmptyField1();' onchange='enableSubmitButton();'/></br>";
 					echo "Strasse:				<input id='strasse' class='form_cells' type='text' name='strasse' value='".$row['street']."'/></br>";
 					echo "PLZ:					<input id='plz' class='form_cells' type='text' name='plz' value='".$row['plz']."'/></br>";
 					echo "Ort:					<input id='ort' class='form_cells' type='text' name='ort' value='".$row['place']."' /></br></br>";
@@ -120,6 +123,11 @@
 		</div>
 		
 		<div id="footer">
+			<center>
+				<?php
+					include 'includes/logout.php';
+				?>
+			</center>
 		</div>
 	
 	

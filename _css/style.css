@@ -237,6 +237,23 @@ nav ul ul ul
 	
 }
 
+#logout_button
+{
+	padding: 3px 10px 3px 10px;
+	border: none;
+	background: rgb(9,51,121);
+	color: white;
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+#logout_button:hover
+{
+	color: rgb(9,51,121);
+	background: rgb(255,255,51);
+	
+}
+
 #form_verwaltung
 {
 	padding-left: 30px;

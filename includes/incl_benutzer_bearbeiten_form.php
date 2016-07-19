@@ -8,7 +8,7 @@
 		}
 		else
 		{
-			echo "Passwörter stimmen nicht überein";
+			echo "<script type='text/javascript'>alert('Die Passwörter stimmen nicht überein');</script>";
 		}
 	}
 ?>

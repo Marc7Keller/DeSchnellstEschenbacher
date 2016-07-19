@@ -5,6 +5,7 @@
         <title>Administration - Benutzer bearbeiten</title>
         <link rel="stylesheet" href="_css/style.css" type="text/css">
         <link rel="stylesheet" href="_css/style_benutzer.css" type="text/css">
+		<script src="_js/benutzer.js" type="text/javascript"></script>
         
         <?php
 			error_reporting(0);
@@ -34,6 +35,7 @@
 				<h1 id="site_title">Benutzer bearbeiten</h1>
 				
 				<form id="form_verwaltung" action="" method="GET">
+				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 					<label style="font-weight: bold;">Benutzer:</label>
 					<select  id="benutzer" type="text" name="benutzer" size="1">
 					<?php
@@ -68,13 +70,11 @@
 						$row = mysqli_fetch_array($res);
 						
 						echo "<form id='form_verwaltung' action='benutzer_bearbeiten.php' method='POST'>";
-						
-						echo "	</br><p style='font-size: 11px;'>Felder mit * markiert sind Pflichtfelder</p></br>";
 							
 						echo "							<input  id='admin_id' type='hidden' name='admin_id' value='".$_GET['benutzer']."'/></br>";
-						echo "	Benutzername:*			<input id='benutzername' type='text' name='benutzername' value='".$row['username']."'/></br>";
-						echo "	Passwort:*				<input  id='passwort' type='password' name='passwort' value='".$row['password']."'/></br>";
-						echo "	Passwort wiederholen:*	<input  id='passwort_wdh' type='password' name='passwort_wdh' value='".$row['password']."'/></br></br>";
+						echo "	Benutzername:*			<input id='benutzername' type='text' name='benutzername' value='".$row['username']."' onblur='colorEmptyField1();' onchange='enableSubmitButton();'/></br>";
+						echo "	Passwort:*				<input  id='passwort' type='password' name='passwort' value='".$row['password']."' onblur='colorEmptyField2();' onchange='enableSubmitButton();'/></br>";
+						echo "	Passwort wiederholen:*	<input  id='passwort_wdh' type='password' name='passwort_wdh' value='".$row['password']."' onblur='colorEmptyField3();' onchange='enableSubmitButton();'/></br></br>";
 						
 						echo "							<input id='speichern_button' type='submit' name='speichern_button_benutzer_bearbeiten' value='Speichern'/>";
 						
@@ -115,6 +115,11 @@
             </div>
 
             <div id="footer">
+				<center>
+					<?php
+						include 'includes/logout.php';
+					?>
+				</center>
             </div>
 
         </div>
