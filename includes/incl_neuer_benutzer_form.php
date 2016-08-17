@@ -3,7 +3,7 @@
 	{
 		if($_POST["passwort"] == $_POST["passwort_wdh"])
 		{
-			$sql = "INSERT INTO `admin` (`username`, `password`) VALUES ('".$_POST['benutzername']."', '".$_POST['passwort']."');";
+			$sql = "INSERT INTO `user` (`username`, `password`, `usertype`) VALUES ('".$_POST['benutzername']."', '".$_POST['passwort']."', '".$_POST['benutzerrolle']."');";
 			$res = mysqli_query($db,$sql);
 		}
 		else

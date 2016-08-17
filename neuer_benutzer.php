@@ -10,7 +10,7 @@
 	<?php 
 		error_reporting(0);
         include 'php/config.php';
-		include 'includes/sessions.php';
+		include 'includes/sessions2.php';
 		include 'includes/incl_neuer_benutzer_form.php';
     ?>
 </head>
@@ -37,9 +37,17 @@
 		
 			<form id="form_verwaltung" action="neuer_benutzer.php" method="POST">
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
-				Benutzername:*			<input  id="benutzername" type="text" name="benutzername" onblur="colorEmptyField1();" onchange="enableSubmitButton();"/></br>
-				Passwort:*				<input  id="passwort" type="password" name="passwort" onblur="colorEmptyField2();" onchange="enableSubmitButton();"/></br>
-				Passwort wiederholen:*	<input  id="passwort_wdh" type="password" name="passwort_wdh" onblur="colorEmptyField3();" onchange="enableSubmitButton();"/></br></br>
+				Benutzername:*			<input  id="benutzername" type="text" name="benutzername" onblur="colorEmptyField1();" onkeyup="enableSubmitButton();"/></br>
+				Passwort:*				<input  id="passwort" type="password" name="passwort" onblur="colorEmptyField2();" onkeyup="enableSubmitButton();"/></br>
+				Passwort wiederholen:*	<input  id="passwort_wdh" type="password" name="passwort_wdh" onblur="colorEmptyField3();" onkeyup="enableSubmitButton();"/></br></br>
+				
+				Benutzerrolle:*			<select  id="benutzerrolle" type="text" name="benutzerrolle" size="1">
+												<option value="1">Vollzugriff (Administrator)</option>
+												<option value="2">Vollzugriff ohne Benutzerverwaltung</option>
+												<option value="3">Zugriff auf Administration ohne Benutzerverwaltung</option>
+												<option value="4">Zeiten erfassen</option>
+												<option value="5">Auswerten</option>
+										</select></br></br>
 			
 										<input id="speichern_button" type="submit" name="speichern_button_neuer_benutzer" value="Speichern" disabled/>
 			</form>
@@ -47,19 +55,40 @@
 			<?php 
 				echo "<br><br><br><br>";
 			
-				$sql = "SELECT * FROM `admin` ORDER BY admin_id desc;";
+				$sql = "SELECT * FROM `user` ORDER BY user_id desc;";
 				$res = mysqli_query($db,$sql);
 				if(mysqli_num_rows($res) >= 1)
-				{	 
+				{
 					echo '<table border="1" id="benutzer_tabelle">'; 
-					echo "<tr><th>ID</th><th>username</th></tr>"; 
+					echo "<tr><th>ID</th><th>Benutzername</th><th>Benutzerrolle</th></tr>"; 
 				
 					while($row = mysqli_fetch_array($res))
 					{
+						switch($row['usertype'])
+						{
+							case 1:
+								$nutzerrolle = "Vollzugriff (Administrator)";
+								break;
+							case 2:
+								$nutzerrolle = "Vollzugriff ohne Benutzerverwaltung";
+								break;
+							case 3:
+								$nutzerrolle = "Zugriff auf Administration ohne Benutzerverwaltung";
+								break;
+							case 4:
+								$nutzerrolle = "Zeiten erfassen";
+								break;
+							case 5:
+								$nutzerrolle = "Auswerten";
+								break;
+						}
+						
 						echo "<tr><td>"; 
-						echo $row['admin_id'];
+						echo $row['user_id'];
 						echo "</td><td>"; 
 						echo $row['username'];
+						echo "</td><td>"; 
+						echo $nutzerrolle;
 						echo "</td></tr>"; 
 					}
 					

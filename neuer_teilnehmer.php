@@ -67,7 +67,7 @@
 			if ($count =0)
 			{
 				$id='';
-				$gebdatum = '';
+				$gebjahr = '';
 				$strasse = '';
 				$plz = '';
 				$ort = '';
@@ -77,7 +77,7 @@
 				while($row = mysqli_fetch_array($res))
 				{
 					$id = $row['person_id'];
-					$gebdatum = $row['birthdate'];
+					$gebjahr = $row['year_of_birth'];
 					$strasse = $row['street'];
 					$plz = $row['plz'];
 					$ort = $row['place'];
@@ -90,7 +90,7 @@
 			$id = $_POST['id'];
 			$vorname =$_POST['vorname'];
 			$nachname =$_POST['nachname'];
-			$gebdatum = $_POST['gebdatum'];
+			$gebjahr = $_POST['gebjahr'];
 			$strasse = $_POST['strasse'];
 			$plz = $_POST['plz'];
 			$ort = $_POST['ort'];
@@ -107,7 +107,7 @@
     
 			if($id !=0)
 			{
-				$sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `birthdate` = '".$gebdatum."', `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
+				$sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `year_of_birth` = '".$gebjahr."', `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
 				$res = mysqli_query($db,$sql);
 				
 				if (!$res) 
@@ -118,7 +118,7 @@
 			}
 			else
 			{
-				$sql = "INSERT INTO `person` (`name`, `firstname`, `birthdate`, `plz`, `place`, `street`) VALUES ('".$nachname."', '".$vorname."', '".$gebdatum."', '".$plz."', '".$ort."', '".$strasse."');";
+				$sql = "INSERT INTO `person` (`name`, `firstname`, `year_of_birth`, `plz`, `place`, `street`) VALUES ('".$nachname."', '".$vorname."', '".$gebjahr."', '".$plz."', '".$ort."', '".$strasse."');";
 				$res = mysqli_query($db,$sql);
 				
 				if (!$res) 
@@ -176,8 +176,8 @@
 			
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
-				Nachname:*		<input  class="form_cells" type="text" id="nachname" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>"  onkeyup="showResult(this.value)" onblur="colorEmptyField1();" onchange="enableLoadButton();"/></br>
-				Vorname:*		<input id="vorname" class="form_cells" type="text" id="vorname" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" onkeyup="showResult(this.value)" onblur="colorEmptyField2();" onchange="enableLoadButton();"/></br></br>
+				Nachname:*		<input  class="form_cells" type="text" id="nachname" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>"  onblur="colorEmptyField1();" onkeyup="enableLoadButton();"/></br>
+				Vorname:*		<input id="vorname" class="form_cells" type="text" id="vorname" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" onblur="colorEmptyField2();" onkeyup="enableLoadButton();"/></br></br>
     
 				<input id="laden_button" type="submit" name="laden_button_neuer_teilnehmer" value="Laden" disabled/>
     
@@ -192,17 +192,17 @@
 								<input  class="form_cells" type="hidden" name="id" value="<?php echo $id;?>" /></br>
 								<input  class="form_cells" type="hidden" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" />
 								<input  class="form_cells" type="hidden" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>" />
-				Geburtsdatum:*	<input id="gebdatum" class="form_cells" type="text" name="gebdatum" value="<?php echo $gebdatum;?>" onblur="colorEmptyField3();" onchange="enableSubmitButton();"/></br>
+				Geburtsjahr:*	<input id="gebjahr" class="form_cells" type="text" name="gebjahr" value="<?php echo $gebjahr;?>" onblur="colorEmptyField3();" onkeyup="enableSubmitButton();"/></br>
 				Strasse:		<input id="strasse" class="form_cells" type="text" name="strasse" value="<?php echo $strasse;?>"/></br>
 				PLZ:			<input id="plz" class="form_cells" type="text" name="plz" value="<?php echo $plz;?>"/></br>
-				Ort:*			<input id="ort" class="form_cells" type="text" name="ort" value="<?php echo $ort;?>" onblur="colorEmptyField4();" onchange="enableSubmitButton();"/></br></br>
+				Ort:*			<input id="ort" class="form_cells" type="text" name="ort" value="<?php echo $ort;?>" onblur="colorEmptyField4();" onkeyup="enableSubmitButton();"/></br></br>
 							
     
 				</br></br>
 			
 				<?php
 					echo 'Klasse:* <select  id="klasse" type="text" name="klasse" size="1">';
-					$res2 = mysqli_query($db,"SELECT * FROM class, teacher, person WHERE fs_teacher = teacher_id AND fs_person = person_id AND fs_event = ".$_SESSION['event']." ORDER BY class_id desc;");
+					$res2 = mysqli_query($db,"SELECT * FROM class, teacher, person WHERE fs_teacher = teacher_id AND fs_person = person_id AND fs_event = ".$_SESSION['event']." ORDER BY class_name asc;");
            
 					while($row = mysqli_fetch_array($res2))
 					{
@@ -213,7 +213,7 @@
 
 					echo 'Kategorie:*  <select  id="kategorie" type="text" name="kategorie" size="1">';
 				
-					$res2 = mysqli_query($db,"SELECT * FROM category WHERE fs_event = ".$_SESSION['event']." ORDER BY category_id desc;");
+					$res2 = mysqli_query($db,"SELECT * FROM category WHERE fs_event = ".$_SESSION['event']." ORDER BY category_name asc;");
            
 					while($row = mysqli_fetch_array($res2))
 					{
@@ -232,13 +232,13 @@
 				
 				echo "</br></br></br></br>";
 	
-				$sql = "SELECT name, firstname, birthdate, plz, person.place, street, late_registration, start_number, class.class_name as classbez, category.category_name as catbez FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." AND late_registration = 0 ORDER BY participant_id desc;";
+				$sql = "SELECT name, firstname, year_of_birth, plz, person.place, street, late_registration, start_number, class.class_name as classbez, category.category_name as catbez FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." AND late_registration = 0 ORDER BY participant_id desc;";
 				$res = mysqli_query($db,$sql);
 	 
 				if(mysqli_num_rows($res) >= 1)
 				{	 
 					echo '<table border="1" id="teilnehmer_tabelle">'; 
-					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsdatum</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th></tr>"; 
+					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th></tr>"; 
 					
 					while($row = mysqli_fetch_array($res))
 					{
@@ -247,7 +247,7 @@
 						echo "</td><td>"; 
 						echo $row['firstname'];
 						echo "</td><td>";   
-						echo $row['birthdate'];
+						echo $row['year_of_birth'];
 						echo "</td><td>";    
 						echo $row['plz'];
 						echo "</td><td>";

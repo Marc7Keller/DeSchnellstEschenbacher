@@ -3,7 +3,7 @@
 	{
 		if($_POST["passwort"] == $_POST["passwort_wdh"])
 		{	
-			$sql = "UPDATE `admin` SET `username` = '".$_POST["benutzername"]."', `password` = '".$_POST["passwort"]."' WHERE `admin`.`admin_id` = ".$_POST['admin_id'].";";
+			$sql = "UPDATE `user` SET `username` = '".$_POST["benutzername"]."', `password` = '".$_POST["passwort"]."', `usertype` = '".$_POST["benutzerrolle"]."' WHERE `user`.`user_id` = ".$_POST['user_id'].";";
 			$res = mysqli_query($db,$sql);
 		}
 		else

@@ -5,6 +5,7 @@
 	<title>De schnellscht Eschenbacher - Zeiten erfassen</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_zeiten_erfassen.css" type="text/css">
+	<script src="_js/zeiten_erfassen.js" type="text/javascript"></script>
 	
 	
 	
@@ -15,7 +16,7 @@
     <?php 
 			error_reporting(0);
             include("php/config.php");
-			include("includes/sessions.php");
+			include("includes/sessions3.php");
 
     ?>
 	<div id="sitediv">
@@ -54,9 +55,20 @@
                 $first_lap = $_POST['first_lap'];
                 $participant_id = $_POST['participant_id'];
                     
+                $sql = "SELECT * FROM laptimes where fs_Participant = ".$participant_id."";				
                     
-                    
-                $sql = "INSERT INTO `laptimes` (`first_lap`, `fs_participant`) VALUES ('".$first_lap."', '".$participant_id."')";
+				$result = mysqli_query($db,$sql);	
+				$count  = mysqli_num_rows($result);
+				if($count != 0)
+				{
+					 while($row = mysqli_fetch_array($result)){
+						echo "already exists 6";
+						$sql = "UPDATE `laptimes` SET first_lap = ".$first_lap." WHERE laptime_id = ".$row['laptime_id'].";";
+					 }
+				}
+				else{
+						$sql = "INSERT INTO `laptimes` (`first_lap`, `fs_participant`) VALUES ('".$first_lap."', '".$participant_id."')";
+				}
                     
                 //$sql = "UPDATE participants SET first_lap = ". $_POST['zeit']. " WHERE startnummer = ".$_POST['startnummer']." ;";
                 $res = mysqli_query($db,$sql);
@@ -64,8 +76,6 @@
             if (isset($_POST["second_lap"])) {
                 $second_lap = $_POST['second_lap'];
                 $laptime_id = $_POST['laptime_id'];
-                    
-                    
                     
                 $sql = "UPDATE `laptimes` SET second_lap = ".$second_lap." WHERE laptime_id = ".$laptime_id.";";
                 
@@ -90,17 +100,61 @@
 		?>
 		
 		<br><br><br>
-        
-		<p class="controls">
-        <a href="zeiten_erfassen.php?back=1">< BACK</a>
-		<span> | </span>
-        <a href="zeiten_erfassen.php?next=1">NEXT ></a>
-		</p></br>
-        
-
-        
+		
+		<form action="zeiten_erfassen.php" method="POST">
+			&nbsp <input id="speichern_button" type="submit" name="show_all_button_selection_zeiten" value="Alle Teilnehmer anzeigen"/>
+		</form>
+		
+		<br><br>
+		
+		<form action="zeiten_erfassen.php" method="POST">
+		<?php
+		echo '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Kategorie:*  <select  id="kategorie" type="text" name="kategorie" size="1">';
+		
+				
+					$res2 = mysqli_query($db,"SELECT * FROM category WHERE fs_event = ".$_SESSION['event']." ORDER BY category_id desc;");
+			
+					if(isset($_POST['kategorie']))
+					{
+						while($row = mysqli_fetch_array($res2))
+						{
+							if($_POST['kategorie'] == $row['category_id'])
+							{
+								echo '<option selected = "selected" value="'.$row['category_id'].'">'.$row['category_name'].' / '.$row['track_length'].'m'.' / '.$row['year_of_birth_start'].' - '.$row['year_of_birth_end'].' / '.$row['gender'].'</option>';
+							}
+							else
+							{
+								echo '<option value="'.$row['category_id'].'">'.$row['category_name'].' / '.$row['track_length'].'m'.' / '.$row['year_of_birth_start'].' - '.$row['year_of_birth_end'].' / '.$row['gender'].'</option>';
+							}
+						}
+					}
+					else
+					{
+						while($row = mysqli_fetch_array($res2))
+						{
+							echo '<option value="'.$row['category_id'].'">'.$row['category_name'].' / '.$row['track_length'].'m'.' / '.$row['year_of_birth_start'].' - '.$row['year_of_birth_end'].' / '.$row['gender'].'</option>';
+						}
+					}
+            
+					echo '</select></br></br>';
+		?>
+		
+		&nbsp	<input id="speichern_button" type="submit" name="order_button_selection_zeiten" value="Filtern"/>
+			
+		</form>
+		
+		<br>
+		
         <?php
-        $sql = "SELECT * FROM `participants` INNER JOIN `person` on (`fs_person` = `person_id`) LEFT JOIN `laptimes` on (`fs_participant` = `participant_id`) WHERE fs_event = ".$_SESSION['event'].";";
+		if(isset($_POST['kategorie']))
+		{
+			$sql = "SELECT * FROM `participants` INNER JOIN `person` on (`fs_person` = `person_id`) LEFT JOIN `laptimes` on (`fs_participant` = `participant_id`) WHERE fs_event = ".$_SESSION['event']." and fs_category = ".$_POST['kategorie']." ORDER BY start_number asc;";
+		}
+		else
+		{
+			$sql = "SELECT * FROM `participants` INNER JOIN `person` on (`fs_person` = `person_id`) LEFT JOIN `laptimes` on (`fs_participant` = `participant_id`) WHERE fs_event = ".$_SESSION['event']." ORDER BY start_number asc;";
+		}
+		
        // $sql = "SELECT * FROM `participants` INNER JOIN `person` on (`fs_person` = `person_id`) INNER JOIN `laptimes` on (`fs_Participant` = `participant_id`)"  ;  //das löschen
          $result = mysqli_query($db,$sql);
          $count  = mysqli_num_rows ($result);
@@ -139,7 +193,7 @@
            <td> <input type="text" name="first_lap"> </td>
             <?php
                 }else{
-                    echo "<td>". $row['first_lap'] ."</td>";
+                    echo "<td><input type='text' name='first_lap' value = ".$row['first_lap']."></td>";
                 }        
             
             
@@ -148,11 +202,16 @@
            <td> <input type="text" name="second_lap"> </td>
             <?php
                 }else{
-                    echo "<td>". $row['second_lap'] ."</td>";
-                }        
+                    echo "<td><input type='text' name='second_lap' value = ".$row['second_lap']."></td>";
+                }    
+
+			if(isset($_POST['kategorie']))
+			{
             ?>
-            
-            
+            <input hidden="text" name="kategorie" value="<?php echo $_POST['kategorie'];?>"/>
+           <?php
+		   }
+		   ?>
            <input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
             <?php 
                 if($count!=0){
@@ -166,14 +225,7 @@
 </form>
 <?php }} ?>
             
-        </table>         
-       
-		</br>
-        <p class="controls">
-        <a href="zeiten_erfassen.php?back=1">< BACK</a>
-		<span> | </span>
-        <a href="zeiten_erfassen.php?next=1">NEXT ></a>
-		</p></br>   
+        </table></br>
             
             
             
@@ -197,7 +249,13 @@
     
 		</div>
 		
-		
+		<div id="footer">
+			<center>
+				<?php
+					include 'includes/logout.php';
+				?>
+			</center>
+		</div>
 	
 	
 	</div>

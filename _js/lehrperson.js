@@ -48,11 +48,12 @@ function colorEmptyField2()
 
 function setFocus()
 {
-	document.getElementById("nachname").focus();
+	if(document.getElementsByName("nachname")[0].value == "" && document.getElementsByName("vorname")[0].value == "")
+	{
+		document.getElementById("nachname").focus();
+	}
+	else
+	{
+		document.getElementById("strasse_neu").focus();
+	}
 }
-
-function setFocus2()
-{
-	document.getElementById("nachname").focus();
-}
-

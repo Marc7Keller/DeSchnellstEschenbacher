@@ -41,7 +41,7 @@
 			<p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
 			<?php 
-				$sql = "SELECT * FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." ORDER BY participant_id desc;";
+				$sql = "SELECT * FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." ORDER BY name asc;";
 				$res = mysqli_query($db,$sql);
 			?>
 			<label style="font-weight: bold;">Person:*</label>
@@ -67,7 +67,7 @@
 			if(isset($_GET['person']))
 			{
 				//$sql = "SELECT * FROM `person`,`participants`,`class`,`category` WHERE person_id = '".$_GET['person']."' AND person_id = fs_person AND fs_event = ".$_SESSION['event']." AND fs_class = class_id AND fs_category = category_id;";
-				$sql = "SELECT person_id, name, firstname, birthdate, plz, person.place as persplace, street, fs_category, fs_class, late_registration FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE person_id = '".$_GET['person']."' AND participants.fs_event = ".$_SESSION['event'].";";
+				$sql = "SELECT person_id, name, firstname, year_of_birth, plz, person.place as persplace, street, fs_category, fs_class, late_registration FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE person_id = '".$_GET['person']."' AND participants.fs_event = ".$_SESSION['event'].";";
 				$res = mysqli_query($db,$sql);
 				$row = mysqli_fetch_array($res);
 				
@@ -85,16 +85,16 @@
 				
 				echo "<form id='form_verwaltung' action='teilnehmer_bearbeiten.php' method='POST'>";
 				echo "</select></br>";
-				echo "Vorname:		<input id='vorname2' class='form_cells' type='text' name='vorname' value='".$row['firstname']."' onblur='colorEmptyField5();' onchange='enableSubmitButtonEdit();'/></br>";
-				echo "Nachname:		<input id='nachname2' class='form_cells' type='text' name='nachname' value='".$row['name']."' onblur='colorEmptyField6();' onchange='enableSubmitButtonEdit();'/></br>";
+				echo "Vorname:		<input id='vorname2' class='form_cells' type='text' name='vorname' value='".$row['firstname']."' onblur='colorEmptyField5();' onkeyup='enableSubmitButtonEdit();'/></br>";
+				echo "Nachname:		<input id='nachname2' class='form_cells' type='text' name='nachname' value='".$row['name']."' onblur='colorEmptyField6();' onkeyup='enableSubmitButtonEdit();'/></br>";
 				echo "Strasse:		<input id='strasse2' class='form_cells' type='text' name='strasse' value='".$row['street']."'/></br>";
 				echo "PLZ:			<input id='plz2' class='form_cells' type='text' name='plz' value='".$row['plz']."'/></br>";
-				echo "Ort:			<input id='ort2' class='form_cells' type='text' name='ort' value='".$row['persplace']."' onblur='colorEmptyField7();' onchange='enableSubmitButtonEdit();'/></br>";
-				echo "Geburtsdatum:	<input id='gebdatum2' class='form_cells' type='text' name='gebdatum' value='".$row['birthdate']."' onblur='colorEmptyField8();' onchange='enableSubmitButtonEdit();'/></br></br>";
+				echo "Ort:			<input id='ort2' class='form_cells' type='text' name='ort' value='".$row['persplace']."' onblur='colorEmptyField7();' onkeyup='enableSubmitButtonEdit();'/></br>";
+				echo "Geburtsjahr:	<input id='gebjahr2' class='form_cells' type='text' name='gebjahr' value='".$row['year_of_birth']."' onblur='colorEmptyField8();' onkeyup='enableSubmitButtonEdit();'/></br></br>";
 				
 				echo "Klasse:* <select  id='klasse2' type='text' name='klasse' size='1'>";
 				
-				$sql = "SELECT * FROM `class`,`teacher`,`person` WHERE fs_teacher = teacher_id AND fs_person = person_id ORDER BY class_id desc;";
+				$sql = "SELECT * FROM `class`,`teacher`,`person` WHERE fs_teacher = teacher_id AND fs_person = person_id ORDER BY class_name asc;";
 				$res2 = mysqli_query($db,$sql);
 				
 				while($row = mysqli_fetch_array($res2))
@@ -149,7 +149,7 @@
 		<?php
 			if(isset($_POST['speichern_button_teilnehmer_bearbeiten']))
 			{
-				$sql = "UPDATE `person` SET `firstname` = '".$_POST['vorname']."', `name` = '".$_POST['nachname']."', `street` = '".$_POST['strasse']."', `plz` = '".$_POST['plz']."', `place` = '".$_POST['ort']."', `birthdate` = '".$_POST['gebdatum']."' WHERE `person_id` = '".$_POST['person_id']."';";
+				$sql = "UPDATE `person` SET `firstname` = '".$_POST['vorname']."', `name` = '".$_POST['nachname']."', `street` = '".$_POST['strasse']."', `plz` = '".$_POST['plz']."', `place` = '".$_POST['ort']."', `year_of_birth` = '".$_POST['gebjahr']."' WHERE `person_id` = '".$_POST['person_id']."';";
 				$res = mysqli_query($db,$sql);
 				
 				if(isset($_POST['checkbox_nachanmeldung']))
@@ -164,26 +164,35 @@
 				}
 			}
 		?>
-	
+		
+		<?php
+			if(isset($_POST['participant_id']))
+			{
+				$sql = "UPDATE `participants` SET `deleted` = 1 WHERE `participant_id` = '".$_POST['participant_id']."';";
+				$res = mysqli_query($db,$sql);
+			}
+		?>
+		
 		<?php	
 				echo "<br><br><br><br>";
 	
-				$sql = "SELECT name, firstname, birthdate, plz, person.place, street, class.class_name as classbez, category.category_name as catbez, late_registration, start_number FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." ORDER BY participant_id desc;";
+				$sql = "SELECT participant_id, name, firstname, year_of_birth, plz, person.place, street, class.class_name as classbez, category.category_name as catbez, late_registration, start_number FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." and participants.deleted != 1 ORDER BY participant_id desc;";
 				$res = mysqli_query($db,$sql);
 	 
 				if(mysqli_num_rows($res) >= 1)
 				{	 
 					echo '<table border="1" id="teilnehmer_tabelle">'; 
-					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsdatum</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th></tr>"; 
+					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th><th>Löschen</th></tr>"; 
 					
 					while($row = mysqli_fetch_array($res))
 					{
+						echo '<form action="teilnehmer_bearbeiten.php" method="POST">';
 						echo "<tr><td>"; 
 						echo $row['name'];
 						echo "</td><td>"; 
 						echo $row['firstname'];
 						echo "</td><td>";   
-						echo $row['birthdate'];
+						echo $row['year_of_birth'];
 						echo "</td><td>";    
 						echo $row['plz'];
 						echo "</td><td>";
@@ -198,7 +207,13 @@
 						echo $row['start_number'];
 						echo "</td><td>";
 						echo $row['late_registration'];
+						echo "</td><td>";
+						echo "<input id='loeschen_button' type='submit' value='Löschen'/>";
 						echo "</td></tr>";
+						?>
+							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
+						<?php
+						echo "</form>";
 					}
 					
 					echo "</table>";

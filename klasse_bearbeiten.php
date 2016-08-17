@@ -74,18 +74,18 @@
 					$row = mysqli_fetch_array($res);
 					
 					echo "<form id='form_verwaltung' action='klasse_bearbeiten.php' method='POST'>";
-					echo "Bezeichnung:*			<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['class_name']."' onblur='colorEmptyField1();' onchange='enableSubmitButton();'/></br>";
-					echo "Anzahl Schüler:*		<input id='anzahl_schueler' type='text' name='anzahl_schueler' value='".$row['number_of_students']."' onblur='colorEmptyField2();' onchange='enableSubmitButton();'/></br>";
-					echo "Schule:*				<input id='schule' type='text' name='schule' value='".$row['school']."' onblur='colorEmptyField3();' onchange='enableSubmitButton();'/></br>";
-					echo "Ort:*					<input id='ort_klasse' type='text' name='ort_klasse' value='".$row['place']."' onblur='colorEmptyField4();' onchange='enableSubmitButton();'/></br>";
+					echo "Bezeichnung:*			<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['class_name']."' onblur='colorEmptyField1();' onkeyup='enableSubmitButton();'/></br>";
+					echo "Anzahl Schüler:*		<input id='anzahl_schueler' type='text' name='anzahl_schueler' value='".$row['number_of_students']."' onblur='colorEmptyField2();' onkeyup='enableSubmitButton();'/></br>";
+					echo "Schule:*				<input id='schule' type='text' name='schule' value='".$row['school']."' onblur='colorEmptyField3();' onkeyup='enableSubmitButton();'/></br>";
+					echo "Ort:*					<input id='ort_klasse' type='text' name='ort_klasse' value='".$row['place']."' onblur='colorEmptyField4();' onkeyup='enableSubmitButton();'/></br>";
 					
 					if(isset($_GET['klasse']))
 					{
-						$sql = "SELECT * FROM `class` inner join teacher on (fs_teacher = teacher_id) inner join person on (person_id = fs_person);";
+						$sql = "SELECT * FROM `class` inner join teacher on (fs_teacher = teacher_id) inner join person on (person_id = fs_person) ORDER BY name asc;";
 					}
 					else
 					{
-						$sql = "SELECT * FROM `teacher`inner join person on (person_id = fs_person);";
+						$sql = "SELECT * FROM `teacher`inner join person on (person_id = fs_person) ORDER BY name asc;";
 					}
 					$res = mysqli_query($db,$sql);
 					

@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="_css/style_kategorie.css" type="text/css">
 	<script src="_js/kategorie.js" type="text/javascript"></script>
 	
-
     <?php 
             include 'php/config.php';
 			include 'includes/sessions.php';
@@ -37,8 +36,8 @@
 		
 			<form id="form_verwaltung" action="neue_kategorie.php" method="POST">
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
-				Bezeichnung:*		<input  id="bezeichnung" type="text" name="bezeichnung" onblur="colorEmptyField1();" onchange="enableSubmitButton();"/></br>
-				Streckenlänge:*		<input id="streckenlaenge" type="text" name="streckenlaenge" onblur="colorEmptyField2();" onchange="enableSubmitButton();"/></br>
+				Bezeichnung:*		<input  id="bezeichnung" type="text" name="bezeichnung" onblur="colorEmptyField1();" onkeyup="enableSubmitButton();"/></br>
+				Streckenlänge:*		<input id="streckenlaenge" type="text" name="streckenlaenge" onblur="colorEmptyField2();" onkeyup="enableSubmitButton();"/></br>
 				Jahrgang-Start:		<input id="jahrgang_start" type="text" name="jahrgang_start"/></br>
 				Jahrgang-Ende:		<input id="jahrgang_ende" type="text" name="jahrgang_ende"/></br></br>
 				Geschlecht:			<fieldset id="radiobuttons">

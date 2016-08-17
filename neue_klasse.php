@@ -38,10 +38,10 @@
 				
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
-				Bezeichnung:*		<input id="bezeichnung" type="text" name="bezeichnung" onblur="colorEmptyField1();" onchange="enableSubmitButton();"/></br>
-				Anzahl Schüler:*	<input id="anzahl_schueler" type="text" name="anzahl_schueler" onblur="colorEmptyField2();" onchange="enableSubmitButton();"/></br>
-				Schule:*			<input id="schule" type="text" name="schule" onblur="colorEmptyField3();" onchange="enableSubmitButton();"/></br>
-				Ort:*				<input id="ort_klasse" type="text" name="ort_klasse" onblur="colorEmptyField4();" onchange="enableSubmitButton();"/></br>
+				Bezeichnung:*		<input id="bezeichnung" type="text" name="bezeichnung" onblur="colorEmptyField1();" onkeyup="enableSubmitButton();"/></br>
+				Anzahl Schüler:*	<input id="anzahl_schueler" type="text" name="anzahl_schueler" onblur="colorEmptyField2();" onkeyup="enableSubmitButton();"/></br>
+				Schule:*			<input id="schule" type="text" name="schule" onblur="colorEmptyField3();" onkeyup="enableSubmitButton();"/></br>
+				Ort:*				<input id="ort_klasse" type="text" name="ort_klasse" onblur="colorEmptyField4();" onkeyup="enableSubmitButton();"/></br>
 			
 				<?php 
 					$sql = "SELECT * FROM `teacher`inner join person on (person_id = fs_person) ORDER BY name asc";

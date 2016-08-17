@@ -70,7 +70,7 @@
 			if ($count =0)
 			{
 				$id='';
-				$gebdatum = '';
+				$gebjahr = '';
 				$strasse = '';
 				$plz = '';
 				$ort = '';
@@ -80,7 +80,7 @@
 				while($row = mysqli_fetch_array($res))
 				{
 					$id = $row['person_id'];
-					$gebdatum = $row['birthdate'];
+					$gebjahr = $row['year_of_birth'];
 					$strasse = $row['street'];
 					$plz = $row['plz'];
 					$ort = $row['place'];
@@ -114,8 +114,8 @@
 			
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
-				Nachname:*		<input  class="form_cells" type="text" id="nachname" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>"  onkeyup="showResult(this.value)" onblur="colorEmptyField1();" onchange="enableLoadButton();"/></br>
-				Vorname:*		<input class="form_cells" type="text" id="vorname" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" onkeyup="showResult(this.value)" onblur="colorEmptyField2();" onchange="enableLoadButton();"/></br></br>
+				Nachname:*		<input  class="form_cells" type="text" id="nachname" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>"  onblur="colorEmptyField1();" onkeyup="enableLoadButton();"/></br>
+				Vorname:*		<input class="form_cells" type="text" id="vorname" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" onblur="colorEmptyField2();" onkeyup="enableLoadButton();"/></br></br>
     
 								<input id="laden_button" type="submit" name="laden_button_neue_lehrperson" value="Laden" disabled/>
     

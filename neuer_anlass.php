@@ -39,8 +39,8 @@
 			<form id="form_verwaltung" action="neuer_anlass.php" method="POST">
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
-				Bezeichnung:*			<input  id="bezeichnung" type="text" name="bezeichnung" onblur="colorEmptyField1();" onchange="enableSubmitButton();"/></br>
-				Veranstaltungsjahr:*	<input  id="veranstaltungsjahr" type="text" name="veranstaltungsjahr" onblur="colorEmptyField2();" onchange="enableSubmitButton();"/></br></br>
+				Bezeichnung:*			<input  id="bezeichnung" type="text" name="bezeichnung" onblur="colorEmptyField1();" onkeyup="enableSubmitButton();"/></br>
+				Veranstaltungsjahr:*	<input  id="veranstaltungsjahr" type="text" name="veranstaltungsjahr" onblur="colorEmptyField2();" onkeyup="enableSubmitButton();"/></br></br>
 										<input id="speichern_button" type="submit" name="speichern_button_neuer_anlass" value="Speichern" disabled/>
 			</form>
 		

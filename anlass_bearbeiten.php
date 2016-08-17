@@ -41,7 +41,7 @@
 					
 					<?php
 						echo 'Anlass:* <select  id="anlass" type="text" name="anlass" size="1">';
-						$res2 = mysqli_query($db,"SELECT * FROM event ORDER BY event_id desc;");
+						$res2 = mysqli_query($db,"SELECT * FROM event ORDER BY event_name asc;");
 
 						while($row = mysqli_fetch_array($res2))
 						{
@@ -63,8 +63,8 @@
 						
 						echo "<form id='form_verwaltung' action='anlass_bearbeiten.php' method='POST'>";
 						echo "<input  id='event_id' type='hidden' name='event_id' value='".$_GET['anlass']."'/></br>";
-						echo "Bezeichnung:*			<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['event_name']."' onblur='colorEmptyField1();' onchange='enableSubmitButton();'/></br>";
-						echo "Veranstaltungsjahr:*	<input  id='veranstaltungsjahr' type='text' name='veranstaltungsjahr' value='".$row['year']."' onblur='colorEmptyField2();' onchange='enableSubmitButton();'/></br></br>";
+						echo "Bezeichnung:*			<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['event_name']."' onblur='colorEmptyField1();' onkeyup='enableSubmitButton();'/></br>";
+						echo "Veranstaltungsjahr:*	<input  id='veranstaltungsjahr' type='text' name='veranstaltungsjahr' value='".$row['year']."' onblur='colorEmptyField2();' onkeyup='enableSubmitButton();'/></br></br>";
 						echo "<input id='speichern_button' type='submit' name='speichern_button_anlass_bearbeiten' value='Speichern'/>";
 						
 					}	

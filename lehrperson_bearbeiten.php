@@ -70,14 +70,14 @@
 			<?php
 				if(isset($_GET['person']))
 				{
-					$sql = "SELECT * FROM `person`,`teacher` WHERE person_id = '".$_GET['person']."' AND person_id = fs_person;";
+					$sql = "SELECT * FROM `person`,`teacher` WHERE person_id = '".$_GET['person']."' AND person_id = fs_person ORDER BY teacher_id desc";
 					$res = mysqli_query($db,$sql);
 					$row = mysqli_fetch_array($res);
 					
 					echo "<form id='form_verwaltung' action='lehrperson_bearbeiten.php' method='POST' onload='setFocus();'>";
 					echo "<input type='hidden' name='person_id' value='".$_GET['person']."'/>";
-					echo "Vorname:				<input id='vorname' class='form_cells' type='text' name='vorname' value='".$row['firstname']."' onblur='colorEmptyField2();' onchange='enableSubmitButton();'/></br>";
-					echo "Nachname:				<input id='nachname' class='form_cells' type='text' name='nachname' value='".$row['name']."' onblur='colorEmptyField1();' onchange='enableSubmitButton();'/></br>";
+					echo "Vorname:				<input id='vorname' class='form_cells' type='text' name='vorname' value='".$row['firstname']."' onblur='colorEmptyField2();' onkeyup='enableSubmitButton();'/></br>";
+					echo "Nachname:				<input id='nachname' class='form_cells' type='text' name='nachname' value='".$row['name']."' onblur='colorEmptyField1();' onkeyup='enableSubmitButton();'/></br>";
 					echo "Strasse:				<input id='strasse' class='form_cells' type='text' name='strasse' value='".$row['street']."'/></br>";
 					echo "PLZ:					<input id='plz' class='form_cells' type='text' name='plz' value='".$row['plz']."'/></br>";
 					echo "Ort:					<input id='ort' class='form_cells' type='text' name='ort' value='".$row['place']."' /></br></br>";

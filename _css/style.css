@@ -205,6 +205,21 @@ nav ul ul ul
 	
 }
 
+#loeschen_button
+{
+	padding: 3px 10px 3px 10px;
+	border: none;
+	background: red;
+	color: white;
+	border-radius: 5px;
+}
+
+#loeschen_button:hover
+{
+	color: black;
+	
+}
+
 #laden_button
 {
 	padding: 3px 10px 3px 10px;

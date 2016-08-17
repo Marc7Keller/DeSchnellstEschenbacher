@@ -33,9 +33,15 @@
 	width: 300px;
 }
 
-#gebdatum
+#startnummer
 {
-	margin-left: 77px;
+	margin-left: 88px;
+	width: 300px;
+}
+
+#gebjahr
+{
+	margin-left: 96px;
 	width: 300px;
 }
 
@@ -110,8 +116,127 @@
 	margin: 0 auto;
 }
 
-#gebdatum2
+#gebjahr2
+{
+	margin-left: 106px;
+	width: 300px;
+}
+
+#vorname_teilnehmeransicht_suche
+{
+	margin-left: 116px;
+	width: 300px;
+}
+
+#nachname_teilnehmeransicht_suche
+{
+	margin-left: 105px;
+	width: 300px;
+}
+
+#startnummer_teilnehmeransicht_suche
 {
 	margin-left: 88px;
 	width: 300px;
+}
+
+#vorname_teilnehmeransicht
+{
+	margin-left: 125px;
+	width: 300px;
+}
+
+#nachname_teilnehmeransicht
+{
+	margin-left: 113px;
+	width: 300px;
+}
+
+#gebjahr_teilnehmeransicht
+{
+	margin-left: 107px;
+	width: 300px;
+}
+
+#strasse_teilnehmeransicht
+{
+	margin-left: 140px;
+	width: 300px;
+}
+
+#plz_teilnehmeransicht
+{
+	margin-left: 164px;
+	width: 300px;
+}
+
+#ort_teilnehmeransicht
+{
+	margin-left: 166px;
+	width: 300px;
+}
+
+#klasse_teilnehmeransicht
+{
+	margin-left: 145px;
+	width: 300px;
+}
+
+#kategorie_teilnehmeransicht
+{
+	margin-left: 120px;
+	width: 300px;
+}
+
+#startnummer_teilnehmeransicht
+{
+	margin-left: 96px;
+	width: 300px;
+}
+
+#loeschen_button
+{
+	padding: 3px 10px 3px 10px;
+	border: none;
+	background: rgb(9,51,121);
+	color: white;
+	border-radius: 5px;
+}
+
+#loeschen_button:hover
+{
+	color: rgb(9,51,121);
+	background: rgb(255,255,51);
+	
+}
+
+#laden_button_name
+{
+	padding: 3px 10px 3px 10px;
+	border: none;
+	background: rgb(9,51,121);
+	color: white;
+	border-radius: 5px;
+}
+
+#laden_button_name:hover
+{
+	color: rgb(9,51,121);
+	background: rgb(255,255,51);
+}
+
+#laden_button_startnummer
+{
+	padding: 3px 10px 3px 10px;
+	border: none;
+	background: rgb(9,51,121);
+	color: white;
+	border-radius: 5px;
+}
+
+#laden_button_startnummer:hover
+{
+	color: rgb(9,51,121);
+	background: rgb(255,255,51);
+	
 }

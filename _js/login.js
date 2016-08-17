@@ -33,3 +33,8 @@ function colorEmptyField2()
 		document.getElementById("login_form_password").style.borderColor = "";
 	}
 }
+
+function setFocus()
+{
+	document.getElementById("login_form_username").focus();
+}

@@ -75,8 +75,8 @@
 						
 					echo "<form id='form_verwaltung' action='kategorie_bearbeiten.php' method='POST'>";
 					echo "					<input  id='category_id' type='hidden' name='category_id' value='".$row['category_id']."'/></br>";
-					echo "Bezeichnung:*		<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['category_name']."' onblur='colorEmptyField1();' onchange='enableSubmitButton();'/></br>";
-					echo "Streckenlänge:*	<input id='streckenlaenge' type='text' name='streckenlaenge' value='".$row['track_length']."' onblur='colorEmptyField2();' onchange='enableSubmitButton();'/></br>";
+					echo "Bezeichnung:*		<input  id='bezeichnung' type='text' name='bezeichnung' value='".$row['category_name']."' onblur='colorEmptyField1();' onkeyup='enableSubmitButton();'/></br>";
+					echo "Streckenlänge:*	<input id='streckenlaenge' type='text' name='streckenlaenge' value='".$row['track_length']."' onblur='colorEmptyField2();' onkeyup='enableSubmitButton();'/></br>";
 					echo "Jahrgang-Start:	<input id='jahrgang_start' type='text' name='jahrgang_start' value='".$row['year_of_birth_start']."'/></br>";
 					echo "Jahrgang-Ende:	<input id='jahrgang_ende' type='text' name='jahrgang_ende' value='".$row['year_of_birth_end']."'/></br></br>";
 					

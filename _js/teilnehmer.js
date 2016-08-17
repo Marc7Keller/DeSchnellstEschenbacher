@@ -12,7 +12,7 @@ function enableLoadButton()
 
 function enableSubmitButton()
 {
-	if(document.getElementsByName("gebdatum")[0].value == "" || document.getElementsByName("ort")[0].value == "")
+	if(document.getElementsByName("gebjahr")[0].value == "" || document.getElementsByName("ort")[0].value == "")
 	{
 		document.getElementById("speichern_button").disabled = true;
 	}
@@ -31,6 +31,30 @@ function enableSubmitButtonEdit()
 	else
 	{
 		document.getElementById("speichern_button").disabled = false;
+	}
+}
+
+function enableLoadButtonNameSearch()
+{
+	if(document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value == "" || document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value == "")
+	{
+		document.getElementById("laden_button_name").disabled = true;
+	}
+	else
+	{
+		document.getElementById("laden_button_name").disabled = false;
+	}
+}
+
+function enableLoadButtonStartnumberSearch()
+{
+	if(document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value == "")
+	{
+		document.getElementById("laden_button_startnummer").disabled = true;
+	}
+	else
+	{
+		document.getElementById("laden_button_startnummer").disabled = false;
 	}
 }
 
@@ -60,13 +84,13 @@ function colorEmptyField2()
 
 function colorEmptyField3()
 {
-	if(document.getElementsByName("gebdatum")[0].value == "")
+	if(document.getElementsByName("gebjahr")[0].value == "")
 	{
-		document.getElementById("gebdatum").style.borderColor = "red";
+		document.getElementById("gebjahr").style.borderColor = "red";
 	}
 	else
 	{
-		document.getElementById("gebdatum").style.borderColor = "";
+		document.getElementById("gebjahr").style.borderColor = "";
 	}
 }
 
@@ -120,18 +144,75 @@ function colorEmptyField7()
 
 function colorEmptyField8()
 {
-	if(document.getElementsByName("gebdatum")[0].value == "")
+	if(document.getElementsByName("gebjahr")[0].value == "")
 	{
-		document.getElementById("gebdatum2").style.borderColor = "red";
+		document.getElementById("gebjahr2").style.borderColor = "red";
 	}
 	else
 	{
-		document.getElementById("gebdatum2").style.borderColor = "";
+		document.getElementById("gebjahr2").style.borderColor = "";
 	}
 }
 
+function colorEmptyField9()
+{
+	if(document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value == "")
+	{
+		document.getElementById("nachname_teilnehmeransicht_suche").style.borderColor = "red";
+	}
+	else
+	{
+		if(document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value != "")
+		{
+			document.getElementById("nachname_teilnehmeransicht_suche").style.borderColor = "";
+			document.getElementById("startnummer_teilnehmeransicht_suche").style.borderColor = "";
+		}	
+		
+	}
+}
+
+function colorEmptyField10()
+{
+	if(document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value == "")
+	{
+		document.getElementById("vorname_teilnehmeransicht_suche").style.borderColor = "red";
+	}
+	else
+	{
+		if(document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value != "")
+		{
+			document.getElementById("vorname_teilnehmeransicht_suche").style.borderColor = "";
+			document.getElementById("startnummer_teilnehmeransicht_suche").style.borderColor = "";
+		}
+	}
+}
+
+function colorEmptyField11()
+{
+	if(document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value == "")
+	{
+		document.getElementById("startnummer_teilnehmeransicht_suche").style.borderColor = "red";
+	}
+	else
+	{
+		if(document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value != "")
+		{
+			document.getElementById("startnummer_teilnehmeransicht_suche").style.borderColor = "";
+			document.getElementById("vorname_teilnehmeransicht_suche").style.borderColor = "";
+			document.getElementById("nachname_teilnehmeransicht_suche").style.borderColor = "";
+		}
+		
+	}
+}
 
 function setFocus()
 {
-	document.getElementById("nachname").focus();
+	if(document.getElementsByName("nachname")[0].value == "" && document.getElementsByName("vorname")[0].value == "")
+	{
+		document.getElementById("nachname").focus();
+	}
+	else
+	{
+		document.getElementById("gebjahr").focus();
+	}
 }

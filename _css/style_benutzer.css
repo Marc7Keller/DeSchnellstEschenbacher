@@ -16,6 +16,12 @@
 	margin-left: 29px;
 }
 
+#benutzerrolle
+{
+	width: 255px;
+	margin-left: 90px;
+}
+
 #benutzer
 {
 	width: 255px;
@@ -27,3 +33,5 @@
 	width: 95%;
 	margin: 0 auto;
 }
+
+

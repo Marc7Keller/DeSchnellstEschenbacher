@@ -5,6 +5,7 @@
 <?php
 	if(isset($_GET['logout_button']))
 	{
-		$_SESSION['username']="";
+		$_SESSION['usertype']="";
+		session_destroy();
 	}
 ?>
