@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
 	<title>Administration - Teilnehmeransicht</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_teilnehmer.css" type="text/css">
@@ -13,83 +12,6 @@
         include 'php/config.php';
 		include 'includes/sessions.php';
     ?>
- 
-	<?php
-		if(isset($_GET['laden_button_name_teilnehmeransicht']))
-		{
-			$vorname =$_GET['vorname_teilnehmeransicht_suche'];
-			$nachname =$_GET['nachname_teilnehmeransicht_suche'];
-
-			$sql = "SELECT * FROM participants INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and person.firstname= '".$vorname."' && event.event_id= '".$_SESSION['event']."';";
-    
-			$res = mysqli_query($db,$sql);
-    
-			if (!$res) 
-			{
-				printf("Error: %s\n", mysqli_error($db));
-				exit();
-			}
-    
-			$count = mysqli_num_rows ($res);
-    
-			if ($count =0)
-			{
-				echo '<script type="text/javascript">alert("Test");</script>';
-			}
-			else
-			{
-				while($row = mysqli_fetch_array($res))
-				{
-					$vorname = $row['firstname'];
-					$nachname = $row['name'];
-					$gebjahr = $row['year_of_birth'];
-					$strasse = $row['street'];
-					$plz = $row['plz'];
-					$ort = $row['place'];
-					$klasse = $row['class_name'];
-					$kategorie = $row['category_name'];
-					$startnummer = $row['start_number'];
-				}          
-			}
-		}
-		
-		if(isset($_GET['laden_button_startnummer_teilnehmeransicht']))
-		{
-			$startnummer = $_GET['startnummer_teilnehmeransicht_suche'];
-			
-			$sql = "SELECT * FROM participants INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE start_number = '".$startnummer."' && event.event_id= '".$_SESSION['event']."';";
-			
-			$res = mysqli_query($db,$sql);
-    
-			if (!$res) 
-			{
-				printf("Error: %s\n", mysqli_error($db));
-				exit();
-			}
-    
-			$count = mysqli_num_rows ($res);
-    
-			if ($count =0)
-			{
-				echo '<script type="text/javascript">alert("Test");</script>';
-			}
-			else
-			{
-				while($row = mysqli_fetch_array($res))
-				{
-					$vorname = $row['firstname'];
-					$nachname = $row['name'];
-					$gebjahr = $row['year_of_birth'];
-					$strasse = $row['street'];
-					$plz = $row['plz'];
-					$ort = $row['place'];
-					$klasse = $row['class_name'];
-					$kategorie = $row['category_name'];
-					$startnummer = $row['start_number'];
-				}          
-			}
-		}
-?>
    
 </head>
 
@@ -117,7 +39,7 @@
 				Nachname:*		<input  class="form_cells" type="text" id="nachname_teilnehmeransicht_suche" name="nachname_teilnehmeransicht_suche" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>"  onblur="colorEmptyField9();" onkeyup="enableLoadButtonNameSearch();"/></br>
 				Vorname:*		<input class="form_cells" type="text" id="vorname_teilnehmeransicht_suche" name="vorname_teilnehmeransicht_suche" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" onblur="colorEmptyField10();" onkeyup="enableLoadButtonNameSearch();"/></br></br>
     
-				<input id="laden_button_name" type="submit" name="laden_button_name_teilnehmeransicht" value="Nach nach Name suchen" disabled/>
+				<input id="laden_button_name" type="submit" name="laden_button_name_teilnehmeransicht" value="Nach Name suchen" disabled/>
     
 			</form>
 			
@@ -128,29 +50,141 @@
 				<input id="laden_button_startnummer" type="submit" name="laden_button_startnummer_teilnehmeransicht" value="Nach Startnummer suchen" diabled/></br></br>
     
 			</form>
-
-			<form id="form_verwaltung" action="" method="POST">
 	
-				<?php
-					if(isset($_GET['laden_button_name_teilnehmeransicht']) || isset($_GET['laden_button_startnummer_teilnehmeransicht']))
-					{
-				?>
-				Vorname:		<input disabled id="vorname_teilnehmeransicht" class="form_cells" type="text" name="vorname_teilnehmeransicht" value="<?php echo $vorname;?>" /></br>
-				Nachname:		<input disabled id="nachname_teilnehmeransicht" class="form_cells" type="text" name="nachname_teilnehmeransicht" value="<?php echo $nachname;?>" /></br></br>
-				Geburtsjahr:	<input disabled id="gebjahr_teilnehmeransicht" class="form_cells" type="text" name="gebjahr_teilnehmeransicht" value="<?php echo $gebjahr;?>"/></br>
-				Strasse:		<input disabled id="strasse_teilnehmeransicht" class="form_cells" type="text" name="strasse_teilnehmeransicht" value="<?php echo $strasse;?>"/></br>
-				PLZ:			<input disabled id="plz_teilnehmeransicht" class="form_cells" type="text" name="plz_teilnehmeransicht" value="<?php echo $plz;?>"/></br>
-				Ort:			<input disabled id="ort_teilnehmeransicht" class="form_cells" type="text" name="ort_teilnehmeransicht" value="<?php echo $ort;?>"/></br></br>
-				Klasse:			<input disabled id="klasse_teilnehmeransicht" class="form_cells" type="text" name="klasse_teilnehmeransicht" value="<?php echo $klasse;?>"/></br> 
-				Kategorie:		<input disabled id="kategorie_teilnehmeransicht" class="form_cells" type="text" name="kategorie_teilnehmeransicht" value="<?php echo $kategorie;?>"/></br></br>
-				Startnummer:	<input disabled id="startnummer_teilnehmeransicht" class="form_cells" type="text" name="startnummer_teilnehmeransicht" value="<?php echo $startnummer;?>"/></br>
-    
-				</br></br>
+			<?php
+				if(isset($_GET['laden_button_name_teilnehmeransicht']) || isset($_GET['laden_button_startnummer_teilnehmeransicht']))
+				{
+			?>
 			
-			</form>
+			<?php
+			
+				if(isset($_GET['laden_button_name_teilnehmeransicht']))
+				{
+					$vorname =$_GET['vorname_teilnehmeransicht_suche'];
+					$nachname =$_GET['nachname_teilnehmeransicht_suche'];
+
+					$sql = "SELECT * FROM participants INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and person.firstname= '".$vorname."' && event.event_id= '".$_SESSION['event']."';";
+    
+					$res = mysqli_query($db,$sql);
+    
+					if (!$res) 
+					{
+						printf("Error: %s\n", mysqli_error($db));
+						exit();
+					}
+					
+					echo "</br></br>";
+					
+					if(mysqli_num_rows($res) >= 1)
+					{	 
+						echo '<table border="1" id="teilnehmeransicht_tabelle">'; 
+						echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th></tr>"; 
+					
+						while($row = mysqli_fetch_array($res))
+						{
+							echo '<form action="" method="POST">';
+							echo "<tr><td>"; 
+							echo $row['name'];
+							echo "</td><td>"; 
+							echo $row['firstname'];
+							echo "</td><td>";   
+							echo $row['year_of_birth'];
+							echo "</td><td>";    
+							echo $row['plz'];
+							echo "</td><td>";
+							echo $row['place'];
+							echo "</td><td>";
+							echo $row['street'];
+							echo "</td><td>";
+							echo $row['class_name'];
+							echo "</td><td>";
+							echo $row['category_name'];
+							echo "</td><td>";
+							echo $row['start_number'];
+							echo "</td><td>";
+							echo $row['late_registration'];
+							echo "</td></tr>";
+			?>
+							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
+			<?php
+							echo "</form>";
+						}
+					
+						echo "</table>";
+					}
+					else 
+					{
+						echo "Ihre Suche ergab keine Treffer";
+					}
+				
+				}
+			?>
+			
+			<?php
+			
+				if(isset($_GET['laden_button_startnummer_teilnehmeransicht']))
+				{
+					$startnummer = $_GET['startnummer_teilnehmeransicht_suche'];
+			
+					$sql = "SELECT * FROM participants INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE start_number = '".$startnummer."' && event.event_id= '".$_SESSION['event']."';";
+			
+					$res = mysqli_query($db,$sql);
+    
+					if (!$res) 
+					{		
+						printf("Error: %s\n", mysqli_error($db));
+						exit();
+					}
+    
+					echo "</br></br>";
+					
+					if(mysqli_num_rows($res) >= 1)
+					{	 
+						echo '<table border="1" id="teilnehmeransicht_tabelle2">'; 
+						echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th></tr>"; 
+					
+						while($row = mysqli_fetch_array($res))
+						{
+							echo '<form action="" method="POST">';
+							echo "<tr><td>"; 
+							echo $row['name'];
+							echo "</td><td>"; 
+							echo $row['firstname'];
+							echo "</td><td>";   
+							echo $row['year_of_birth'];
+							echo "</td><td>";    
+							echo $row['plz'];
+							echo "</td><td>";
+							echo $row['place'];
+							echo "</td><td>";
+							echo $row['street'];
+							echo "</td><td>";
+							echo $row['class_name'];
+							echo "</td><td>";
+							echo $row['category_name'];
+							echo "</td><td>";
+							echo $row['start_number'];
+							echo "</td><td>";
+							echo $row['late_registration'];
+							echo "</td></tr>";
+			?>
+							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
+			<?php
+							echo "</form>";
+						}
+					
+						echo "</table>";
+					}
+					else 
+					{
+						echo "Ihre Suche ergab keine Treffer";
+					}
+				
+				}
+			?>
 		
 			<?php
-					}
+				}
 			?>
 			
 		</div>

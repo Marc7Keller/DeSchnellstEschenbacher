@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
 	<title>Administration - Neue Lehrperson</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_lehrperson.css" type="text/css">

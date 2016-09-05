@@ -1,6 +1,6 @@
 <div id="event_selection">
 	
-	<form id="form_change_event" action="" method="GET">
+	<form id="form_change_event" action="" method="POST">
 		<?php
 			echo 'Event-Auswahl: <select  id="event" type="text" name="event_selection" size="1">';
 			$res_event = mysqli_query($db,"SELECT * FROM event order by event_id desc;");
@@ -25,9 +25,10 @@
 </div>
 
 <?php
-	if(isset($_GET['submit_event_selection']))
+	if(isset($_POST['event_selection']))
 	{
-		$_SESSION['event'] = $_GET['event_selection'];
+		$_SESSION['event'] = $_POST['event_selection'];
+		echo "<meta http-equiv='refresh' content='0'>";
 	}
 ?>
 

@@ -1,38 +1,27 @@
-<!DOCTYPE html>
-<html>
+<?php
 
-    <head>
-        <title>Webseite</title>
-        <link rel="stylesheet" href="_css/style.css" type="text/css">
+	session_start();
+	
+	switch($_SESSION['usertype'])
+	{
+		case '':
+			header("location: login.php");
+			break;
+		case 1:
+			header("location: neuer_teilnehmer.php"); 
+			break;
+		case 2:
+			header("location: neuer_teilnehmer.php");
+			break;
+		case 3:
+			header("location: neuer_teilnehmer.php");
+			break;
+		case 4:
+			header("location: zeiten_erfassen.php"); 
+			break;
+		case 5:
+			header("location: startliste_exportieren.php");
+			break;
+	}
 
-<?php 
-            include("php/config.php");
-            include("includes/sessions.php");
 ?>
-
-    </head>
-
-    <body>
-
-        <div id="sitediv">
-
-            <a href="index.php"><img id="scdiemberg_logo" src="_img/sportclubdiemberg_logo_klein.png"/></a>
-            <a href="index.php"><img id="deschnellsteschenbacher_logo" src="_img/deschnellsteschenbacher_logo_klein.png"/></a>
-
-            <?php
-             include 'includes/navigation.php';
-			 include 'includes/event_selection.php';
-            ?>
-            
-            <div id="content">
-
-            </div>
-
-            <div id="footer">
-            </div>
-
-
-        </div>
-    </body>
-
-</html>

@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
 	<title>Administration - Neuer Teilnehmer</title>
 	<link rel="stylesheet" href="_css/style.css" type="text/css">
 	<link rel="stylesheet" href="_css/style_teilnehmer.css" type="text/css">
@@ -221,14 +220,25 @@
 					}
             
 					echo '</select></br></br>';
+					
+					$sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event'].";";
+					$result = mysqli_query($db,$sql);
+					$num_of_participants = mysqli_num_rows($result);
+					
+					
+					$sql = "SELECT * FROM `participants` WHERE start_number = 0 AND fs_event = ".$_SESSION['event'].";";
+					$result = mysqli_query($db,$sql);
+					$count  = mysqli_num_rows($result);
+					if($count != 0)
+					{
 				?>
-
 								<input id="speichern_button" type="submit" name="speichern_button_neuer_teilnehmer" value="Speichern"/>
 			
 			</form>
 		
 			<?php
 					}
+				}
 				
 				echo "</br></br></br></br>";
 	

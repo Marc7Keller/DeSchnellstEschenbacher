@@ -55,7 +55,7 @@
                     ?>
 					
 					</br>
-                    <input id="laden_button" type="submit" name="rangliste_generieren" value="Startliste generieren" disabled/>
+                    <input id="laden_button" type="submit" name="rangliste_generieren" value="Startliste generieren" disabled/></br></br>
                 </form>
 				
             </div>
