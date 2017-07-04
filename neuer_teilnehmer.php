@@ -225,11 +225,14 @@
 					$result = mysqli_query($db,$sql);
 					$num_of_participants = mysqli_num_rows($result);
 					
+$sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event'].";";
+					$result = mysqli_query($db,$sql);
+					$count1  = mysqli_num_rows($result);
 					
 					$sql = "SELECT * FROM `participants` WHERE start_number = 0 AND fs_event = ".$_SESSION['event'].";";
 					$result = mysqli_query($db,$sql);
 					$count  = mysqli_num_rows($result);
-					if($count != 0)
+					if($count != 0 ||$count1== 0 )
 					{
 				?>
 								<input id="speichern_button" type="submit" name="speichern_button_neuer_teilnehmer" value="Speichern"/>
