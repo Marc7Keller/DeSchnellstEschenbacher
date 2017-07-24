@@ -36,7 +36,7 @@ function enableSubmitButtonEdit()
 
 function enableLoadButtonNameSearch()
 {
-	if(document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value == "" || document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value == "")
+	if(document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value == "")
 	{
 		document.getElementById("laden_button_name").disabled = true;
 	}
@@ -156,14 +156,16 @@ function colorEmptyField8()
 
 function colorEmptyField9()
 {
-	if(document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value == "")
+	if(document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value == "")
 	{
 		document.getElementById("nachname_teilnehmeransicht_suche").style.borderColor = "red";
+        document.getElementById("vorname_teilnehmeransicht_suche").style.borderColor = "red";
 	}
 	else
 	{
 		if(document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value != "")
 		{
+            document.getElementById("vorname_teilnehmeransicht_suche").style.borderColor = "";
 			document.getElementById("nachname_teilnehmeransicht_suche").style.borderColor = "";
 			document.getElementById("startnummer_teilnehmeransicht_suche").style.borderColor = "";
 		}	
@@ -173,15 +175,17 @@ function colorEmptyField9()
 
 function colorEmptyField10()
 {
-	if(document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value == "")
+	if(document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("nachname_teilnehmeransicht_suche")[0].value == "" && document.getElementsByName("startnummer_teilnehmeransicht_suche")[0].value == "")
 	{
 		document.getElementById("vorname_teilnehmeransicht_suche").style.borderColor = "red";
+        document.getElementById("nachname_teilnehmeransicht_suche").style.borderColor = "red";
 	}
 	else
 	{
 		if(document.getElementsByName("vorname_teilnehmeransicht_suche")[0].value != "")
 		{
 			document.getElementById("vorname_teilnehmeransicht_suche").style.borderColor = "";
+            document.getElementById("nachname_teilnehmeransicht_suche").style.borderColor = "";
 			document.getElementById("startnummer_teilnehmeransicht_suche").style.borderColor = "";
 		}
 	}

@@ -201,7 +201,7 @@
 			
 				<?php
 					echo 'Klasse:* <select  id="klasse" type="text" name="klasse" size="1">';
-					$res2 = mysqli_query($db,"SELECT * FROM class, teacher, person WHERE fs_teacher = teacher_id AND fs_person = person_id AND fs_event = ".$_SESSION['event']." ORDER BY class_name asc;");
+					$res2 = mysqli_query($db,"SELECT * FROM class, teacher, person WHERE fs_teacher = teacher_id AND fs_person = person_id AND class.fs_event = ".$_SESSION['event']." ORDER BY class_name asc;");
            
 					while($row = mysqli_fetch_array($res2))
 					{
@@ -225,7 +225,7 @@
 					$result = mysqli_query($db,$sql);
 					$num_of_participants = mysqli_num_rows($result);
 					
-$sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event'].";";
+                    $sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event'].";";
 					$result = mysqli_query($db,$sql);
 					$count1  = mysqli_num_rows($result);
 					
@@ -242,19 +242,20 @@ $sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event'].";";
 			<?php
 					}
 				}
-				
-				echo "</br></br></br></br>";
+					
+				echo "<br><br><br><br>";
 	
-				$sql = "SELECT name, firstname, year_of_birth, plz, person.place, street, late_registration, start_number, class.class_name as classbez, category.category_name as catbez FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." AND late_registration = 0 ORDER BY participant_id desc;";
+				$sql = "SELECT participants.participant_id, person.name, person.firstname, person.year_of_birth, person.plz, person.place, person.street, class.class_name as classbez, category.category_name as catbez, participants.late_registration, participants.start_number FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." and participants.deleted != 1 ORDER BY participant_id desc;";
 				$res = mysqli_query($db,$sql);
 	 
 				if(mysqli_num_rows($res) >= 1)
 				{	 
 					echo '<table border="1" id="teilnehmer_tabelle">'; 
-					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th></tr>"; 
+					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th><th>Löschen</th></tr>"; 
 					
 					while($row = mysqli_fetch_array($res))
 					{
+						echo '<form action="teilnehmer_bearbeiten.php" method="POST">';
 						echo "<tr><td>"; 
 						echo $row['name'];
 						echo "</td><td>"; 
@@ -273,7 +274,15 @@ $sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event'].";";
 						echo $row['catbez'];
 						echo "</td><td>";
 						echo $row['start_number'];
+						echo "</td><td>";
+						echo $row['late_registration'];
+						echo "</td><td>";
+						echo "<input id='loeschen_button' type='submit' value='Löschen'/>";
 						echo "</td></tr>";
+						?>
+							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
+						<?php
+						echo "</form>";
 					}
 					
 					echo "</table>";

@@ -44,7 +44,7 @@
 				Ort:*				<input id="ort_klasse" type="text" name="ort_klasse" onblur="colorEmptyField4();" onkeyup="enableSubmitButton();"/></br>
 			
 				<?php 
-					$sql = "SELECT * FROM `teacher`inner join person on (person_id = fs_person) ORDER BY name asc";
+					$sql = "SELECT * FROM `teacher`inner join person on (person_id = fs_person) where fs_event = ".$_SESSION['event']." ORDER BY name asc";
 					$res = mysqli_query($db,$sql);
 				?>
 				
@@ -65,7 +65,7 @@
 			<?php 
 				echo "<br><br><br><br>";
 			
-				$sql = "SELECT class_name, number_of_students, class.place, school, firstname, name FROM `class` inner join teacher on teacher_id = fs_teacher inner join person on person_id = fs_person WHERE fs_event = '".$_SESSION['event']."' ORDER BY class_id desc;";
+				$sql = "SELECT class_name, number_of_students, class.place, school, firstname, name FROM `class` inner join teacher on teacher_id = fs_teacher inner join person on person_id = fs_person WHERE class.fs_event = '".$_SESSION['event']."' ORDER BY class_id desc;";
 				$res = mysqli_query($db,$sql);
 				
 				if(mysqli_num_rows($res) >= 1)

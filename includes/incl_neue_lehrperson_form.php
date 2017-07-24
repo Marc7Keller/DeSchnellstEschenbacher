@@ -19,7 +19,7 @@
 					
 			$row = mysqli_fetch_array($res);
 			$id= $row['person_id'];
-			$sql = "INSERT INTO `teacher` (`fs_person`,`last_active_year`) VALUES ('".$id."','".$_POST['letztes_aktives_jahr']."');";
+			$sql = "INSERT INTO `teacher` (`fs_person`,`fs_event`) VALUES ('".$id."','".$_SESSION['event']."');";
 			$res = mysqli_query($db,$sql);
 		}
 ?>

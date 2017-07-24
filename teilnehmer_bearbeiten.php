@@ -41,7 +41,7 @@
 			<p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
 			<?php 
-				$sql = "SELECT * FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." ORDER BY name asc;";
+				$sql = "SELECT * FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." and deleted != 1 ORDER BY name asc;";
 				$res = mysqli_query($db,$sql);
 			?>
 			<label style="font-weight: bold;">Person:*</label>

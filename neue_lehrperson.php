@@ -133,8 +133,6 @@
 				Strasse:		<input id="strasse_neu" class="form_cells" type="text" name="strasse" value="<?php echo $strasse;?>"/></br>
 				PLZ:			<input id="plz_neu" class="form_cells" type="text" name="plz" value="<?php echo $plz;?>"/></br>
 				Ort:			<input id="ort_neu" class="form_cells" type="text" name="ort" value="<?php echo $ort;?>"/></br></br>
-							
-				Letztes aktives Jahr:	<input id="letztes_aktives_jahr_neu" class="form_cells" type="text" name="letztes_aktives_jahr"/></br></br>
 			
 								<input id="speichern_button"type="submit" name="speichern_button_neue_lehrperson" value="Speichern"/>
 			
@@ -146,13 +144,13 @@
 			
 				echo "<br><br><br><br>";
 			
-				$sql = "SELECT * FROM `teacher` inner join person on fs_person = person.person_id ORDER BY teacher_id desc;";
+				$sql = "SELECT * FROM `teacher` inner join person on fs_person = person.person_id where fs_event = ".$_SESSION['event']." ORDER BY teacher_id desc;";
 				$res = mysqli_query($db,$sql);
 				
 				if(mysqli_num_rows($res) >= 1)
 				{	 
 					echo '<table border="1" id="lehrperson_tabelle">'; 
-					echo "<tr><th>Name</th><th>Vorname</th><th>Letztes aktives Jahr</th></tr>"; 
+					echo "<tr><th>Name</th><th>Vorname</th></tr>"; 
 					
 					while($row = mysqli_fetch_array($res))
 					{
@@ -160,9 +158,7 @@
 						echo $row['name'];
 						echo "</td><td>"; 
 						echo $row['firstname'];
-						echo "</td><td>"; 
-						echo $row['last_active_year'];
-						echo "</td></tr>";
+						echo "</td></tr>"; 
 					}
 					
 					echo "</table>";

@@ -39,7 +39,7 @@
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 				
 				<?php 
-					$sql = "SELECT * FROM `class` WHERE fs_event = ".$_SESSION['event']." ORDER BY class_name asc;";
+					$sql = "SELECT * FROM `class` INNER JOIN `teacher` ON class.fs_teacher=teacher.teacher_id INNER JOIN `person` ON teacher.fs_person=person.person_id WHERE class.fs_event = ".$_SESSION['event']." ORDER BY class_name asc;";
 					$res = mysqli_query($db,$sql);
 				?>
 				
@@ -52,11 +52,11 @@
 							{
 								if(isset($_GET['klasse']) and $row['class_id']==$_GET['klasse'])
 								{
-									echo"<option selected = 'selected' value=".$row['class_id'].">".$row['class_name']." ".$row['firstname']."</option>";
+									echo"<option selected = 'selected' value=".$row['class_id'].">".$row['class_name']." - ".$row['firstname']." ".$row['name']."</option>";
 								}
 								else
 								{
-									echo"<option value=".$row['class_id'].">".$row['class_name']." ".$row['firstname']."</option>";
+									echo"<option value=".$row['class_id'].">".$row['class_name']." - ".$row['firstname']." ".$row['name']."</option>";
 								}
 							};
 						?>
@@ -69,7 +69,7 @@
 			<?php
 				if(isset($_GET['klasse']))
 				{
-					$sql = "SELECT class_id, class_name, fs_teacher, number_of_students, class.place, school, teacher_id, last_active_year, fs_person FROM `class`,`teacher` WHERE class_id = '".$_GET['klasse']."' AND teacher_id = fs_teacher;";
+					$sql = "SELECT class_id, class_name, fs_teacher, number_of_students, class.place, school, teacher_id, fs_person FROM `class`,`teacher` WHERE class_id = '".$_GET['klasse']."' AND teacher_id = fs_teacher;";
 					$res = mysqli_query($db,$sql);
 					$row = mysqli_fetch_array($res);
 					
@@ -113,7 +113,7 @@
 			<?php 
 				echo "<br><br><br><br>";
 			
-				$sql = "SELECT class_name, number_of_students, class.place, school, firstname, name FROM `class` inner join teacher on teacher_id = fs_teacher inner join person on person_id = fs_person WHERE fs_event = '".$_SESSION['event']."' ORDER BY class_id desc;";
+				$sql = "SELECT class_name, number_of_students, class.place, school, firstname, name FROM `class` inner join teacher on teacher_id = fs_teacher inner join person on person_id = fs_person WHERE class.fs_event = '".$_SESSION['event']."' ORDER BY class_id desc;";
 				$res = mysqli_query($db,$sql);
 				
 				if(mysqli_num_rows($res) >= 1)
