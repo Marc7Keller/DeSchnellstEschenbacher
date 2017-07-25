@@ -214,7 +214,7 @@
 			
 				<?php
 					echo 'Klasse:* <select  id="klasse" type="text" name="klasse" size="1">';
-					$res2 = mysqli_query($db,"SELECT * FROM class, teacher, person WHERE fs_teacher = teacher_id AND fs_person = person_id AND fs_event = ".$_SESSION['event']." ORDER BY class_name asc;");
+					$res2 = mysqli_query($db,"SELECT * FROM class, teacher, person WHERE fs_teacher = teacher_id AND fs_person = person_id AND class.fs_event = ".$_SESSION['event']." ORDER BY class_name asc;");
            
 					while($row = mysqli_fetch_array($res2))
 					{

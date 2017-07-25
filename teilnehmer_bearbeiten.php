@@ -94,7 +94,7 @@
 				
 				echo "Klasse:* <select  id='klasse2' type='text' name='klasse' size='1'>";
 				
-				$sql = "SELECT * FROM `class`,`teacher`,`person` WHERE fs_teacher = teacher_id AND fs_person = person_id AND fs_event = ".$_SESSION['event']." ORDER BY class_name asc;";
+				$sql = "SELECT * FROM `class`,`teacher`,`person` WHERE fs_teacher = teacher_id AND fs_person = person_id AND class.fs_event = ".$_SESSION['event']." ORDER BY class_name asc;";
 				$res2 = mysqli_query($db,$sql);
 				
 				while($row = mysqli_fetch_array($res2))

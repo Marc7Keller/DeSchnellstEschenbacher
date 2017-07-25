@@ -23,15 +23,35 @@ input:focus
 	background-color:rgb(255,255,51);
 }
 
+table
+{
+    border-collapse: collapse;
+    border: 1.5px solid black;
+    min-width: 780px;
+    max-width: 1180px;
+}
+
+table td
+{
+    border: 1.5px solid black;
+    padding: 3px;
+}
+
+table th
+{
+   padding: 3px; 
+}
+
 #sitediv
 {
-	width: 820px;
+	min-width: 820px;
+    max-width: 1250px;
 	margin: 0 auto;
+    text-align: center;
 }
 
 #scdiemberg_logo
 {
-
 	position: absolute;
 	top: 30px;
 	left: 30px;
@@ -60,13 +80,14 @@ input:focus
 	margin-bottom: 20px;
 	border-radius: 10px;
 	z-index: 1;
-	
+    text-align: left;
 }
 
 #nav
 {
-	margin-top: 120px;
+	margin-top: 145px;
 	margin-bottom: 30px;
+    display: inline-block;
 }
 
 nav ul ul 

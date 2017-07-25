@@ -65,17 +65,17 @@
                     
                     if($vorname != "" && $nachname != "")
                     {
-                       $sql = "SELECT * FROM participants INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and person.firstname= '".$vorname."' && event.event_id= '".$_SESSION['event']."';"; 
+                       $sql = "SELECT * FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and person.firstname= '".$vorname."' && event.event_id= '".$_SESSION['event']."';"; 
                     }
                     else
                     {
                         if($vorname != "")
                         {
-                            $sql = "SELECT * FROM participants INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.firstname= '".$vorname."' && event.event_id= '".$_SESSION['event']."';"; 
+                            $sql = "SELECT * FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.firstname= '".$vorname."' && event.event_id= '".$_SESSION['event']."';"; 
                         }
                         else
                         {
-                            $sql = "SELECT * FROM participants INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and event.event_id= '".$_SESSION['event']."';"; 
+                            $sql = "SELECT * FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and event.event_id= '".$_SESSION['event']."';"; 
                         }
                     }
 					
@@ -91,8 +91,8 @@
 					
 					if(mysqli_num_rows($res) >= 1)
 					{	 
-						echo '<table border="1" id="teilnehmeransicht_tabelle">'; 
-						echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th></tr>"; 
+						echo '<table border="1" id="teilnehmeransicht_tabelle2">'; 
+						echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th><th>Erste Rundenzeit</th><th>Zweite Rundenzeit</th></tr>";
 					
 						while($row = mysqli_fetch_array($res))
 						{
@@ -117,6 +117,10 @@
 							echo $row['start_number'];
 							echo "</td><td>";
 							echo $row['late_registration'];
+                            echo "</td><td>";
+                            echo $row['first_lap'];
+                            echo "</td><td>";
+                            echo $row['second_lap'];
 							echo "</td></tr>";
 			?>
 							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>

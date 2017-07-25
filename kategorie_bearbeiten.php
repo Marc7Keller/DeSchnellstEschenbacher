@@ -89,10 +89,21 @@
 					}
 					else
 					{
-						echo "Geschlecht:	<fieldset id='radiobuttons'>
+                        if($row['gender']=="Weiblich")
+                        {
+                            echo "Geschlecht:	<fieldset id='radiobuttons'>
 												<input type='radio' id='Männlich' name='Geschlecht' value='Männlich'/> Männlich</br> 
 												<input type='radio' id='Weiblich' name='Geschlecht' value='Weiblich' checked/>Weiblich</br>  
 											</fieldset></br>";
+                        }
+                        else
+                        {
+                            echo "Geschlecht:	<fieldset id='radiobuttons'>
+												<input type='radio' id='Männlich' name='Geschlecht' value='Männlich'/> Männlich</br> 
+												<input type='radio' id='Weiblich' name='Geschlecht' value='Weiblich'/>Weiblich</br>  
+											</fieldset></br>";
+                        }
+						
 					}
 					echo "<input id='speichern_button' type='submit' name='speichern_button_kategorie_bearbeiten' value='Speichern'/>";
 					echo "</form>";

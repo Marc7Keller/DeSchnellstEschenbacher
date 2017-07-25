@@ -71,7 +71,7 @@
 				if(mysqli_num_rows($res) >= 1)
 				{	 
 					echo '<table border="1" id="klasse_tabelle">'; 
-					echo "<tr><th>Bezeichnung</th><th>Anzahl Schüler</th><th>Ort</th><th>Schule</th><th>Vorname</th><th>Name</th></tr>"; 
+					echo "<tr><th>Bezeichnung</th><th>Anzahl Schüler</th><th>Ort</th><th>Schule</th><th>Lehrer</th></tr>"; 
 					
 					while($row = mysqli_fetch_array($res))
 					{
@@ -84,9 +84,7 @@
 						echo "</td><td>"; 
 						echo $row['school'];
 						echo "</td><td>"; 
-						echo $row['firstname'];
-						echo "</td><td>"; 
-						echo $row['name'];
+						echo $row['firstname']." ".$row['name'];
 						echo "</td></tr>";
 					}
 					echo "</table>";

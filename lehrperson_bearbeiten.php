@@ -39,7 +39,7 @@
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 				
 				<?php 
-					$sql = "SELECT * FROM `teacher` inner join person on fs_person = person.person_id where fs_event = ".$_SESSION['event']." ORDER BY name asc;";
+					$sql = "SELECT * FROM `teacher` left join class on class.fs_teacher = teacher_id inner join person on fs_person = person.person_id where teacher.fs_event = ".$_SESSION['event']." ORDER BY name asc;";
 					$res = mysqli_query($db,$sql);
 				?>
 			
@@ -52,11 +52,11 @@
 					{
 						if(isset($_GET['person']) and $_GET['person'] == $row['person_id'])
 						{
-							echo"<option selected = 'selected' value=".$row['person_id'].">".$row['name']." ".$row['firstname']."</option>";
+							echo"<option selected = 'selected' value=".$row['person_id'].">".$row['name']." ".$row['firstname']." - ".$row['class_name']."</option>";
 						}
 						else
 						{
-							echo"<option value=".$row['person_id'].">".$row['name']." ".$row['firstname']."</option>";
+							echo"<option value=".$row['person_id'].">".$row['name']." ".$row['firstname']." - ".$row['class_name']."</option>";
 						}
 					};
 				?>
@@ -92,13 +92,13 @@
 			<?php 
 				echo "<br><br><br><br>";
 			
-				$sql = "SELECT * FROM `teacher` inner join person on fs_person = person.person_id where fs_event = ".$_SESSION['event']." ORDER BY teacher_id desc;";
+				$sql = "SELECT * FROM `teacher` left join class on class.fs_teacher = teacher_id inner join person on fs_person = person.person_id where teacher.fs_event = ".$_SESSION['event']." ORDER BY teacher_id desc;";
 				$res = mysqli_query($db,$sql);
 				
 				if(mysqli_num_rows($res) >= 1)
 				{	 
 					echo '<table border="1" id="lehrperson_tabelle">'; 
-					echo "<tr><th>Name</th><th>Vorname</th></tr>"; 
+					echo "<tr><th>Name</th><th>Vorname</th><th>Klassenbezeichnung</th></tr>"; 
 					
 					while($row = mysqli_fetch_array($res))
 					{
@@ -106,6 +106,8 @@
 						echo $row['name'];
 						echo "</td><td>"; 
 						echo $row['firstname'];
+                        echo "</td><td>"; 
+						echo $row['class_name'];
 						echo "</td></tr>"; 
 					}
 					
