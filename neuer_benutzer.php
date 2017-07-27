@@ -99,7 +99,7 @@
 					echo "There was no matching record for the name " . $searchTerm;
 				}
 			?>
-			
+			<br><br>
 		</div>
 		
 		<div id="footer">

@@ -9,14 +9,5 @@
 			printf("Error: %s\n", mysqli_error($db));
 			exit();
 		}
-				
-		/*$sql = "UPDATE `teacher` SET `last_active_year` = '".$_POST['letztes_aktives_jahr']."' WHERE `fs_person` = '".$_POST['person_id']."';";
-		$res = mysqli_query($db,$sql);
-		
-		if (!$res) 
-		{
-			printf("Error: %s\n", mysqli_error($db));
-			exit();
-		}*/
 	}
 ?>

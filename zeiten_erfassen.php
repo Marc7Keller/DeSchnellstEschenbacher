@@ -245,7 +245,8 @@
 				} 
 				?>
             
-			</table></br>
+			</table>
+			<br><br>
 
 		</div>
 		

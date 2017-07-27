@@ -144,7 +144,7 @@
 				}
 			
 			?>
-		
+		    <br><br>
 		</div>
 		
 		<div id="footer">

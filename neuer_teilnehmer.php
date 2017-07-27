@@ -251,7 +251,7 @@
 				if(mysqli_num_rows($res) >= 1)
 				{	 
 					echo '<table border="1" id="teilnehmer_tabelle">'; 
-					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th><th>Löschen</th></tr>"; 
+					echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th></tr>"; 
 					
 					while($row = mysqli_fetch_array($res))
 					{
@@ -276,8 +276,6 @@
 						echo $row['start_number'];
 						echo "</td><td>";
 						echo $row['late_registration'];
-						echo "</td><td>";
-						echo "<input id='loeschen_button' type='submit' value='Löschen'/>";
 						echo "</td></tr>";
 						?>
 							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
@@ -293,7 +291,7 @@
 				}
 				
 			?>
-			
+			<br><br>    
 		</div>
 		
 		<div id="footer">

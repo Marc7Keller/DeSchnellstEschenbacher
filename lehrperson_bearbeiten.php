@@ -81,7 +81,6 @@
 					echo "Strasse:				<input id='strasse' class='form_cells' type='text' name='strasse' value='".$row['street']."'/></br>";
 					echo "PLZ:					<input id='plz' class='form_cells' type='text' name='plz' value='".$row['plz']."'/></br>";
 					echo "Ort:					<input id='ort' class='form_cells' type='text' name='ort' value='".$row['place']."' /></br></br>";
-					echo "Letztes aktives Jahr:	<input id='letztes_aktives_jahr' class='form_cells' type='text' name='letztes_aktives_jahr' value='".$row['last_active_year']."'/></br></br>";
 					
 					echo "<input id='speichern_button' type='submit' name='speichern_button_lehrperson_bearbeiten' value='Speichern'/>";
 					echo "</form>";
@@ -119,7 +118,7 @@
 				}
 			
 			?>
-		
+		    <br><br>
 		</div>
 		
 		<div id="footer">
