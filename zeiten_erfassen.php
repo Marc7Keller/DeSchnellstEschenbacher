@@ -40,14 +40,21 @@
 				
 				if(isset($_POST["num"]))
 				{
-					$sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event']." order by fs_category;";
-					$result = mysqli_query($db,$sql);
 					$startnr = 0;
-					while($row = mysqli_fetch_array($result))
+					
+					$sql = "SELECT * FROM category WHERE fs_event = ".$_SESSION['event'].";";
+					$result1 = mysqli_query($db,$sql);
+					while($row1 = mysqli_fetch_array($result1))
 					{
-						$startnr = $startnr + 1;
-						$sql = "UPDATE `participants` SET `start_number` = '".$startnr."' WHERE `participants`.`participant_id` = ".$row['participant_id']." AND fs_event = ".$_SESSION['event'].";";
-						$res = mysqli_query($db,$sql);
+						$sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event']." AND fs_category = ".$row1['category_id']." ORDER BY RAND();";
+						$result = mysqli_query($db,$sql);
+
+						while($row = mysqli_fetch_array($result))
+						{
+							$startnr = $startnr + 1;
+							$sql = "UPDATE `participants` SET `start_number` = '".$startnr."' WHERE `participants`.`participant_id` = ".$row['participant_id']." AND fs_event = ".$_SESSION['event'].";";
+							$res = mysqli_query($db,$sql);
+						}	
 					}
 				}
 				
