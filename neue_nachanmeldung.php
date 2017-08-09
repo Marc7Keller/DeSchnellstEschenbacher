@@ -98,6 +98,7 @@
 			$anlass = $_SESSION['event'];
 			$kategorie = $_POST['kategorie'];
 			$klasse = $_POST['klasse'];
+			$num = $_POST['start_number'];
     
 			if($id='')
 			{         
@@ -138,27 +139,30 @@
 				$id= $row['person_id'];       
 			}
    
-			$sql = "SELECT MAX(start_number) FROM participants WHERE fs_event = ".$_SESSION['event'].";";
+			$sql = "SELECT * from participants WHERE participants.fs_event = ".$_SESSION['event']." AND participants.start_number = ".$num.";";
+			$res36 = mysqli_query($db,$sql);
 			
-			$res = mysqli_query($db,$sql);
-			if (!$res) 
+			if (!$res36) 
 			{    
 				printf("Error: %s\n", mysqli_error($db));    
-				exit(); 
+				exit();    
 			}
 			
-			$row = mysqli_fetch_array($res);
-			$num = $row['MAX(start_number)'];
-			
-			$num = $num + 1;
-			
-			$sql = "INSERT INTO participants (fs_person, fs_class, fs_category, fs_event, start_number, late_registration) VALUES (".$id.",".$klasse.",".$kategorie.",".$anlass.",".$num.",1);";
-			$res = mysqli_query($db,$sql); 
-		
-			if (!$res) 
+			$cnt = mysqli_num_rows($res36);
+			if($cnt != 0)
 			{
-				printf("Error: %s\n", mysqli_error($db));
-				exit();
+				//handle case here
+			}
+			else
+			{			
+				$sql = "INSERT INTO participants (fs_person, fs_class, fs_category, fs_event, start_number, late_registration) VALUES (".$id.",".$klasse.",".$kategorie.",".$anlass.",".$num.",1);";
+				$res = mysqli_query($db,$sql); 
+			
+				if (!$res) 
+				{
+					printf("Error: %s\n", mysqli_error($db));
+					exit();
+				}
 			}
 		}
 	?>
@@ -188,8 +192,8 @@
 			
 				</br><p style="font-size: 11px;">Felder mit * markiert sind Pflichtfelder</p></br>
 			
-				Nachname:*		<input  class="form_cells" type="text" id="nachname" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>" onblur="colorEmptyField1();" onkeyup="enableLoadButton();"/></br>
-				Vorname:*		<input id="vorname" class="form_cells" type="text" id="vorname" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" onblur="colorEmptyField2();" onkeyup="enableLoadButton();"/></br></br>
+				Nachname:*		<input  class="form_cells" type="text" id="nachname" name="nachname" value="<?php if(isset($_GET['nachname']) || $cnt != 0){echo $nachname;}?>" onblur="colorEmptyField1();" onkeyup="enableLoadButton();"/></br>
+				Vorname:*		<input id="vorname" class="form_cells" type="text" id="vorname" name="vorname" value="<?php if(isset($_GET['vorname'])|| $cnt != 0){echo $vorname;}?>" onblur="colorEmptyField2();" onkeyup="enableLoadButton();"/></br></br>
     
 								<input id="laden_button" type="submit" name="laden_button_neuer_teilnehmer" value="Laden" disabled/>
     
@@ -197,13 +201,37 @@
 
 			<form id="form_verwaltung" action="neue_nachanmeldung.php" method="POST">
 			
-				<?php
-					if(isset($_GET['vorname']) && isset($_GET['nachname']))
-					{
+				<?php					
+					$sql = "SELECT MAX(start_number) FROM participants WHERE fs_event = ".$_SESSION['event'].";";
+			
+					$res = mysqli_query($db,$sql);
+					if (!$res) 
+					{    
+						printf("Error: %s\n", mysqli_error($db));    
+						exit(); 
+					}
+					
+					$row = mysqli_fetch_array($res);
+					$num = $row['MAX(start_number)'];
+					
+					$num = $num + 1;
+					
+					if((isset($_GET['vorname']) && isset($_GET['nachname']))|| $cnt != 0)
+						{
 				?>
 								<input  class="form_cells" type="hidden" name="id" value="<?php echo $id;?>" /></br>
-								<input  class="form_cells" type="hidden" name="vorname" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>" />
-								<input  class="form_cells" type="hidden" name="nachname" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>" />
+								<input  class="form_cells" type="hidden" name="vorname" value="<?php if(isset($_GET['vorname'])|| $cnt != 0){echo $vorname;}?>" />
+								<input  class="form_cells" type="hidden" name="nachname" value="<?php if(isset($_GET['nachname'])|| $cnt != 0){echo $nachname;}?>" />
+								
+				Startnummer:* 	<input id="start_number" class="form_cells" type="text" name="start_number" value="<?php echo $num;?>" onblur="colorEmptyField12();" onkeyup="enableSubmitButton();" /></br>
+				
+				<?php 
+					if($cnt != 0)
+					{
+						echo "Startnummer bereits vergeben </br></br>";
+					}
+				?>
+				
 				Geburtsjahr:*	<input id="gebjahr" class="form_cells" type="text" name="gebjahr" value="<?php echo $gebdatum;?>" onblur="colorEmptyField3();" onkeyup="enableSubmitButton();"/></br>
 				Strasse:		<input id="strasse" class="form_cells" type="text" name="strasse" value="<?php echo $strasse;?>"/></br>
 				PLZ:			<input id="plz" class="form_cells" type="text" name="plz" value="<?php echo $plz;?>"/></br>
@@ -244,7 +272,7 @@
 					}
 				
 				echo "</br></br></br></br>";
-	
+				
 				$sql = "SELECT name, firstname, year_of_birth, plz, person.place, street, category.category_name as catbez, late_registration, start_number FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category  WHERE participants.fs_event = ".$_SESSION['event']." AND late_registration = 1 ORDER BY participant_id desc;";
 				
 				$res = mysqli_query($db,$sql);
