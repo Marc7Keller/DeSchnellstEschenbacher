@@ -92,7 +92,7 @@
 					if(mysqli_num_rows($res) >= 1)
 					{	 
 						echo '<table border="1" id="teilnehmeransicht_tabelle2">'; 
-						echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th><th>Erste Rundenzeit</th><th>Zweite Rundenzeit</th></tr>";
+						echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th><th>Erste Rundenzeit</th><th>Zweite Rundenzeit</th><th>Rang in Kategorie</th></tr>";
 					
 						while($row = mysqli_fetch_array($res))
 						{
@@ -121,6 +121,30 @@
                             echo $row['first_lap'];
                             echo "</td><td>";
                             echo $row['second_lap'];
+                            echo "</td><td>";
+                            
+                            $sql2 = "SELECT * FROM laptimes INNER JOIN participants ON laptimes.fs_participant = participants.participant_id INNER JOIN category ON participants.fs_category = category.category_id WHERE category.fs_event = '".$_SESSION['event']."' AND participants.fs_event = '".$_SESSION['event']."' AND category.category_id = '".$row['fs_category']."' AND deleted != 1 ORDER BY laptimes.first_lap asc";
+                            
+                            $res2 = mysqli_query($db,$sql2);
+                        
+                            if(mysqli_num_rows($res2) >= 1)
+                            {
+                                $zaehler = 1;
+                        
+                                while($row2 = mysqli_fetch_array($res2))
+                                {
+                                    if($row2['fs_participant'] == $row['participant_id'])
+                                    {
+                                        echo $zaehler; 
+                                        break;
+                                    }
+                                    else
+                                    {
+                                       $zaehler++; 
+                                    }
+                                } 
+                            }
+                            
 							echo "</td></tr>";
 			?>
 							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
@@ -159,8 +183,8 @@
 					if(mysqli_num_rows($res) >= 1)
 					{	 
 						echo '<table border="1" id="teilnehmeransicht_tabelle2">'; 
-						echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th><th>Erste Rundenzeit</th><th>Zweite Rundenzeit</th></tr>"; 
-					
+						echo "<tr><th>Name</th><th>Vorname</th><th>Geburtsjahr</th><th>PLZ</th><th>Ort</th><th>Strasse</th><th>Klasse</th><th>Kategorie</th><th>Startnummer</th><th>Nachanmeldung</th><th>Erste Rundenzeit</th><th>Zweite Rundenzeit</th><th>Rang in Kategorie</th></tr>"; 
+                            
 						while($row = mysqli_fetch_array($res))
 						{
 							echo '<form action="" method="POST">';
@@ -188,6 +212,30 @@
                             echo $row['first_lap'];
                             echo "</td><td>";
                             echo $row['second_lap'];
+                            echo "</td><td>";
+                            
+                            $sql2 = "SELECT * FROM laptimes INNER JOIN participants ON laptimes.fs_participant = participants.participant_id INNER JOIN category ON participants.fs_category = category.category_id WHERE category.fs_event = '".$_SESSION['event']."' AND participants.fs_event = '".$_SESSION['event']."' AND category.category_id = '".$row['fs_category']."' AND deleted != 1 ORDER BY laptimes.first_lap asc";
+                            
+                            $res2 = mysqli_query($db,$sql2);
+                        
+                            if(mysqli_num_rows($res2) >= 1)
+                            {
+                                $zaehler = 1;
+                        
+                                while($row2 = mysqli_fetch_array($res2))
+                                {
+                                    if($row2['fs_participant'] == $row['participant_id'])
+                                    {
+                                        echo $zaehler; 
+                                        break;
+                                    }
+                                    else
+                                    {
+                                       $zaehler++; 
+                                    }
+                                } 
+                            }
+                            
 							echo "</td></tr>";
 			?>
 							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
