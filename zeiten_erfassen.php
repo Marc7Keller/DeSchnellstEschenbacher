@@ -157,12 +157,28 @@
 					</form>
 		
 			<br>
-		
+			<br>
+			<br>
+			
+				<form action="zeiten_erfassen.php" method="POST">
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Startnummer:	<input id="start_number" class="form_cells" type="text" name="start_number" /></br></br>
+    
+					<input id="speichern_button" type="submit" name="speichern_button" value="Nach Startnummer suchen"/></br></br>
+				</form>
+			
+			
+			<br>
+			<br>
+			
 			<?php
 		
 				if(isset($_POST['kategorie']))
 				{
 					$sql = "SELECT * FROM `participants` INNER JOIN `person` on (`fs_person` = `person_id`) LEFT JOIN `laptimes` on (`fs_participant` = `participant_id`) WHERE fs_event = ".$_SESSION['event']." and fs_category = ".$_POST['kategorie']." and deleted = 0 ORDER BY start_number asc;";
+				}
+				else if(isset($_POST['start_number']))
+				{
+					$sql = "SELECT * FROM `participants` INNER JOIN `person` on (`fs_person` = `person_id`) LEFT JOIN `laptimes` on (`fs_participant` = `participant_id`) WHERE fs_event = ".$_SESSION['event']." and deleted = 0 and start_number = ".$_POST['start_number']." ORDER BY start_number asc;";
 				}
 				else
 				{
