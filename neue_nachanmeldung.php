@@ -223,7 +223,7 @@
 								<input  class="form_cells" type="hidden" name="vorname" value="<?php if(isset($_GET['vorname'])|| $cnt != 0){echo $vorname;}?>" />
 								<input  class="form_cells" type="hidden" name="nachname" value="<?php if(isset($_GET['nachname'])|| $cnt != 0){echo $nachname;}?>" />
 								
-				Startnummer:* 	<input id="start_number" class="form_cells" type="text" name="start_number" value="<?php echo $num;?>" onblur="colorEmptyField12();" onkeyup="enableSubmitButton();" /></br>
+				Startnummer:* <input id="start_number" class="form_cells" type="text" name="start_number" value="<?php echo $num;?>" onblur="colorEmptyField12();" onkeyup="enableSubmitButton();" /></br>
 				
 				<?php 
 					if($cnt != 0)
