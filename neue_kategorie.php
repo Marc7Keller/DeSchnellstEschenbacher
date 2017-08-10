@@ -43,7 +43,8 @@
 				Geschlecht:			<fieldset id="radiobuttons">
 										<input type="radio" id="Männlich" name="Geschlecht" value="Männlich"> Männlich</br> 
 										<input type="radio" id="Weiblich" name="Geschlecht" value="Weiblich"> Weiblich</br>  
-									</fieldset></br></br>
+									</fieldset></br>
+				Plausch:			<input type="checkbox" name="plausch"/></br></br>
 									<input id="speichern_button" type="submit" name="speichern_button_neue_kategorie" value="Speichern" disabled/>
 			</form>
 		
@@ -55,7 +56,7 @@
 				if(mysqli_num_rows($res) >= 1)
 				{	 
 					echo '<table border="1" id="kategorie_tabelle">'; 
-					echo "<tr><th>ID</th><th>Bezeichnung</th><th>Streckenlänge</th><th>Jahrgang-Start</th><th>Jahrgang-Ende</th><th>Geschlecht</th></tr>"; 
+					echo "<tr><th>ID</th><th>Bezeichnung</th><th>Streckenlänge</th><th>Jahrgang-Start</th><th>Jahrgang-Ende</th><th>Geschlecht</th><th>Plausch</th></tr>"; 
 					
 					while($row = mysqli_fetch_array($res))
 					{
@@ -71,6 +72,8 @@
 						echo $row['year_of_birth_end'];
 						echo "</td><td>"; 
 						echo $row['gender'];
+						echo "</td><td>";
+						echo $row['Plausch'];
 						echo "</td></tr>";
 					}
 					echo "</table>";
