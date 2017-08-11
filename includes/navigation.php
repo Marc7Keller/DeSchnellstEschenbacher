@@ -92,6 +92,18 @@
 					</ul>
 					<?php
 					}
+                    else if($_SESSION['usertype']==5)
+                    {
+                       ?>
+                        <ul>
+                            <li><a href="#">Teilnehmerverwaltung</a>
+							<ul>
+								<li><a href="teilnehmeransicht.php">Teilnehmeransicht</a></li>
+							</ul>
+						</li>
+                        </ul>
+                       <?php
+                    }
 					?>
 				</li>
 				

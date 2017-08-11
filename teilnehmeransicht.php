@@ -10,7 +10,7 @@
     <?php 
 		error_reporting(0);
         include 'php/config.php';
-		include 'includes/sessions.php';
+		include 'includes/sessions5.php';
     ?>
    
 </head>
@@ -123,7 +123,7 @@
                             echo $row['second_lap'];
                             echo "</td><td>";
                             
-                            $sql2 = "SELECT * FROM laptimes INNER JOIN participants ON laptimes.fs_participant = participants.participant_id INNER JOIN category ON participants.fs_category = category.category_id WHERE category.fs_event = '".$_SESSION['event']."' AND participants.fs_event = '".$_SESSION['event']."' AND category.category_id = '".$row['fs_category']."' AND deleted != 1 ORDER BY laptimes.first_lap asc";
+                            $sql2 = "SELECT * FROM laptimes INNER JOIN participants ON laptimes.fs_participant = participants.participant_id INNER JOIN category ON participants.fs_category = category.category_id WHERE category.fs_event = '".$_SESSION['event']."' AND participants.fs_event = '".$_SESSION['event']."' AND category.category_id = '".$row['fs_category']."' AND deleted != 1 AND first_lap != 0 ORDER BY laptimes.first_lap asc";
                             
                             $res2 = mysqli_query($db,$sql2);
                         
@@ -135,8 +135,35 @@
                                 {
                                     if($row2['fs_participant'] == $row['participant_id'])
                                     {
-                                        echo $zaehler; 
-                                        break;
+                                        if($zaehler <= 3)
+                                        {
+                                          $sql3 = "SELECT * FROM laptimes INNER JOIN participants ON laptimes.fs_participant = participants.participant_id INNER JOIN category ON participants.fs_category = category.category_id WHERE category.fs_event = '".$_SESSION['event']."' AND participants.fs_event = '".$_SESSION['event']."' AND category.category_id = '".$row['fs_category']."' AND deleted != 1 AND first_lap != 0 AND second_lap != 0 ORDER BY laptimes.second_lap asc";  
+                                          
+                                          $res3 = mysqli_query($db,$sql3);
+                                          
+                                          if(mysqli_num_rows($res3) >= 1)
+                                          {
+                                              $zaehler2 = 1;
+                                              
+                                              while($row3 = mysqli_fetch_array($res3))
+                                              {
+                                                  if($row3['fs_participant'] == $row['participant_id'])
+                                                  {
+                                                      echo $zaehler2; 
+                                                      break; 
+                                                  }
+                                                  else
+                                                  {
+                                                     $zaehler2++; 
+                                                  }
+                                              }
+                                          }
+                                        }
+                                        else
+                                        {
+                                            echo $zaehler; 
+                                            break; 
+                                        }
                                     }
                                     else
                                     {
@@ -214,7 +241,7 @@
                             echo $row['second_lap'];
                             echo "</td><td>";
                             
-                            $sql2 = "SELECT * FROM laptimes INNER JOIN participants ON laptimes.fs_participant = participants.participant_id INNER JOIN category ON participants.fs_category = category.category_id WHERE category.fs_event = '".$_SESSION['event']."' AND participants.fs_event = '".$_SESSION['event']."' AND category.category_id = '".$row['fs_category']."' AND deleted != 1 ORDER BY laptimes.first_lap asc";
+                            $sql2 = "SELECT * FROM laptimes INNER JOIN participants ON laptimes.fs_participant = participants.participant_id INNER JOIN category ON participants.fs_category = category.category_id WHERE category.fs_event = '".$_SESSION['event']."' AND participants.fs_event = '".$_SESSION['event']."' AND category.category_id = '".$row['fs_category']."' AND deleted != 1 first_lap != 0 ORDER BY laptimes.first_lap asc";
                             
                             $res2 = mysqli_query($db,$sql2);
                         
@@ -226,8 +253,35 @@
                                 {
                                     if($row2['fs_participant'] == $row['participant_id'])
                                     {
-                                        echo $zaehler; 
-                                        break;
+                                        if($zaehler <= 3)
+                                        {
+                                          $sql3 = "SELECT * FROM laptimes INNER JOIN participants ON laptimes.fs_participant = participants.participant_id INNER JOIN category ON participants.fs_category = category.category_id WHERE category.fs_event = '".$_SESSION['event']."' AND participants.fs_event = '".$_SESSION['event']."' AND category.category_id = '".$row['fs_category']."' AND deleted != 1 AND first_lap != 0 AND second_lap != 0 ORDER BY laptimes.second_lap asc";  
+                                          
+                                          $res3 = mysqli_query($db,$sql3);
+                                          
+                                          if(mysqli_num_rows($res3) >= 1)
+                                          {
+                                              $zaehler2 = 1;
+                                              
+                                              while($row3 = mysqli_fetch_array($res3))
+                                              {
+                                                  if($row3['fs_participant'] == $row['participant_id'])
+                                                  {
+                                                      echo $zaehler2; 
+                                                      break; 
+                                                  }
+                                                  else
+                                                  {
+                                                     $zaehler2++; 
+                                                  }
+                                              }
+                                          }
+                                        }
+                                        else
+                                        {
+                                            echo $zaehler; 
+                                            break; 
+                                        }
                                     }
                                     else
                                     {
