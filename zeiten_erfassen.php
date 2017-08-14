@@ -46,7 +46,8 @@
 					$result1 = mysqli_query($db,$sql);
 					while($row1 = mysqli_fetch_array($result1))
 					{
-						$sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event']." AND fs_category = ".$row1['category_id']." ORDER BY RAND();";
+						$sql = "SELECT * FROM `participants` inner join person on fs_person = person_id WHERE fs_event = ".$_SESSION['event']." AND fs_category = ".$row1['category_id']." ORDER BY year_of_birth, RAND()";
+						//$sql = "SELECT * FROM `participants` WHERE fs_event = ".$_SESSION['event']." AND fs_category = ".$row1['category_id']." ORDER BY RAND();";
 						$result = mysqli_query($db,$sql);
 
 						while($row = mysqli_fetch_array($result))
@@ -72,7 +73,6 @@
 					{
 						while($row = mysqli_fetch_array($result))
 						{
-							echo "already exists 6";
 							$sql = "UPDATE `laptimes` SET first_lap = ".$first_lap." WHERE laptime_id = ".$row['laptime_id'].";";
 						}
 					}
@@ -86,11 +86,12 @@
 				}
 				
 				if(isset($_POST["second_lap"])) 
-				{
+				{					
 					$second_lap = $_POST['second_lap'];
 					$laptime_id = $_POST['laptime_id'];
-                    
-					$sql = "UPDATE `laptimes` SET second_lap = ".$second_lap." WHERE laptime_id = ".$laptime_id.";";
+					
+					$sql = "UPDATE `laptimes` SET second_lap = ".$second_lap." WHERE laptimes_id = ".$laptime_id.";";
+					
 					$res = mysqli_query($db,$sql);
 				}   
 			
@@ -252,11 +253,11 @@
 				?>
 						<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
 				<?php 
-                
 					if($count!=0)
 					{
+						// echo $row['laptime_id'];
 				?>
-						<input hidden="text" name="laptime_id" value=" <?php echo $row['laptime_id'];?>"/>
+						<input hidden="text" name="laptime_id" value=" <?php echo $row['laptimes_id'];?>"/>
 				<?php    
 					}
 				?>
