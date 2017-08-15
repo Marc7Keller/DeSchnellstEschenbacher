@@ -209,6 +209,18 @@ function colorEmptyField11()
 	}
 }
 
+function colorEmptyField12()
+{
+	if(document.getElementsByName("start_number")[0].value == "")
+	{
+		document.getElementById("start_number").style.borderColor = "red";
+	}
+	else
+	{
+		document.getElementById("start_number").style.borderColor = "";
+	}
+}
+
 function setFocus()
 {
 	if(document.getElementsByName("nachname")[0].value == "" && document.getElementsByName("vorname")[0].value == "")
@@ -217,6 +229,6 @@ function setFocus()
 	}
 	else
 	{
-		document.getElementById("gebjahr").focus();
+		document.getElementById("start_number").focus();
 	}
 }
