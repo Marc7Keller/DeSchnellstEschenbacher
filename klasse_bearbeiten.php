@@ -79,14 +79,8 @@
 					echo "Schule:*				<input id='schule' type='text' name='schule' value='".$row['school']."' onblur='colorEmptyField3();' onkeyup='enableSubmitButton();'/></br>";
 					echo "Ort:*					<input id='ort_klasse' type='text' name='ort_klasse' value='".$row['place']."' onblur='colorEmptyField4();' onkeyup='enableSubmitButton();'/></br>";
 					
-					if(isset($_GET['klasse']))
-					{
-						$sql = "SELECT * FROM `class` inner join teacher on (fs_teacher = teacher_id) inner join person on (person_id = fs_person) ORDER BY name asc;";
-					}
-					else
-					{
-						$sql = "SELECT * FROM `teacher`inner join person on (person_id = fs_person) ORDER BY name asc;";
-					}
+				    $sql = "SELECT * FROM `teacher` inner join person on (person_id = fs_person) ORDER BY name asc;";
+                    
 					$res = mysqli_query($db,$sql);
 					
 					echo"Klassenlehrperson:*	<select  id='klassenlehrperson' type='text' name='klassenlehrperson' size='1'>";

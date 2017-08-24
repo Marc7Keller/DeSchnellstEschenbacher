@@ -44,7 +44,7 @@
 				Ort:*				<input id="ort_klasse" type="text" name="ort_klasse" onblur="colorEmptyField4();" onkeyup="enableSubmitButton();"/></br>
 			
 				<?php 
-					$sql = "SELECT * FROM `teacher`inner join person on (person_id = fs_person) where fs_event = ".$_SESSION['event']." ORDER BY name asc";
+					$sql = "SELECT * FROM `person` inner join `teacher` on person.person_id = teacher.fs_person left join `class` on teacher.teacher_id = class.fs_teacher where teacher.fs_event = ".$_SESSION['event']." and class.fs_teacher is null ORDER BY person.name asc";
 					$res = mysqli_query($db,$sql);
 				?>
 				

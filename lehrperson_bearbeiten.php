@@ -74,7 +74,7 @@
 					$res = mysqli_query($db,$sql);
 					$row = mysqli_fetch_array($res);
 					
-					echo "<form id='form_verwaltung' action='lehrperson_bearbeiten.php' method='POST' onload='setFocus();'>";
+					echo "<form id='form_verwaltung' action='lehrperson_bearbeiten.php' method='POST'>";
 					echo "<input type='hidden' name='person_id' value='".$_GET['person']."'/>";
 					echo "Vorname:				<input id='vorname' class='form_cells' type='text' name='vorname' value='".$row['firstname']."' onblur='colorEmptyField2();' onkeyup='enableSubmitButton();'/></br>";
 					echo "Nachname:				<input id='nachname' class='form_cells' type='text' name='nachname' value='".$row['name']."' onblur='colorEmptyField1();' onkeyup='enableSubmitButton();'/></br>";

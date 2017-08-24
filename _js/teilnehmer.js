@@ -229,6 +229,18 @@ function setFocus()
 	}
 	else
 	{
+		document.getElementById("gebjahr").focus();
+	}
+}
+
+function setFocus2()
+{
+	if(document.getElementsByName("nachname")[0].value == "" && document.getElementsByName("vorname")[0].value == "")
+	{
+		document.getElementById("nachname").focus();
+	}
+	else
+	{
 		document.getElementById("start_number").focus();
 	}
 }

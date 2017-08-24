@@ -169,7 +169,7 @@
    
 </head>
 
-<body onload="setFocus();">
+<body onload="setFocus2();">
 
 	<div id="sitediv">
 		

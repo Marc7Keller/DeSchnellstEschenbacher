@@ -105,6 +105,14 @@
                         }
 						
 					}
+                    if($row['Plausch']==1)
+                    {
+                        echo "Plausch:			<input type='checkbox' name='plausch' checked/></br></br>";   
+                    }
+                    else
+                    {
+                        echo "Plausch:			<input type='checkbox' name='plausch'/></br></br>";
+                    }
 					echo "<input id='speichern_button' type='submit' name='speichern_button_kategorie_bearbeiten' value='Speichern'/>";
 					echo "</form>";
 				}
