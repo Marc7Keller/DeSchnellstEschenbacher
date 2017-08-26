@@ -232,7 +232,7 @@
 					}
 				?>
 				
-				Geburtsjahr:*	<input id="gebjahr" class="form_cells" type="text" name="gebjahr" value="<?php echo $gebdatum;?>" onblur="colorEmptyField3();" onkeyup="enableSubmitButton();"/></br>
+				Geburtsjahr:*	<input id="gebjahr" class="form_cells" type="text" name="gebjahr" value="<?php echo $gebjahr;?>" onblur="colorEmptyField3();" onkeyup="enableSubmitButton();"/></br>
 				Strasse:		<input id="strasse" class="form_cells" type="text" name="strasse" value="<?php echo $strasse;?>"/></br>
 				PLZ:			<input id="plz" class="form_cells" type="text" name="plz" value="<?php echo $plz;?>"/></br>
 				Ort:*			<input id="ort" class="form_cells" type="text" name="ort" value="<?php echo $ort;?>" onblur="colorEmptyField4();" onkeyup="enableSubmitButton();"/></br></br>
@@ -246,7 +246,14 @@
            
 					while($row = mysqli_fetch_array($res2))
 					{
-						echo '<option value="'.$row['class_id'].'">'.$row['class_name'].' - '.$row['firstname'].' '.$row['name'].'</option>';
+						if($klasse == $row['class_id'])
+						{
+							echo '<option selected="selected" value="'.$row['class_id'].'">'.$row['class_name'].' - '.$row['firstname'].' '.$row['name'].'</option>';
+						}
+						else
+						{
+							echo '<option value="'.$row['class_id'].'">'.$row['class_name'].' - '.$row['firstname'].' '.$row['name'].'</option>';
+						}
 					}
             
 					echo '</select><br>';
@@ -257,8 +264,15 @@
 					$res2 = mysqli_query($db,"SELECT * FROM category WHERE fs_event = ".$_SESSION['event']." ORDER BY category_name asc;");
 			
 					while($row = mysqli_fetch_array($res2))
-					{
-						echo '<option value="'.$row['category_id'].'">'.$row['category_name'].' / '.$row['track_length'].'m'.' / '.$row['year_of_birth_start'].' - '.$row['year_of_birth_end'].' / '.$row['gender'].'</option>';
+					{						
+						if($kategorie == $row['category_id'])
+						{
+							echo '<option selected="selected" value="'.$row['category_id'].'">'.$row['category_name'].' / '.$row['track_length'].'m'.' / '.$row['year_of_birth_start'].' - '.$row['year_of_birth_end'].' / '.$row['gender'].'</option>';
+						}
+						else
+						{
+							echo '<option value="'.$row['category_id'].'">'.$row['category_name'].' / '.$row['track_length'].'m'.' / '.$row['year_of_birth_start'].' - '.$row['year_of_birth_end'].' / '.$row['gender'].'</option>';
+						}
 					}
             
 					echo '</select></br></br>';
