@@ -7,11 +7,17 @@
 	<link rel="stylesheet" href="_css/style_zeiten_erfassen.css" type="text/css">
 	<script src="_js/zeiten_erfassen.js" type="text/javascript"></script>
 	
-	
-	
 </head>
-
-<body onload="setFocus();">
+<?php
+	if(isset($_POST['start_number']))
+	{
+		echo '<body onload="setFocus('.$_POST["start_number"].');">';
+	}
+	else
+	{
+		echo '<body onload="setFocus();">';
+	}
+?>
 
     <?php 
 		error_reporting(0);
