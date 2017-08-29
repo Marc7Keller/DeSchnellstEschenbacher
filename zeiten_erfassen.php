@@ -79,7 +79,7 @@
 					{
 						while($row = mysqli_fetch_array($result))
 						{
-							$sql = "UPDATE `laptimes` SET first_lap = ".$first_lap." WHERE laptime_id = ".$row['laptime_id'].";";
+							$sql = "UPDATE `laptimes` SET first_lap = ".$first_lap." WHERE laptimes_id = ".$row['laptimes_id'].";";
 						}
 					}
 					else
