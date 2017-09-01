@@ -17,7 +17,7 @@ class PDF extends FPDF {
             
         
             $this->Cell(80);
-            $this->Cell(30,10,'De Schnellscht Eschebacher 2016',0,0,'C');
+            $this->Cell(30,10,'De Schnellscht Eschebacher 2017',0,0,'C');
         
         $this->Image('_img/deschnellsteschenbacher_logo_klein.png',160,8,33);
         
@@ -95,7 +95,7 @@ foreach ($_POST['kategorie'] as &$value) {
             $pdf->Cell(15,10,"Finallauf",0,0,'A');
             $pdf->Ln(7);
 
-            if($row['Plausch']!= '1'){
+            if($row['category_name']!= 'PH' and $row['category_name']!= 'PF'){
                 $sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
             }else{
                  $sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0  order by name, firstname;";

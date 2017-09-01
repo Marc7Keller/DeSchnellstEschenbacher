@@ -95,14 +95,14 @@ $pdf=new PDF();
             
             $pdf->Ln(9);
             $pdf->Cell(15,10,'',0,0,'C'); 
-            $pdf->Cell(50,10,'Zeit: ',0,0,'A');
+            $pdf->Cell(50,10,'Zeit Vorlauf: ',0,0,'A');
             $pdf->Cell(15,10,$row['first_lap']. ' Sekunden',0,0,'A');
             
             $pdf->Ln(9);
             if($row['second_lap'] != NULL){
                 $pdf->Cell(15,10,'',0,0,'C'); 
                 $pdf->Cell(50,10,'Zeit Finallauf: ',0,0,'A');
-                $pdf->Cell(15,10,$row['first_lap']. ' Sekunden',0,0,'A');
+                $pdf->Cell(15,10,$row['second_lap']. ' Sekunden',0,0,'A');
             }
             
             $pdf->Image('_img/deschnellsteschenbacher_logo.png',50,40,50);
