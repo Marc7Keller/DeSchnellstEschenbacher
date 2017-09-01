@@ -19,7 +19,7 @@ class PDF extends FPDF {
 
 
 
-        $this->Cell(30,10,'De Schnellscht Eschebacher 2017',0,0,'C');
+        $this->Cell(30,10,'De schnellscht Eschebacher 2017',0,0,'C');
 
         $this->Image('_img/deschnellsteschenbacher_logo_klein.png',160,8,33);
 
