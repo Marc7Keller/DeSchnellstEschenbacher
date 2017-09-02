@@ -98,7 +98,7 @@
 			$klasse = $_POST['klasse'];
 			$kategorie = $_POST['kategorie'];
     
-			if($id='')
+			if($id=='')
 			{         
 				$id = 0;
             } 
