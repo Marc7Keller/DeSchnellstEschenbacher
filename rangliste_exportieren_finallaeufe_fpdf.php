@@ -1,9 +1,9 @@
 <?php
 
-
 include("php/config.php");
 include("includes/sessions4.php");
-include("fpdf/fpdf.php"); 
+include("fpdf/fpdf.php");
+include("eventtitel_laden_fpdf.php");
 
 
 class PDF extends FPDF {
@@ -17,9 +17,7 @@ class PDF extends FPDF {
         $this->Cell(80);
         // Titel
 
-
-
-        $this->Cell(30,10,'De schnellscht Eschebacher 2017',0,0,'C');
+        $this->Cell(30,10,$_SESSION['event_title'],0,0,'C');
 
         $this->Image('_img/deschnellsteschenbacher_logo_klein.png',160,8,33);
 
@@ -33,8 +31,6 @@ class PDF extends FPDF {
         // Seitenzahl
         $this->Cell(340,20,'Seite '.$this->PageNo().'/{nb}',0,0,'C');
         $this->Image('_img/sponsor_raiffeisen.png',80,275,45);
-
-
     }
 }
 
@@ -61,7 +57,7 @@ foreach ($_POST['kategorie'] as &$value) {
 
             $pdf->SetFont('Arial','',10);
             $pdf->Cell(5,10,'',0,0,'A');
-            $pdf->Cell(10,10,"Startnr.",0,0,'A');
+            $pdf->Cell(15,10,"Startnr.",0,0,'A');
             $pdf->Cell(55,10,"Name",0,0,'A');
             $pdf->Cell(40,10,"Adresse",0,0,'A');
             $pdf->Cell(25,10,"Jahrgang",0,0,'A');
@@ -77,7 +73,7 @@ foreach ($_POST['kategorie'] as &$value) {
             $rang = 1;
             while($row = mysqli_fetch_array($res)){
                 $pdf->Cell(5,10,'',0,0,'A' );
-                $pdf->Cell(10,10,$row['start_number'],0,0,'L');
+                $pdf->Cell(15,10,$row['start_number'],0,0,'L');
                 $pdf->Cell(55,10,utf8_decode($row['name'])." ".utf8_decode($row['firstname']),0,0,'A');
                 $pdf->Cell(40,10,utf8_decode($row['street']),0,0,'A');
                 $pdf->Cell(25,10,$row['year_of_birth'],0,0,'A');

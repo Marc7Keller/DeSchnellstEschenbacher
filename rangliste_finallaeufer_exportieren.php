@@ -35,7 +35,7 @@
                     $res = mysqli_query($db,$sql);
                 ?>
                 
-				<h1 id="site_title">Rangliste für Finalläufer folgender Kategorien exportieren:</h1></br>
+				<h1 id="site_title">Startliste von Finalläufern folgender Kategorien exportieren:</h1></br>
 				
 				<form id="rangliste_exportieren_form" action="rangliste_exportieren_finallaeufe_fpdf.php" method="POST">
                     
@@ -55,7 +55,7 @@
 					?>
                     
 					</br>								
-					<input id="laden_button" type="submit" name="rangliste_generieren" value="Rangliste generieren" disabled/></br></br>
+					<input id="laden_button" type="submit" name="rangliste_generieren" value="Startliste generieren" disabled/></br></br>
                 </form>
 				
             </div>
