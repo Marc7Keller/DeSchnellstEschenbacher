@@ -100,14 +100,14 @@
 			$klasse = $_POST['klasse'];
 			$num = $_POST['start_number'];
     
-			if($id='')
+			if($id == '')
 			{         
 				$id = 0;
             } 
     
-			if($id !=0)
+			if($id != 0)
 			{
-				$sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `year_of_birth` = '".$gebjahr."', `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
+				$sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `year_of_birth` = Year('".$gebjahr."-01-01'), `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
 				$res = mysqli_query($db,$sql);
 				
 				if (!$res) 
@@ -117,7 +117,7 @@
 				}
 			}
 			else
-			{
+			{				
 				$sql = "INSERT INTO `person` (`name`, `firstname`, `year_of_birth`, `plz`, `place`, `street`) VALUES ('".$nachname."', '".$vorname."', '".$gebjahr."', '".$plz."', '".$ort."', '".$strasse."');";
 				$res = mysqli_query($db,$sql);
 				
@@ -286,8 +286,7 @@
 					}
 				
 				echo "</br></br></br></br>";
-				
-				$sql = "SELECT name, firstname, year_of_birth, plz, person.place, street, category.category_name as catbez, late_registration, start_number FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category  WHERE participants.fs_event = ".$_SESSION['event']." AND late_registration = 1 ORDER BY participant_id desc;";
+				$sql = "SELECT name, firstname, year_of_birth, plz, person.place, street, category.category_name as catbez, late_registration, start_number FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category  WHERE participants.fs_event = ".$_SESSION['event']." AND late_registration = 1 and deleted = 0 ORDER BY participant_id desc;";
 				
 				$res = mysqli_query($db,$sql);
 	 
