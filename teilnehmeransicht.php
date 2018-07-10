@@ -65,17 +65,17 @@
                     
                     if($vorname != "" && $nachname != "")
                     {
-                       $sql = "SELECT * FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and person.firstname= '".$vorname."' and event.event_id= '".$_SESSION['event']."' and deleted != 1;"; 
+                       $sql = "SELECT name, firstname, year_of_birth, plz, person.place, street, class_name, category_name, start_number, late_registration, first_lap, second_lap FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and person.firstname= '".$vorname."' and event.event_id= '".$_SESSION['event']."' and deleted != 1;"; 
                     }
                     else
                     {
                         if($vorname != "")
                         {
-                            $sql = "SELECT * FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.firstname= '".$vorname."' and event.event_id= '".$_SESSION['event']."'and deleted != 1;"; 
+                            $sql = "SELECT name, firstname, year_of_birth, plz, person.place, street, class_name, category_name, start_number, late_registration, first_lap, second_lap FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.firstname= '".$vorname."' and event.event_id= '".$_SESSION['event']."'and deleted != 1;"; 
                         }
                         else
                         {
-                            $sql = "SELECT * FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and event.event_id= '".$_SESSION['event']."' and deleted != 1;"; 
+                            $sql = "SELECT name, firstname, year_of_birth, plz, person.place, street, class_name, category_name, start_number, late_registration, first_lap, second_lap FROM participants LEFT JOIN laptimes ON participants.participant_id = laptimes.fs_participant INNER JOIN person ON participants.fs_person=person.person_id INNER JOIN class ON participants.fs_class=class.class_id INNER JOIN category ON participants.fs_category=category.category_id INNER JOIN event ON participants.fs_event=event.event_id WHERE person.name = '".$nachname."' and event.event_id= '".$_SESSION['event']."' and deleted != 1;"; 
                         }
                     }
 					
