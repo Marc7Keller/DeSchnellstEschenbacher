@@ -81,36 +81,19 @@ else
 				
 				$category_name = $row['category_name'];
 
-            if($row['category_name']!= 'PH' and $row['category_name']!= 'PF'){
-                $sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
-            }else{
-                 $sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0  order by name, firstname;";
-            }
-            
-            $res = mysqli_query($db,$sql);
-            $pdf->SetFont('Arial','',10);
-            $rang = 1;
-            while($row = mysqli_fetch_array($res)){
-                $pdf->Cell(5,10,'',0,0,'A' );
-                if($category_name != 'PH' and $category_name != 'PF'){
-                    $pdf->Cell(10,10,$rang,0,0,'L');
-                }else{
-                    $pdf->Cell(10,10,"",0,0,'L');
-                }
-                $pdf->Cell(55,10,utf8_decode($row['name'])." ".utf8_decode($row['firstname']),0,0,'A');
-                $pdf->Cell(40,10,utf8_decode($row['street']),0,0,'A');
-                $pdf->Cell(25,10,$row['year_of_birth'],0,0,'A');
-                //$firstlap = round($row['first_lap'],2);
-                $first_lap = number_format($row['first_lap'],2,".","");
-                if($row['first_lap'] != NULL ){
-                    $pdf->Cell(15,10,$first_lap."s",0,0,'A');
-                }else{
-						$pdf->Cell(15,10,'',0,0,'A');
-					}
-					$second_lap = number_format($row['second_lap'],2,".","");
-					if($row['second_lap'] != NULL && $row['second_lap'] != 0){
-						$pdf->Cell(15,10,$second_lap."s",0,0,'A');
-					}
+				$pdf->SetFont('Arial','',10);
+				$pdf->Cell(5,10,'',0,0,'A');
+				if($row['category_name']!= 'PH' and $row['category_name']!= 'PF'){
+					$pdf->Cell(10,10,"Rang",0,0,'A');
+				}else{
+					$pdf->Cell(10,10,"",0,0,'A');
+				}
+				$pdf->Cell(55,10,"Name",0,0,'A');
+				$pdf->Cell(40,10,"Adresse",0,0,'A');
+				$pdf->Cell(25,10,"Jahrgang",0,0,'A');
+				$pdf->Cell(15,10,"Zeit",0,0,'A');
+				$pdf->Cell(15,10,"Finallauf",0,0,'A');
+				$pdf->Ln(7);
 
 				if($row['category_name']!= 'PH' and $row['category_name']!= 'PF'){
 					$sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
@@ -139,7 +122,7 @@ else
 						$pdf->Cell(15,10,'',0,0,'A');
 					}
 					$second_lap = number_format($row['second_lap'],2,".","");
-					if($row['second_lap'] != NULL ){
+					if($row['second_lap'] != NULL && $row['second_lap'] != 0){
 						$pdf->Cell(15,10,$second_lap."s",0,0,'A');
 					}
 
