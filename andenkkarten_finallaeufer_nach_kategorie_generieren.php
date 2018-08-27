@@ -37,7 +37,7 @@
 				
 				<h1 id="site_title">Andenkkarten für folgende Kategorien generieren:</h1></br>
                     
-				<form id="startliste_exportieren_form" action="andenkkarten_finallaeufer_nach_kategorie_exportieren_fpdf.php" method="POST">
+				<form id="startliste_exportieren_form" target="_blank" action="andenkkarten_finallaeufer_nach_kategorie_exportieren_fpdf.php" method="POST">
 					
 					<input id="alle_auswaehlen" type="checkbox" name="alle_auswaehlen" value="select_all" onchange="selectAll(); enableSubmitButton(); enableSubmitButton2();"/> Alle auswählen</br></br>
 					
@@ -55,7 +55,7 @@
                     ?>
 					
 					</br>
-                    <input id="laden_button" type="submit" name="rangliste_generieren" value="Andenkkarten generieren" disabled/></br></br>
+                    <input id="laden_button" type="submit" name="rangliste_generieren" value="Andenkkarten generieren"/></br></br>
                 </form>
 				
             </div>
