@@ -98,7 +98,7 @@ $pdf=new PDF();
             $pdf->Cell(15,10,$row['first_lap']. ' Sekunden',0,0,'A');
             
             $pdf->Ln(9);
-            if($row['second_lap'] != NULL){
+            if($row['second_lap'] != NULL && $row['second_lap'] != 0){
                 $pdf->Cell(15,10,'',0,0,'C'); 
                 $pdf->Cell(50,10,'Zeit Finallauf: ',0,0,'A');
                 $pdf->Cell(15,10,$row['second_lap']. ' Sekunden',0,0,'A');
