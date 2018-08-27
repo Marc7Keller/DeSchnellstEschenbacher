@@ -98,15 +98,15 @@
 			$klasse = $_POST['klasse'];
 			$kategorie = $_POST['kategorie'];
     
-			if($id='')
+			if($id == '')
 			{         
 				$id = 0;
             } 
     
     
-			if($id !=0)
+			if($id != 0)
 			{
-				$sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `year_of_birth` = '".$gebjahr."', `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
+				$sql = "Update `person` set `name` = '".$nachname."' , `firstname` = '".$vorname."', `year_of_birth` = Year('".$gebjahr."-01-01'), `plz` = '".$plz."', `place` = '".$ort."', `street` = '".$strasse."' where `person_id` = ".$id.";";
 				$res = mysqli_query($db,$sql);
 				
 				if (!$res) 
