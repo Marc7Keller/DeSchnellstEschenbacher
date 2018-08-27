@@ -35,13 +35,13 @@
 		<h1 id="site_title">Teilnehmer bearbeiten</h1>
 		</br>
 		<form id="form_verwaltung" action="" method="GET">
-			Nachname:		<input class="form_cells" type="text" id="nachname_teilnehmeransicht_suche" name="nachname_teilnehmeransicht_suche" value="<?php if(isset($_GET['nachname'])){echo $nachname;}?>"/></br>
-			Vorname:		<input class="form_cells" type="text" id="vorname_teilnehmeransicht_suche" name="vorname_teilnehmeransicht_suche" value="<?php if(isset($_GET['vorname'])){echo $vorname;}?>"/></br>
+			Nachname:		<input class="form_cells" type="text" id="nachname_teilnehmeransicht_suche" name="nachname_teilnehmeransicht_suche" value="<?php if(isset($_GET['nachname_teilnehmeransicht_suche'])){echo $_GET['nachname_teilnehmeransicht_suche'];}?>"/></br>
+			Vorname:		<input class="form_cells" type="text" id="vorname_teilnehmeransicht_suche" name="vorname_teilnehmeransicht_suche" value="<?php if(isset($_GET['vorname_teilnehmeransicht_suche'])){echo $_GET['vorname_teilnehmeransicht_suche'];}?>"/></br>
 			<input id="laden_button_name" type="submit" name="laden_button_name_teilnehmeransicht" value="Nach Name filtern"/>		
 		</form>
 		</br>
 		<form id="form_verwaltung" action="" method="GET">
-			Startnummer:	<input id="startnummer_teilnehmeransicht_suche" class="form_cells" type="text" name="startnummer_teilnehmeransicht_suche" value="<?php if(isset($_GET['startnummer'])){echo $startnummer;}?>"/></br>
+			Startnummer:	<input id="startnummer_teilnehmeransicht_suche" class="form_cells" type="text" name="startnummer_teilnehmeransicht_suche" value="<?php if(isset($_GET['startnummer_teilnehmeransicht_suche'])){echo $_GET['startnummer_teilnehmeransicht_suche'];}?>"/></br>
 			<input id="laden_button_startnummer" type="submit" name="laden_button_startnummer_teilnehmeransicht" value="Nach Startnummer filtern"/></br>
 		</form>
 		<form id="form_verwaltung" action="" method="GET">
@@ -138,6 +138,11 @@
             
 				echo '</select></br>';
 				echo "<input type='hidden' name='person_id' value='".$person_id."'>";
+				echo "<input type='hidden' name='laden_button_name_teilnehmeransicht' value='".$_POST['laden_button_name_teilnehmeransicht']."'>";
+				echo "<input type='hidden' name='laden_button_startnummer_teilnehmeransicht' value='".$_POST['laden_button_startnummer_teilnehmeransicht']."'>";
+				echo "<input type='hidden' name='vorname_teilnehmeransicht_suche' value='".$_POST['vorname_teilnehmeransicht_suche']."'>";
+				echo "<input type='hidden' name='nachname_teilnehmeransicht_suche' value='".$_POST['nachname_teilnehmeransicht_suche']."'>";
+				echo "<input type='hidden' name='startnummer_teilnehmeransicht_suche' value='".$_POST['startnummer_teilnehmeransicht_suche']."'>";
 				
 				if($nachanmeldung==True)
 				{
@@ -155,12 +160,20 @@
 		
 		<?php	
 				echo "<br><br><br>";
-				if(isset($_GET['laden_button_name_teilnehmeransicht']) || isset($_GET['laden_button_startnummer_teilnehmeransicht']))
+				if(!(isset($_POST['speichern_button_teilnehmer_bearbeiten'])) && (isset($_GET['laden_button_name_teilnehmeransicht']) || isset($_POST['laden_button_name_teilnehmeransicht']) || isset($_GET['laden_button_startnummer_teilnehmeransicht']) || isset($_POST['laden_button_startnummer_teilnehmeransicht'])))
 				{
-					if(isset($_GET['laden_button_name_teilnehmeransicht']))
+					if(isset($_GET['laden_button_name_teilnehmeransicht']) || isset($_POST['laden_button_name_teilnehmeransicht']))
 					{
-						$vorname =$_GET['vorname_teilnehmeransicht_suche'];
-						$nachname =$_GET['nachname_teilnehmeransicht_suche'];
+						if(isset($_POST['laden_button_name_teilnehmeransicht']))
+						{
+							$vorname =$_POST['vorname_teilnehmeransicht_suche'];
+							$nachname =$_POST['nachname_teilnehmeransicht_suche'];
+						}
+						else
+						{
+							$vorname =$_GET['vorname_teilnehmeransicht_suche'];
+							$nachname =$_GET['nachname_teilnehmeransicht_suche'];
+						}
 						
 						if($vorname != "" && $nachname != "")
 						{
@@ -180,7 +193,14 @@
 					}
 					else
 					{
-						$startnummer = $_GET['startnummer_teilnehmeransicht_suche'];
+						if(isset($_GET['laden_button_startnummer_teilnehmeransicht']))
+						{
+							$startnummer = $_GET['startnummer_teilnehmeransicht_suche'];
+						}
+						else
+						{
+							$startnummer = $_POST['startnummer_teilnehmeransicht_suche'];
+						}
 						$sql = "SELECT participant_id, name, firstname, year_of_birth, plz, person.place, street, class.class_name as classbez, category.category_name as catbez, start_number, late_registration FROM `participants` inner join `person` on person.person_id = participants.fs_person inner join `category` on category.category_id = participants.fs_category INNER JOIN `class` on class.class_id = participants.fs_class WHERE participants.fs_event = ".$_SESSION['event']." and deleted != 1 and start_number = '".$startnummer."' ORDER BY name asc;";
 					}
 				}
@@ -225,6 +245,11 @@
 						echo "</td></tr>";
 						?>							
 							<input hidden="text" name="participant_id" value="<?php echo $row['participant_id'];?>"/>
+							<input hidden="text" name="startnummer_teilnehmeransicht_suche" value="<?php echo $_GET['startnummer_teilnehmeransicht_suche'];?>"/>
+							<input hidden="text" name="vorname_teilnehmeransicht_suche" value="<?php echo $_GET['vorname_teilnehmeransicht_suche'];?>"/>
+							<input hidden="text" name="nachname_teilnehmeransicht_suche" value="<?php echo $_GET['nachname_teilnehmeransicht_suche'];?>"/>
+							<input hidden="text" name="laden_button_name_teilnehmeransicht" value="<?php echo $_GET['laden_button_name_teilnehmeransicht'];?>"/>
+							<input hidden="text" name="laden_button_startnummer_teilnehmeransicht" value="<?php echo $_GET['laden_button_startnummer_teilnehmeransicht'];?>"/>
 						<?php
 						echo "</form>";
 					}
