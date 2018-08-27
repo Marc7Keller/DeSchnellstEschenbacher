@@ -93,7 +93,7 @@ while($row = mysqli_fetch_array($res)){
         $pdf->Cell(15,10,'',0,0,'A');
     }
     $second_lap = number_format($row['second_lap'],2,".","");
-    if($row['second_lap'] != NULL ){
+    if($row['second_lap'] != NULL && $row['second_lap'] != 0){
         $pdf->Cell(15,10,$second_lap."s",0,0,'A');
     }
 
@@ -137,7 +137,7 @@ while($row = mysqli_fetch_array($res)){
         $pdf->Cell(15,10,'',0,0,'A');
     }
     $second_lap = number_format($row['second_lap'],2,".","");
-    if($row['second_lap'] != NULL ){
+    if($row['second_lap'] != NULL && $row['second_lap'] != 0){
         $pdf->Cell(15,10,$second_lap."s",0,0,'A');
     }
 
