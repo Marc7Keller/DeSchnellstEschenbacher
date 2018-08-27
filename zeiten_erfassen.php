@@ -222,7 +222,7 @@
 						echo '<form action="zeiten_erfassen.php" method="POST">';
 						echo '<tr>';
 						echo '<td> '. $row['start_number']. '</td>';
-						echo '<td>' .$row['firstname']. " " .$row['name'].' </td>';
+						echo '<td>' .$row['name']. " " .$row['firstname'].' </td>';
             
 						if($row['first_lap']=='')
 						{
