@@ -79,14 +79,14 @@
 					echo "Schule:*				<input id='schule' type='text' name='schule' value='".$row['school']."' onblur='colorEmptyField3();' onkeyup='enableSubmitButton();'/></br>";
 					echo "Ort:*					<input id='ort_klasse' type='text' name='ort_klasse' value='".$row['place']."' onblur='colorEmptyField4();' onkeyup='enableSubmitButton();'/></br>";
 					
-				    $sql = "SELECT * FROM `teacher` inner join person on (person_id = fs_person) inner JOIN class on fs_teacher = teacher_id ORDER BY name asc";
+				    $sql = "SELECT * FROM `teacher` inner join person on (person_id = fs_person) inner join class on (fs_teacher = teacher_id) where teacher.fs_event = '".$_SESSION['event']."' ORDER BY name asc;";
                     
 					$res = mysqli_query($db,$sql);
 					echo"Klassenlehrperson:*	<select  id='klassenlehrperson' type='text' name='klassenlehrperson' size='1'>";
 										
 												while($row = mysqli_fetch_array($res))
 												{
-													if(isset($_GET['klasse']) and $_GET['klasse']==$row['class_id'])
+													if($_GET['klasse'] == $row['class_id'])
 													{
 														echo"<option selected='selected' value=".$row['teacher_id'].">".$row['name']." ".$row['firstname']."</option>";
 													}
