@@ -37,7 +37,7 @@
                 
 				<h1 id="site_title">Rangliste folgender Kategorien exportieren:</h1></br>
 				
-				<form id="rangliste_exportieren_form" action="rangliste_exportieren_fpdf.php" method="POST">
+				<form id="rangliste_exportieren_form" target="_blank" action="rangliste_exportieren_fpdf.php" method="POST">
                     
 					<input id="alle_auswaehlen" type="checkbox" name="alle_auswaehlen" value="select_all" onchange="selectAll(); enableSubmitButton(); enableSubmitButton2();"/> Alle auswählen</br></br>
 					
@@ -55,7 +55,7 @@
 					?>
                     
 					</br>								
-					<input id="laden_button" type="submit" name="rangliste_generieren" value="Rangliste generieren" disabled/></br></br>
+					<input id="laden_button" type="submit" name="rangliste_generieren" value="Rangliste generieren"/></br></br>
                 </form>
 				
             </div>
