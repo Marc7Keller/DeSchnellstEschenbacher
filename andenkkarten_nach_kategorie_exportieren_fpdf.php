@@ -30,7 +30,7 @@ else
 	{
 	foreach ($_POST['kategorie'] as &$value) {
 		 
-		   $sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." order by first_lap asc LIMIT 4,50";
+		   $sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." order by first_lap asc LIMIT 4,60";
 			//$sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
 			$res = mysqli_query($db,$sql);
 		   
