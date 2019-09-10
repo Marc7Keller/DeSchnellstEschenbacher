@@ -96,9 +96,9 @@ else
 				$pdf->Ln(7);
 
 				if($row['category_name']!= 'PH' and $row['category_name']!= 'PF'){
-					$sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
+					$sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0 and deleted = 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
 				}else{
-					 $sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0  order by name, firstname;";
+					 $sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0 and deleted = 0 order by name, firstname;";
 				}
 				
 				$res = mysqli_query($db,$sql);
