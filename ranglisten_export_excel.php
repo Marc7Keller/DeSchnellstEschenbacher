@@ -36,7 +36,7 @@
         
         $objWorksheet->setTitle($row['category_name']);
         
-        $sql2 = "SELECT @pos:=@pos+1 as Rang,name as Name,firstname as Vorname,start_number as Startnummer,street as Strasse, plz as PLZ, place as Ort,year_of_birth as Jahrgang, category_name as Kategorie, first_lap as Zeit,second_lap as Finallauf FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id inner join category on fs_category = category_id cross join (select @pos := 0) r where participants.fs_event = ".$_SESSION['event']." and fs_category = ".$row['category_id']." and first_lap != 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
+        $sql2 = "SELECT @pos:=@pos+1 as Rang,name as Name,firstname as Vorname,start_number as Startnummer,street as Strasse, plz as PLZ, place as Ort,year_of_birth as Jahrgang, category_name as Kategorie, first_lap as Zeit,second_lap as Finallauf FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id inner join category on fs_category = category_id cross join (select @pos := 0) r where participants.fs_event = ".$_SESSION['event']." and fs_category = ".$row['category_id']." and first_lap != 0 and deleted = 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
         $res2 = mysqli_query($db,$sql2);
         
         $objWorksheet->setCellValue('A1','Rang')

@@ -70,7 +70,7 @@ else
 				$pdf->Cell(15,10,"Finallauf",0,0,'A');
 				$pdf->Ln(7);
 
-				$sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap limit 4;";
+				$sql= "SELECT * FROM `laptimes` inner join `participants` on fs_participant = participant_id inner join person on fs_person = person_id where fs_event = ".$_SESSION['event']." and fs_category = ".$value." and first_lap != 0 and deleted = 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap limit 4;";
 
 
 				$res = mysqli_query($db,$sql);
