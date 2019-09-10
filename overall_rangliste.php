@@ -73,7 +73,7 @@ $pdf->Cell(15,10,"Zeit",0,0,'A');
 $pdf->Cell(15,10,"Finallauf",0,0,'A');
 $pdf->Ln(7);
 
-$sql= "SELECT * FROM laptimes inner join participants on fs_participant = participant_id inner join person on fs_person = person_id inner join category on category_id = fs_category where participants.fs_event = ".$_SESSION['event']." and gender = 'Männlich' and track_length = 80 and first_lap != 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
+$sql= "SELECT * FROM laptimes inner join participants on fs_participant = participant_id inner join person on fs_person = person_id inner join category on category_id = fs_category where participants.fs_event = ".$_SESSION['event']." and gender = 'Männlich' and track_length = 80 and first_lap != 0 and deleted = 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
 
 $res = mysqli_query($db,$sql);
 $pdf->SetFont('Arial','',10);
@@ -117,7 +117,7 @@ $pdf->Cell(15,10,"Zeit",0,0,'A');
 $pdf->Cell(15,10,"Finallauf",0,0,'A');
 $pdf->Ln(7);
 
-$sql= "SELECT * FROM laptimes inner join participants on fs_participant = participant_id inner join person on fs_person = person_id inner join category on category_id = fs_category where participants.fs_event = ".$_SESSION['event']." and gender = 'Weiblich' and track_length = 80 and first_lap != 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
+$sql= "SELECT * FROM laptimes inner join participants on fs_participant = participant_id inner join person on fs_person = person_id inner join category on category_id = fs_category where participants.fs_event = ".$_SESSION['event']." and gender = 'Weiblich' and track_length = 80 and first_lap != 0 and deleted = 0 order by isnull(second_lap),second_lap,isnull(first_lap),first_lap;";
 
 $res = mysqli_query($db,$sql);
 $pdf->SetFont('Arial','',10);
